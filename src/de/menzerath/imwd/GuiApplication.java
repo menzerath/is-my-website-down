@@ -101,6 +101,7 @@ public class GuiApplication extends JFrame {
 				JOptionPane.showMessageDialog(null,
 						"Is My Website Down [IMWD] - Version " + Main.getVersion() +
 								"\nIcons by Ampeross - http://ampeross.deviantart.com" +
+								"\nSourcecode: http://github.com/MarvinMenzerath/IsMyWebsiteDown - CC-BY 3.0 License" +
 								"\n© 2012-2013: Marvin Menzerath - http://marvin-menzerath.de", "About Me :)", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
