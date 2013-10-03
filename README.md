@@ -13,7 +13,7 @@ IMWD has a simple routine and checks your website with only a few steps:
 2. **Ping**: Pings the website to check if "only" the webserver is down or the whole server.
 
 ##Download
-If you only want to download and run IMWD, simply grab a current release from [here](https://github.com/MarvinMenzerath/IsMyWebsiteDown) or heise.de:  
+If you only want to download and run IMWD, simply grab a current release from [here](https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases) or heise.de:  
 <a title="Is My Website Down - Download - heise online" href="http://www.heise.de/download/is-my-website-down-1190272.html"><img alt="Is My Website Down - Download - heise online" title="Is My Website Down - Download - heise online" src="http://www.heise.de/software/icons/download_logo1.png" /></a>
 
 ##Contribution
