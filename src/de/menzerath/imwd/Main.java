@@ -7,6 +7,12 @@ import java.util.Scanner;
 import java.util.prefs.Preferences;
 
 public class Main {
+    private static final String IMWD_VERSION = "1.3.3";
+    private static final String PREF_URL = "url";
+    private static final String PREF_INTERVAL = "interval";
+    private static final String PREF_CREATELOG = "createLog";
+    private static final String PREF_CREATEVALIDLOG = "createValidLog";
+
 	/**
 	 * The Beginning!
 	 * If arguments were passed they will be handled, otherwise it will start a ConsoleApplication OR the GuiApplication.
@@ -58,7 +64,7 @@ public class Main {
 	 * @return The version of this file
 	 */
 	public static String getVersion() {
-		return "1.3.3";
+		return IMWD_VERSION;
 	}
 
 	/**
@@ -116,7 +122,7 @@ public class Main {
 	 * @return Last used url OR default value
 	 */
 	public static String getUrlFromSettings() {
-		return getPreferences().get("url", "http://google.com");
+		return getPreferences().get(PREF_URL, "http://google.com");
 	}
 
 	/**
@@ -124,7 +130,7 @@ public class Main {
 	 * @return Last used interval OR default value
 	 */
 	public static int getIntervalFromSettings() {
-		return getPreferences().getInt("interval", 30);
+		return getPreferences().getInt(PREF_INTERVAL, 30);
 	}
 
 	/**
@@ -132,7 +138,7 @@ public class Main {
 	 * @return Create logfile OR default value
 	 */
 	public static boolean getCreateLogFromSettings() {
-		return getPreferences().getBoolean("createLog", true);
+		return getPreferences().getBoolean(PREF_CREATELOG, true);
 	}
 
 	/**
@@ -140,7 +146,7 @@ public class Main {
 	 * @return Log successful checks OR default value
 	 */
 	public static boolean getCreateValidLogFromSettings() {
-		return getPreferences().getBoolean("createValidLog", false);
+		return getPreferences().getBoolean(PREF_CREATEVALIDLOG, false);
 	}
 
 	/**
@@ -148,7 +154,7 @@ public class Main {
 	 * @param value The url to save
 	 */
 	public static void setUrlForSettings(String value) {
-		getPreferences().put("url", value);
+		getPreferences().put(PREF_URL, value);
 	}
 
 	/**
@@ -156,7 +162,7 @@ public class Main {
 	 * @param value The interval to save
 	 */
 	public static void setIntervalForSettings(int value) {
-		getPreferences().putInt("interval", value);
+		getPreferences().putInt(PREF_INTERVAL, value);
 	}
 
 	/**
@@ -164,7 +170,7 @@ public class Main {
 	 * @param value "create a log"-setting to save
 	 */
 	public static void setCreateLogForSettings(boolean value) {
-		getPreferences().putBoolean("createLog", value);
+		getPreferences().putBoolean(PREF_CREATELOG, value);
 	}
 
 	/**
@@ -172,6 +178,6 @@ public class Main {
 	 * @param value "log successful checks"-setting to save
 	 */
 	public static void setCreateValidLogForSettigs(boolean value) {
-		getPreferences().putBoolean("createValidLog", value);
+		getPreferences().putBoolean(PREF_CREATEVALIDLOG, value);
 	}
 }
