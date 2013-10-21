@@ -18,7 +18,7 @@ If you only want to download and run IMWD, simply grab a current release from [h
 
 ##Contribution
 If you want to contribute to this software, please adapt the current code-style. This makes further programming easier for everyone.
-Also I am not quiet sure if you will be able to edit the GUI-Layout ("GuiApplication.form") not using the IntelliJ IDEA.
+Also I am not quiet sure if you will be able to edit the GUI-Layout ("GuiApplication.form") if you are not using the IntelliJ IDEA.
 
 ##License
 [![Creative Commons License](http://i.creativecommons.org/l/by-sa/3.0/88x31.png)](http://creativecommons.org/licenses/by-sa/3.0/)
