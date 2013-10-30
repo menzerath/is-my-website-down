@@ -2,16 +2,20 @@ package de.menzerath.imwd;
 
 import java.awt.*;
 import java.net.URL;
-import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.prefs.Preferences;
 
 public class Main {
     private static final String IMWD_VERSION = "1.3.4";
+    private static final String IMWD_UPDATE_URL = "https://raw.github.com/MarvinMenzerath/IsMyWebsiteDown/master/VERSION.txt";
     private static final String PREF_URL = "url";
     private static final String PREF_INTERVAL = "interval";
     private static final String PREF_CREATELOG = "createLog";
     private static final String PREF_CREATEVALIDLOG = "createValidLog";
+
+    private static String cacheServerVersion = null;
+    private static String cacheServerChangelog = null;
 
     /**
      * The Beginning!
@@ -79,39 +83,52 @@ public class Main {
     }
 
     /**
-     * Pulls the current version from the server
+     * Pulls the current version from the server and caches it for later access
      *
      * @return Server version
      */
     public static String getServerVersion() {
-        String serverVersion;
-        try {
-            URLConnection connection = new URL("http://marvin-menzerath.de/download/imwd_version.txt").openConnection();
-            Scanner sc = new Scanner(connection.getInputStream()).useDelimiter("\\Z");
-            serverVersion = sc.next();
-            sc.close();
-        } catch (Exception e) {
-            serverVersion = "Error";
+        if (cacheServerVersion != null) {
+            return cacheServerVersion;
+        } else {
+            cacheServerVersion = getFileFromServer(IMWD_UPDATE_URL).get(0);
+            return cacheServerVersion;
         }
-        return serverVersion.trim();
     }
 
     /**
-     * Pulls the changelog from the server
+     * Pulls the changelog from the server and caches it for later access
      *
      * @return Changelog
      */
     public static String getServerChangelog() {
-        String changelog;
+        if (cacheServerChangelog != null) {
+            return cacheServerChangelog;
+        } else {
+            cacheServerChangelog = getFileFromServer(IMWD_UPDATE_URL).get(1);
+            return cacheServerChangelog;
+        }
+    }
+
+    /**
+     * Helper, which gets content from a remote server and returns an ArrayList containing every line as a single entry
+     *
+     * @param url URL to access
+     * @return Remote Content
+     */
+    private static ArrayList<String> getFileFromServer(String url) {
+        ArrayList<String> lines = new ArrayList<>();
         try {
-            URLConnection connection = new URL("http://marvin-menzerath.de/download/imwd_changelog.txt").openConnection();
-            Scanner sc = new Scanner(connection.getInputStream()).useDelimiter("\\Z");
-            changelog = sc.next();
+            Scanner sc = new Scanner(new URL(url).openConnection().getInputStream());
+            while (sc.hasNextLine()) {
+                lines.add(sc.nextLine().trim());
+            }
             sc.close();
         } catch (Exception e) {
-            changelog = "Error";
+            lines.add("Error"); // Version
+            lines.add("Error"); // Changelog
         }
-        return changelog.trim();
+        return lines;
     }
 
     /**

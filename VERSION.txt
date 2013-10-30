@@ -1,0 +1,2 @@
+1.3.4
+Small GUI-Changes ("Sec" instead of "Seconds", Button-Margin now smaller); Changed Update-URL for the Console-Application
