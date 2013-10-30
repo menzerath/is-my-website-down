@@ -232,7 +232,7 @@ public class ConsoleApplication {
         } else if (Main.isUpdateAvailable()) {
             System.out.println("There is an update to version " + Main.getServerVersion() + " available.");
             System.out.println("Changelog: " + Main.getServerChangelog());
-            System.out.println("Please download it now by using \"wget http://marvin-menzerath.de/download/imwd.jar\"." + "\n");
+            System.out.println("Please download it now by using \"wget https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases/download/v" + Main.getServerVersion() + "/IMWD.jar\"." + "\n");
 
             System.exit(0);
         }
