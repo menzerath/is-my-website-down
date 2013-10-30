@@ -164,7 +164,7 @@ public class Main {
      * @return Create logfile OR default value
      */
     public static boolean getCreateLogFromSettings() {
-        return getPreferences().getBoolean(PREF_CREATELOG, true);
+        return getPreferences().getBoolean(PREF_CREATELOG, false);
     }
 
     /**
