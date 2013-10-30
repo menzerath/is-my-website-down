@@ -83,7 +83,7 @@ public class Main {
     }
 
     /**
-     * Pulls the current version from the server and caches it for later access
+     * Pulls once the current version from the server and caches it for later access
      *
      * @return Server version
      */
@@ -97,7 +97,7 @@ public class Main {
     }
 
     /**
-     * Pulls the changelog from the server and caches it for later access
+     * Pulls once the changelog from the server and caches it for later access
      *
      * @return Changelog
      */
@@ -111,10 +111,10 @@ public class Main {
     }
 
     /**
-     * Helper, which gets content from a remote server and returns an ArrayList containing every line as a single entry
+     * Helper which gets content from a remote server and returns an ArrayList containing every line as a single entry
      *
      * @param url URL to access
-     * @return Remote Content
+     * @return Content; each entry = one line
      */
     private static ArrayList<String> getFileFromServer(String url) {
         ArrayList<String> lines = new ArrayList<>();
