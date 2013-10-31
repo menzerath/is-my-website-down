@@ -1,2 +1,2 @@
-1.3.4
-Small GUI-Changes ("Sec" instead of "Seconds", Button-Margin now smaller); Changed Update-URL for the Console-Application
+1.3.5
+Start/Stop Buttons have Shortcuts now; Updates directly from the repository; "Create Log" no longer turned on by default

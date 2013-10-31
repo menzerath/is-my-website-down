@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.prefs.Preferences;
 
 public class Main {
-    private static final String IMWD_VERSION = "1.3.4";
+    private static final String IMWD_VERSION = "1.3.5";
     private static final String PREF_URL = "url";
     private static final String PREF_INTERVAL = "interval";
     private static final String PREF_CREATELOG = "createLog";
