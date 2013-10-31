@@ -249,7 +249,7 @@ public class GuiApplication extends JFrame {
         Updater myUpdater = new Updater(true);
         if (myUpdater.getServerVersion().equalsIgnoreCase("Error")) {
             if (!startup) {
-                JOptionPane.showMessageDialog(null, "An error occured while checking the server for a software-update.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Unable to search for Updates. Please visit \"https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases/\".\"", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else if (myUpdater.isUpdateAvailable()) {
             int value = JOptionPane.showConfirmDialog(null, "There is an update to version " + myUpdater.getServerVersion() + " available.\nChanges: " + myUpdater.getServerChangelog() + "\n\nDo you want to download it now?", "Update Available", JOptionPane.YES_NO_OPTION);

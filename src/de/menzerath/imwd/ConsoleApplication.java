@@ -230,7 +230,7 @@ public class ConsoleApplication {
         System.out.println("Checking for updates, please wait...");
         Updater myUpdater = new Updater(false);
         if (myUpdater.getServerVersion().equalsIgnoreCase("Error")) {
-            System.out.println("Unable to search for Updates. Please visit \"http://marvin-menzerath.de/software/imwd/\"." + "\n");
+            System.out.println("Unable to search for Updates. Please visit \"https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases/\"." + "\n");
         } else if (myUpdater.isUpdateAvailable()) {
             System.out.println("There is an update to version " + myUpdater.getServerVersion() + " available.");
             System.out.println("Changes: " + myUpdater.getServerChangelog());
