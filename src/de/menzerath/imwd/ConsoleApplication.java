@@ -228,7 +228,7 @@ public class ConsoleApplication {
      */
     private void runUpdateCheck() {
         System.out.println("Checking for updates, please wait...");
-        Updater myUpdater = new Updater(false);
+        Updater myUpdater = new Updater();
         if (myUpdater.getServerVersion().equalsIgnoreCase("Error")) {
             System.out.println("Unable to search for Updates. Please visit \"https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases/\"." + "\n");
         } else if (myUpdater.isUpdateAvailable()) {

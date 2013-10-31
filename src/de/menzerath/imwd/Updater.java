@@ -13,12 +13,8 @@ public class Updater {
     /**
      * Refresh data on Object-creation
      */
-    public Updater(boolean async) {
-        if (async) {
-            refreshAsync();
-        } else {
-            refresh();
-        }
+    public Updater() {
+        refresh();
     }
 
     /**
@@ -54,19 +50,6 @@ public class Updater {
     public void refresh() {
         cacheServerVersion = getFileFromServer(UPDATE_URL).get(0);
         cacheServerChangelog = getFileFromServer(UPDATE_URL).get(1);
-    }
-
-    /**
-     * Pulls data asynchronously from the server and caches it for later access (to use with GuiApplication)
-     */
-    public void refreshAsync() {
-        Thread thread = new Thread() {
-            public void run() {
-                cacheServerVersion = getFileFromServer(UPDATE_URL).get(0);
-                cacheServerChangelog = getFileFromServer(UPDATE_URL).get(1);
-            }
-        };
-        thread.start();
     }
 
     /**

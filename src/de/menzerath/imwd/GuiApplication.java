@@ -245,26 +245,32 @@ public class GuiApplication extends JFrame {
      *
      * @param startup Running this on startup? Then don't show "error"'s or "ok"'s.
      */
-    private void runUpdateCheck(boolean startup) {
-        Updater myUpdater = new Updater(true);
-        if (myUpdater.getServerVersion().equalsIgnoreCase("Error")) {
-            if (!startup) {
-                JOptionPane.showMessageDialog(null, "Unable to search for Updates. Please visit \"https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases/\".\"", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else if (myUpdater.isUpdateAvailable()) {
-            int value = JOptionPane.showConfirmDialog(null, "There is an update to version " + myUpdater.getServerVersion() + " available.\nChanges: " + myUpdater.getServerChangelog() + "\n\nDo you want to download it now?", "Update Available", JOptionPane.YES_NO_OPTION);
-            if (value == JOptionPane.YES_OPTION) {
-                try {
-                    Desktop.getDesktop().browse(new URI("https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases"));
-                } catch (Exception ignored) {
+    private void runUpdateCheck(final boolean startup) {
+        Thread thread = new Thread() {
+            public void run() {
+                Updater myUpdater = new Updater();
+                if (myUpdater.getServerVersion().equalsIgnoreCase("Error")) {
+                    if (!startup) {
+                        JOptionPane.showMessageDialog(null, "Unable to search for Updates. Please visit \"https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases/\".\"", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else if (myUpdater.isUpdateAvailable()) {
+                    int value = JOptionPane.showConfirmDialog(null, "There is an update to version " + myUpdater.getServerVersion() + " available.\nChanges: " + myUpdater.getServerChangelog() + "\n\nDo you want to download it now?", "Update Available", JOptionPane.YES_NO_OPTION);
+                    if (value == JOptionPane.YES_OPTION) {
+                        try {
+                            Desktop.getDesktop().browse(new URI("https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases"));
+                        } catch (Exception ignored) {
+                        }
+                        System.exit(0);
+                    }
+                } else {
+                    if (!startup) {
+                        JOptionPane.showMessageDialog(null, "Congrats, you are running the latest version of \"Is My Website Down?\".", "No Update Found", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
-                System.exit(0);
             }
-        } else {
-            if (!startup) {
-                JOptionPane.showMessageDialog(null, "Congrats, you are running the latest version of \"Is My Website Down?\".", "No Update Found", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
+        };
+        thread.start();
+
     }
 
     /**
