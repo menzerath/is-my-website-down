@@ -20,12 +20,10 @@ public class GuiApplication extends JFrame {
 
     private static JFrame frame;
     private JPanel mainPanel;
-    private JPanel settingsPanel;
     private JTextField urlTextField;
     private JTextField intervalTextField;
     private JButton startButton;
     private JButton stopButton;
-    private JPanel buttonPanel;
 
     private static TrayIcon trayIcon;
     private Checker checker;
@@ -101,10 +99,10 @@ public class GuiApplication extends JFrame {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 JOptionPane.showMessageDialog(null,
-                        "Is My Website Down [IMWD] - Version " + Main.getVersion() +
-                                "\nIcons by Ampeross - http://ampeross.deviantart.com" +
+                        "\"Is My Website Down?\" - Version " + Main.getVersion() +
+                                "\n\nIcons by Ampeross - http://ampeross.deviantart.com" +
                                 "\nSourcecode: http://github.com/MarvinMenzerath/IsMyWebsiteDown - CC-BY-SA 3.0 License" +
-                                "\n© 2012-2013: Marvin Menzerath - http://marvin-menzerath.de", "About Me :)", JOptionPane.INFORMATION_MESSAGE);
+                                "\n© 2012-2013: Marvin Menzerath - http://marvin-menzerath.de", "About \"Is My Website Down?\"", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         mnFile.add(mntmAbout);
@@ -248,22 +246,23 @@ public class GuiApplication extends JFrame {
      * @param startup Running this on startup? Then don't show "error"'s or "ok"'s.
      */
     private void runUpdateCheck(boolean startup) {
-        if (Main.getServerVersion().equalsIgnoreCase("Error")) {
+        Updater myUpdater = new Updater(true);
+        if (myUpdater.getServerVersion().equalsIgnoreCase("Error")) {
             if (!startup) {
                 JOptionPane.showMessageDialog(null, "An error occured while checking the server for a software-update.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } else if (Main.isUpdateAvailable()) {
-            int value = JOptionPane.showConfirmDialog(null, "There is an update to version " + Main.getServerVersion() + " available.\nChangelog: " + Main.getServerChangelog() + "\n\nDo you want to download it now?", "Update available", JOptionPane.YES_NO_OPTION);
+        } else if (myUpdater.isUpdateAvailable()) {
+            int value = JOptionPane.showConfirmDialog(null, "There is an update to version " + myUpdater.getServerVersion() + " available.\nChanges: " + myUpdater.getServerChangelog() + "\n\nDo you want to download it now?", "Update Available", JOptionPane.YES_NO_OPTION);
             if (value == JOptionPane.YES_OPTION) {
                 try {
-                    Desktop.getDesktop().browse(new URI("http://marvin-menzerath.de/software/imwd/"));
+                    Desktop.getDesktop().browse(new URI("https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases"));
                 } catch (Exception ignored) {
                 }
                 System.exit(0);
             }
         } else {
             if (!startup) {
-                JOptionPane.showMessageDialog(null, "You are running the latest version of this product.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Congrats, you are running the latest version of \"Is My Website Down?\".", "No Update Found", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }
@@ -283,9 +282,10 @@ public class GuiApplication extends JFrame {
                 dest = Paths.get("C:\\Users\\" + System.getProperty("user.name") + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\IMWD.jar");
             }
             Files.copy(source, dest, StandardCopyOption.REPLACE_EXISTING);
+            JOptionPane.showMessageDialog(null, "It's done!\nPlease remember to copy new versions/updates to the Autorun.", "Done", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Could not copy IMWD to your Autorun. Please check...\n\n  * That you are allowed to copy files to the Autorun-Folder.\n  * That you are running Windows XP or higher.", "Warning", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Could not copy IMWD to your Autorun. Please check...\n\n  * You are allowed to copy files to the Autorun-Folder.\n  * You are running Windows XP or higher.\n\nException: " + e.getMessage(), "Sorry", JOptionPane.ERROR_MESSAGE);
         }
     }
 
