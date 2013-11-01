@@ -61,7 +61,14 @@ public class GuiApplication extends JFrame {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                start();
+                if (Helper.validateInput(urlTextField.getText().trim(), intervalTextField.getText().trim(), true)) {
+                    int interval = 0;
+                    try {
+                        interval = Integer.parseInt(intervalTextField.getText().trim());
+                    } catch (NumberFormatException ignored) {
+                    }
+                    start(urlTextField.getText().trim(), interval);
+                }
             }
         });
 
@@ -196,7 +203,7 @@ public class GuiApplication extends JFrame {
      * Start testing!
      * Prepares the GUI, the TrayIcon and starts the Checker
      */
-    private void start() {
+    private void start(String url, int interval) {
         frame.setVisible(false);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         trayIcon.setToolTip("Running - IMWD");
@@ -205,20 +212,14 @@ public class GuiApplication extends JFrame {
         urlTextField.setEditable(false);
         intervalTextField.setEditable(false);
 
-        int interval = Main.getIntervalFromSettings();
-        try {
-            interval = Integer.parseInt(intervalTextField.getText());
-        } catch (NumberFormatException ignored) {
-        }
-
         // Save the values
-        Main.setUrlForSettings(urlTextField.getText());
+        Main.setUrlForSettings(url);
         Main.setIntervalForSettings(interval);
 
         trayIcon.setImage(iconOk);
 
         // Create the Checker
-        checker = new Checker(urlTextField.getText().trim(), interval, Main.getCreateLogFromSettings(), Main.getCreateValidLogFromSettings(), true);
+        checker = new Checker(url, interval, Main.getCreateLogFromSettings(), Main.getCreateValidLogFromSettings(), true);
         checker.startTesting();
     }
 
