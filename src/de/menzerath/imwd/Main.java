@@ -18,27 +18,21 @@ public class Main {
      */
     public static void main(String[] args) {
         sayHello();
-        if (args.length > 0) {
-            if (args[0].equalsIgnoreCase("--nogui")) {
-                // Start the "ConsoleApplication" and ask every parameter
-                new ConsoleApplication(false);
-            } else if (args[0].equalsIgnoreCase("--usesettings")) {
-                // Start the "ConsoleApplication" and start using the saved settings
-                new ConsoleApplication(true);
-            } else if (args[0].equalsIgnoreCase("--help") || args[0].equalsIgnoreCase("-h")) {
-                // Show a message with the available commands
-                System.out.println("The following commands are available:");
-                System.out.println("--nogui         ==> Start without a GUI");
-                System.out.println("--usesettings   ==> Start using your settings and without a GUI");
+        if (args.length == 2) {
+            // 2 Arguments passed, if they are the correct ones create a new ConsoleApplication, otherwise show the user the needed arguments
+            if (args[0].trim().startsWith("--url=") && args[1].trim().startsWith("--interval=")) {
+                new ConsoleApplication(args[0].trim().substring(6), args[1].trim().substring(11));
             } else {
-                // Argument(s) unknown; show message with a hint on how to get help
-                System.out.println("Unknown command. Use \"--help\" for help.");
+                System.out.println("You have to specify the following arguments in this order:");
+                System.out.println("--url=http://website.com --interval=30");
+                System.exit(0);
             }
         } else {
-            // If this is running on a setup without an graphical desktop (eg. Linux without X-Desktop)
-            // the ConsoleApplication will get started, otherwise (eg. Windows) the GuiApplication.
+            // If this is running on a setup without an graphical desktop and no arguments were passed show the needed arguments
             if (GraphicsEnvironment.isHeadless()) {
-                new ConsoleApplication(false);
+                System.out.println("You have to specify the following arguments in this order:");
+                System.out.println("--url=http://website.com --interval=30");
+                System.exit(0);
             } else {
                 GuiApplication.startGUI();
             }
