@@ -43,12 +43,12 @@ public class Main {
      * Shows an informative message about "Is My Website Down?" on start
      */
     private static void sayHello() {
-        System.out.println("#####################################");
-        System.out.println("### Is My Website Down? v" + Main.getVersion() + "    ###");
-        System.out.println("###                               ###");
-        System.out.println("### © 2012-2013: Marvin Menzerath ###");
-        System.out.println("### http://marvin-menzerath.de    ###");
-        System.out.println("#####################################\n");
+        System.out.println("##################################################");
+        System.out.println("### Is My Website Down? v" + Main.getVersion() + "                 ###");
+        System.out.println("###                                            ###");
+        System.out.println("### © 2012-2013: Marvin Menzerath              ###");
+        System.out.println("### github.com/MarvinMenzerath/IsMyWebsiteDown ###");
+        System.out.println("##################################################\n");
     }
 
     /**
