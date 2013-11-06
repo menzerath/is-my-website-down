@@ -19,16 +19,23 @@ public class GuiApplication extends JFrame {
     private static final Image iconNoConnection = Toolkit.getDefaultToolkit().getImage(GuiApplication.class.getResource("/res/ic_noConnection.png"));
 
     private static JFrame frame;
-    private JMenu mnChecks;
-    private JMenu mnLogs;
     private JPanel mainPanel;
+    private JPanel websiteSettings2;
+    private JPanel websiteSettings3;
+    private JMenu mnChecks;
+    private JMenu mnChecker;
+    private JMenu mnLogs;
     private JTextField urlTextField;
+    private JTextField url2TextField;
+    private JTextField url3TextField;
     private JTextField intervalTextField;
+    private JTextField interval2TextField;
+    private JTextField interval3TextField;
     private JButton startButton;
     private JButton stopButton;
 
-    private static TrayIcon trayIcon;
-    private Checker checker;
+    private static TrayIcon[] trayIcon = new TrayIcon[4];
+    private Checker[] checker = new Checker[4];
 
     /**
      * Start the GUI!
@@ -49,7 +56,6 @@ public class GuiApplication extends JFrame {
         frame.setTitle("Is My Website Down?");
         frame.setIconImage(iconOk);
         frame.setResizable(false);
-        createTrayIcon();
         frame.setVisible(true);
 
         // Run an update-check
@@ -60,19 +66,77 @@ public class GuiApplication extends JFrame {
      * Gives every button an action and adds an JMenuBar
      */
     public GuiApplication() {
-        urlTextField.setText(Main.getUrlFromSettings());
-        intervalTextField.setText("" + Main.getIntervalFromSettings());
+        // How many Checkers will be shown
+        int checkerAmount = Main.getCheckerCountFromSettings();
+        if (checkerAmount < 3) websiteSettings3.setVisible(false);
+        if (checkerAmount < 2) websiteSettings2.setVisible(false);
+        pack();
+
+        // Load saved / default values
+        urlTextField.setText(Main.getUrlFromSettings(1));
+        url2TextField.setText(Main.getUrlFromSettings(2));
+        url3TextField.setText(Main.getUrlFromSettings(3));
+        intervalTextField.setText("" + Main.getIntervalFromSettings(1));
+        interval2TextField.setText("" + Main.getIntervalFromSettings(2));
+        interval3TextField.setText("" + Main.getIntervalFromSettings(3));
 
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (Helper.validateInput(urlTextField.getText().trim(), intervalTextField.getText().trim(), true)) {
-                    int interval = 0;
-                    try {
-                        interval = Integer.parseInt(intervalTextField.getText().trim());
-                    } catch (NumberFormatException ignored) {
+                if (Main.getCheckerCountFromSettings() == 1) {
+                    if (Helper.validateInput(urlTextField.getText().trim(), intervalTextField.getText().trim(), true)) {
+                        int interval = 0;
+                        try {
+                            interval = Integer.parseInt(intervalTextField.getText().trim());
+                        } catch (NumberFormatException ignored) {
+                        }
+                        start(urlTextField.getText().trim(), interval, 1, 1);
                     }
-                    start(urlTextField.getText().trim(), interval);
+                } else if (Main.getCheckerCountFromSettings() == 2) {
+                    if (Helper.validateInput(urlTextField.getText().trim(), intervalTextField.getText().trim(), true)) {
+                        int interval = 0;
+                        try {
+                            interval = Integer.parseInt(intervalTextField.getText().trim());
+                        } catch (NumberFormatException ignored) {
+                        }
+                        start(urlTextField.getText().trim(), interval, 1, 2);
+                    }
+
+                    if (Helper.validateInput(url2TextField.getText().trim(), interval2TextField.getText().trim(), true)) {
+                        int interval = 0;
+                        try {
+                            interval = Integer.parseInt(interval2TextField.getText().trim());
+                        } catch (NumberFormatException ignored) {
+                        }
+                        start(url2TextField.getText().trim(), interval, 2, 2);
+                    }
+                } else if (Main.getCheckerCountFromSettings() == 3) {
+                    if (Helper.validateInput(urlTextField.getText().trim(), intervalTextField.getText().trim(), true)) {
+                        int interval = 0;
+                        try {
+                            interval = Integer.parseInt(intervalTextField.getText().trim());
+                        } catch (NumberFormatException ignored) {
+                        }
+                        start(urlTextField.getText().trim(), interval, 1, 3);
+                    }
+
+                    if (Helper.validateInput(url2TextField.getText().trim(), interval2TextField.getText().trim(), true)) {
+                        int interval = 0;
+                        try {
+                            interval = Integer.parseInt(interval2TextField.getText().trim());
+                        } catch (NumberFormatException ignored) {
+                        }
+                        start(url2TextField.getText().trim(), interval, 2, 3);
+                    }
+
+                    if (Helper.validateInput(url3TextField.getText().trim(), interval3TextField.getText().trim(), true)) {
+                        int interval = 0;
+                        try {
+                            interval = Integer.parseInt(interval3TextField.getText().trim());
+                        } catch (NumberFormatException ignored) {
+                        }
+                        start(url3TextField.getText().trim(), interval, 3, 3);
+                    }
                 }
             }
         });
@@ -99,7 +163,9 @@ public class GuiApplication extends JFrame {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 try {
-                    checker.stopTesting();
+                    checker[1].stopTesting();
+                    checker[2].stopTesting();
+                    checker[3].stopTesting();
                 } catch (NullPointerException ignored) {
                 }
                 System.exit(0);
@@ -120,32 +186,52 @@ public class GuiApplication extends JFrame {
         mnFile.add(mntmAbout);
         mnFile.add(mntmExit);
 
-        JMenu mnTools = new JMenu("Tools");
-        menuBar.add(mnTools);
+        mnChecker = new JMenu("Checker");
+        menuBar.add(mnChecker);
 
-        JMenuItem mntmAutorun = new JMenuItem("Add to Autorun");
-        mntmAutorun.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                addToAutorun();
-            }
-        });
-
-        // Change the text if the user doesn't use Windows and disable it
-        if (!System.getProperty("os.name").startsWith("Windows")) {
-            mntmAutorun.setEnabled(false);
-            mntmAutorun.setText("Add to Autorun (Windows-only)");
-        }
-        mnTools.add(mntmAutorun);
-
-        JMenuItem mntmUpdates = new JMenuItem("Check for Updates");
-        mntmUpdates.addActionListener(new ActionListener() {
+        final JRadioButtonMenuItem rbOne = new JRadioButtonMenuItem("One");
+        if (checkerAmount == 1) rbOne.setSelected(true);
+        rbOne.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                runUpdateCheck(false);
+                Main.setCheckerCountForSettings(1);
+                websiteSettings2.setVisible(false);
+                websiteSettings3.setVisible(false);
+                frame.pack();
             }
         });
-        mnTools.add(mntmUpdates);
+        mnChecker.add(rbOne);
+
+        final JRadioButtonMenuItem rbTwo = new JRadioButtonMenuItem("Two");
+        if (checkerAmount == 2) rbTwo.setSelected(true);
+        rbTwo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.setCheckerCountForSettings(2);
+                websiteSettings2.setVisible(true);
+                websiteSettings3.setVisible(false);
+                frame.pack();
+            }
+        });
+        mnChecker.add(rbTwo);
+
+        final JRadioButtonMenuItem rbThree = new JRadioButtonMenuItem("Three");
+        if (checkerAmount == 3) rbThree.setSelected(true);
+        rbThree.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.setCheckerCountForSettings(3);
+                websiteSettings2.setVisible(true);
+                websiteSettings3.setVisible(true);
+                frame.pack();
+            }
+        });
+        mnChecker.add(rbThree);
+
+        ButtonGroup checkerGroup = new ButtonGroup();
+        checkerGroup.add(rbOne);
+        checkerGroup.add(rbTwo);
+        checkerGroup.add(rbThree);
 
         mnChecks = new JMenu("Checks");
         menuBar.add(mnChecks);
@@ -192,23 +278,50 @@ public class GuiApplication extends JFrame {
             }
         });
         mnLogs.add(cbLogValid);
+
+        JMenu mnTools = new JMenu("Tools");
+        menuBar.add(mnTools);
+
+        JMenuItem mntmAutorun = new JMenuItem("Add to Autorun");
+        mntmAutorun.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                addToAutorun();
+            }
+        });
+
+        // Change the text if the user doesn't use Windows and disable it
+        if (!System.getProperty("os.name").startsWith("Windows")) {
+            mntmAutorun.setEnabled(false);
+            mntmAutorun.setText("Add to Autorun (Windows-only)");
+        }
+        mnTools.add(mntmAutorun);
+
+        JMenuItem mntmUpdates = new JMenuItem("Check for Updates");
+        mntmUpdates.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                runUpdateCheck(false);
+            }
+        });
+        mnTools.add(mntmUpdates);
     }
 
     /**
      * This will create an TrayIcon and show information about the current check(s)
      */
-    private static void createTrayIcon() {
+    private static void createTrayIcon(int checkerId) {
         // Not supported? Bye, Bye!
         if (!SystemTray.isSupported()) {
             System.out.println("SystemTray is not supported");
             System.exit(1);
-            return;
         }
+
         SystemTray tray = SystemTray.getSystemTray();
-        trayIcon = new TrayIcon(iconOk, "Is My Website Down?");
-        trayIcon.setImageAutoSize(true);
-        trayIcon.setToolTip("Stopped - IMWD");
-        trayIcon.addActionListener(new ActionListener() {
+        trayIcon[checkerId] = new TrayIcon(iconOk, "Is My Website Down?");
+        trayIcon[checkerId].setImageAutoSize(true);
+        trayIcon[checkerId].setToolTip("Stopped - IMWD");
+        trayIcon[checkerId].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(true);
@@ -216,7 +329,7 @@ public class GuiApplication extends JFrame {
         });
 
         try {
-            tray.add(trayIcon);
+            tray.add(trayIcon[checkerId]);
         } catch (AWTException e) {
             // Not possible? Bye, Bye!
             System.out.println("TrayIcon could not be added.");
@@ -228,31 +341,37 @@ public class GuiApplication extends JFrame {
      * Start testing!
      * Prepares the GUI, the TrayIcon and starts the Checker
      */
-    private void start(String url, int interval) {
+    private void start(String url, int interval, int checkerId, int maxChecker) {
         if (!Main.getCheckContentFromSettings() && !Main.getCheckPingFromSettings()) {
-            JOptionPane.showMessageDialog(null, "You have to select at least one Checker!", "Error", JOptionPane.ERROR_MESSAGE);
+            if (checkerId == maxChecker) {
+                JOptionPane.showMessageDialog(null, "You have to select at least one Check-Type (Content / Ping)!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
             return;
         }
 
+        createTrayIcon(checkerId);
+        trayIcon[checkerId].setToolTip("Running - IMWD");
         frame.setVisible(false);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        trayIcon.setToolTip("Running - IMWD");
+        mnChecks.setEnabled(false);
+        mnChecker.setEnabled(false);
+        mnLogs.setEnabled(false);
+        urlTextField.setEditable(false);
+        url2TextField.setEditable(false);
+        url3TextField.setEditable(false);
+        intervalTextField.setEditable(false);
+        interval2TextField.setEditable(false);
+        interval3TextField.setEditable(false);
         startButton.setEnabled(false);
         stopButton.setEnabled(true);
-        urlTextField.setEditable(false);
-        intervalTextField.setEditable(false);
-        mnChecks.setEnabled(false);
-        mnLogs.setEnabled(false);
 
         // Save the values
-        Main.setUrlForSettings(url);
-        Main.setIntervalForSettings(interval);
-
-        trayIcon.setImage(iconOk);
+        Main.setUrlForSettings(checkerId, url);
+        Main.setIntervalForSettings(checkerId, interval);
 
         // Create the Checker
-        checker = new Checker(url, interval, Main.getCheckContentFromSettings(), Main.getCheckPingFromSettings(), Main.getCreateLogFromSettings(), Main.getCreateValidLogFromSettings(), true);
-        checker.startTesting();
+        checker[checkerId] = new Checker(checkerId, url, interval, Main.getCheckContentFromSettings(), Main.getCheckPingFromSettings(), Main.getCreateLogFromSettings(), Main.getCreateValidLogFromSettings(), true);
+        checker[checkerId].startTesting();
     }
 
     /**
@@ -260,18 +379,27 @@ public class GuiApplication extends JFrame {
      * Prepares the GUI, the TrayIcon and stops the Checker
      */
     private void stop() {
-        trayIcon.setImage(iconOk);
-        checker.stopTesting();
+        SystemTray tray = SystemTray.getSystemTray();
+        for (int i = 1; i < 4; i++) {
+            try {
+                tray.remove(trayIcon[i]);
+                checker[i].stopTesting();
+            } catch (Exception ignored) {
+            }
+        }
 
-        frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        trayIcon.setToolTip("Stopped - IMWD");
+        mnChecks.setEnabled(true);
+        mnChecker.setEnabled(true);
+        mnLogs.setEnabled(true);
+        urlTextField.setEditable(true);
+        url2TextField.setEditable(true);
+        url3TextField.setEditable(true);
+        intervalTextField.setEditable(true);
+        interval2TextField.setEditable(true);
+        interval3TextField.setEditable(true);
         startButton.setEnabled(true);
         stopButton.setEnabled(false);
-        urlTextField.setEditable(true);
-        intervalTextField.setEditable(true);
-        mnChecks.setEnabled(true);
-        mnLogs.setEnabled(true);
     }
 
     /**
@@ -335,22 +463,22 @@ public class GuiApplication extends JFrame {
      *
      * @param status Result of the current check
      */
-    public static void setNotification(int status) {
+    public static void setNotification(int checkerId, String url, int status) {
         if (status == 1) {
-            trayIcon.setImage(iconOk);
-            trayIcon.setToolTip("Everything OK - IMWD");
+            trayIcon[checkerId].setImage(iconOk);
+            trayIcon[checkerId].setToolTip("OK - IMWD\n" + url);
         } else if (status == 2) {
-            trayIcon.setImage(iconWarning);
-            trayIcon.displayMessage("Website Not Reachable!", "Unable to reach the website while a ping was successful.", TrayIcon.MessageType.WARNING);
-            trayIcon.setToolTip("Website Not Reachable - IMWD");
+            trayIcon[checkerId].setImage(iconWarning);
+            trayIcon[checkerId].displayMessage("Not Reachable: " + url, "Unable to reach " + url + " while a ping was successful.", TrayIcon.MessageType.WARNING);
+            trayIcon[checkerId].setToolTip("Not Reachable - IMWD\n" + url);
         } else if (status == 3) {
-            trayIcon.setImage(iconError);
-            trayIcon.displayMessage("Website Not Reachable!", "Unable to reach (and ping) the website.", TrayIcon.MessageType.ERROR);
-            trayIcon.setToolTip("Website Not Reachable - IMWD");
+            trayIcon[checkerId].setImage(iconError);
+            trayIcon[checkerId].displayMessage("Not Reachable: " + url, "Unable to reach (and ping) " + url + ".", TrayIcon.MessageType.ERROR);
+            trayIcon[checkerId].setToolTip("Not Reachable - IMWD\n" + url);
         } else if (status == 4) {
-            trayIcon.setImage(iconNoConnection);
-            trayIcon.displayMessage("No Connection!", "Please check your connection to the internet.", TrayIcon.MessageType.ERROR);
-            trayIcon.setToolTip("No Connection - IMWD");
+            trayIcon[checkerId].setImage(iconNoConnection);
+            trayIcon[checkerId].displayMessage("No Connection!", "Please check your connection to the internet.", TrayIcon.MessageType.ERROR);
+            trayIcon[checkerId].setToolTip("No Connection - IMWD\n" + url);
         }
     }
 }

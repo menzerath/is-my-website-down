@@ -8,6 +8,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Checker {
+    private final int id;
     private final String url;
     private final int interval;
     private final boolean checkContent;
@@ -26,7 +27,8 @@ public class Checker {
      * @param pLogValidChecks Log even successful checks?
      * @param pUsingGui       Do we have to update a GUI?
      */
-    public Checker(String pUrl, int pInterval, boolean checkContent, boolean checkPing, boolean pLogEnabled, boolean pLogValidChecks, boolean pUsingGui) {
+    public Checker(int id, String pUrl, int pInterval, boolean checkContent, boolean checkPing, boolean pLogEnabled, boolean pLogValidChecks, boolean pUsingGui) {
+        this.id = id;
         this.url = pUrl;
         this.interval = pInterval;
         this.checkContent = checkContent;
@@ -167,7 +169,7 @@ public class Checker {
     private void log(int status) {
         // If running with an GUI, set the notification-icon
         if (gui) {
-            GuiApplication.setNotification(status);
+            GuiApplication.setNotification(this.id, this.url.replace("http://", ""), status);
         }
 
         // Build a message-string
@@ -184,7 +186,7 @@ public class Checker {
         } else if (status == 10) {
             toLog += " [INFO] Checking " + url + " every " + interval + " seconds.";
         } else if (status == 11) {
-            toLog += " [INFO] IMWD stopped.\r\n";
+            toLog += " [INFO] IMWD stopped.";
         }
 
         // Print the message on the console

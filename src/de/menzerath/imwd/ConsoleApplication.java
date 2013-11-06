@@ -45,7 +45,7 @@ public class ConsoleApplication {
         System.out.println("Log valid checks: Yes\n");
 
         // Create the Checker and go!
-        Checker checker = new Checker(url, interval, true, true, true, true, false);
+        Checker checker = new Checker(1, url, interval, true, true, true, true, false);
         checker.startTesting();
 
         // Add option to exit "Is My Website Down?" by typing "stop"

@@ -7,6 +7,7 @@ public class Main {
     private static final String IMWD_VERSION = "1.3.5";
     private static final String PREF_URL = "url";
     private static final String PREF_INTERVAL = "interval";
+    private static final String PREF_CHECKER_COUNT = "checkerCount";
     private static final String PREF_CHECK_CONTENT = "checkContent";
     private static final String PREF_CHECK_PING = "checkPing";
     private static final String PREF_CREATELOG = "createLog";
@@ -76,8 +77,8 @@ public class Main {
      *
      * @return Last used url OR default value
      */
-    public static String getUrlFromSettings() {
-        return getPreferences().get(PREF_URL, "http://google.com");
+    public static String getUrlFromSettings(int id) {
+        return getPreferences().get(PREF_URL + id, "http://google.com");
     }
 
     /**
@@ -85,8 +86,17 @@ public class Main {
      *
      * @return Last used interval OR default value
      */
-    public static int getIntervalFromSettings() {
-        return getPreferences().getInt(PREF_INTERVAL, 30);
+    public static int getIntervalFromSettings(int id) {
+        return getPreferences().getInt(PREF_INTERVAL + id, 30);
+    }
+
+    /**
+     * Get the last used setting OR the default value
+     *
+     * @return Last amount of checkers OR default value
+     */
+    public static int getCheckerCountFromSettings() {
+        return getPreferences().getInt(PREF_CHECKER_COUNT, 1);
     }
 
     /**
@@ -130,8 +140,8 @@ public class Main {
      *
      * @param value The url to save
      */
-    public static void setUrlForSettings(String value) {
-        getPreferences().put(PREF_URL, value);
+    public static void setUrlForSettings(int id, String value) {
+        getPreferences().put(PREF_URL + id, value);
     }
 
     /**
@@ -139,8 +149,17 @@ public class Main {
      *
      * @param value The interval to save
      */
-    public static void setIntervalForSettings(int value) {
-        getPreferences().putInt(PREF_INTERVAL, value);
+    public static void setIntervalForSettings(int id, int value) {
+        getPreferences().putInt(PREF_INTERVAL + id, value);
+    }
+
+    /**
+     * Save the specified value in the settings
+     *
+     * @param value The count of used checkers to save
+     */
+    public static void setCheckerCountForSettings(int value) {
+        getPreferences().putInt(PREF_CHECKER_COUNT, value);
     }
 
     /**
