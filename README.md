@@ -1,5 +1,5 @@
 #Is My Website Down?
-**"Is My Website Down?" periodically checks if your website is reachable and notifies you if it is not.**
+**"Is My Website Down?" periodically checks if your websites are reachable and notifies you if one of them is not.**
 
 ##Screenshots
 ![GUI](http://marvin-menzerath.de/images/software/imwd1.png)
@@ -7,7 +7,7 @@
 ![Console](http://marvin-menzerath.de/images/software/imwd3.png)
 
 ##How this works
-IMWD has a simple routine and checks your website with only a few steps:
+IMWD has a simple routine and checks your websites in a few steps:
 
 1. **Fetch content**: Tries to get any content from the website. If this fails, tries to get content from http://google.com to check if there is an connection to the internet.
 2. **Ping**: Pings the website to check if "only" the webserver is down or the whole server.
