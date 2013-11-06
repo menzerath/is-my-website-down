@@ -84,59 +84,14 @@ public class GuiApplication extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (Main.getCheckerCountFromSettings() == 1) {
-                    if (Helper.validateInput(urlTextField.getText().trim(), intervalTextField.getText().trim(), true)) {
-                        int interval = 0;
-                        try {
-                            interval = Integer.parseInt(intervalTextField.getText().trim());
-                        } catch (NumberFormatException ignored) {
-                        }
-                        start(urlTextField.getText().trim(), interval, 1, 1);
-                    }
+                    addChecker(1, 1);
                 } else if (Main.getCheckerCountFromSettings() == 2) {
-                    if (Helper.validateInput(urlTextField.getText().trim(), intervalTextField.getText().trim(), true)) {
-                        int interval = 0;
-                        try {
-                            interval = Integer.parseInt(intervalTextField.getText().trim());
-                        } catch (NumberFormatException ignored) {
-                        }
-                        start(urlTextField.getText().trim(), interval, 1, 2);
-                    }
-
-                    if (Helper.validateInput(url2TextField.getText().trim(), interval2TextField.getText().trim(), true)) {
-                        int interval = 0;
-                        try {
-                            interval = Integer.parseInt(interval2TextField.getText().trim());
-                        } catch (NumberFormatException ignored) {
-                        }
-                        start(url2TextField.getText().trim(), interval, 2, 2);
-                    }
+                    addChecker(1, 2);
+                    addChecker(2, 2);
                 } else if (Main.getCheckerCountFromSettings() == 3) {
-                    if (Helper.validateInput(urlTextField.getText().trim(), intervalTextField.getText().trim(), true)) {
-                        int interval = 0;
-                        try {
-                            interval = Integer.parseInt(intervalTextField.getText().trim());
-                        } catch (NumberFormatException ignored) {
-                        }
-                        start(urlTextField.getText().trim(), interval, 1, 3);
-                    }
-
-                    if (Helper.validateInput(url2TextField.getText().trim(), interval2TextField.getText().trim(), true)) {
-                        int interval = 0;
-                        try {
-                            interval = Integer.parseInt(interval2TextField.getText().trim());
-                        } catch (NumberFormatException ignored) {
-                        }
-                        start(url2TextField.getText().trim(), interval, 2, 3);
-                    }
-
-                    if (Helper.validateInput(url3TextField.getText().trim(), interval3TextField.getText().trim(), true)) {
-                        int interval = 0;
-                        try {
-                            interval = Integer.parseInt(interval3TextField.getText().trim());
-                        } catch (NumberFormatException ignored) {
-                        }
-                        start(url3TextField.getText().trim(), interval, 3, 3);
-                    }
+                    addChecker(1, 3);
+                    addChecker(2, 3);
+                    addChecker(3, 3);
                 }
             }
         });
@@ -334,6 +289,44 @@ public class GuiApplication extends JFrame {
             // Not possible? Bye, Bye!
             System.out.println("TrayIcon could not be added.");
             System.exit(1);
+        }
+    }
+
+    /**
+     * Validates the input and starts the process
+     * Not the best solution, but it works ;)
+     *
+     * @param checkerId  Currently added Checker (ID)
+     * @param maxChecker How many Checkers will be added
+     */
+    private void addChecker(int checkerId, int maxChecker) {
+        if (checkerId == 1) {
+            if (Helper.validateInput(urlTextField.getText().trim(), intervalTextField.getText().trim(), true)) {
+                int interval = 0;
+                try {
+                    interval = Integer.parseInt(intervalTextField.getText().trim());
+                } catch (NumberFormatException ignored) {
+                }
+                start(urlTextField.getText().trim(), interval, checkerId, maxChecker);
+            }
+        } else if (checkerId == 2) {
+            if (Helper.validateInput(url2TextField.getText().trim(), interval2TextField.getText().trim(), true)) {
+                int interval = 0;
+                try {
+                    interval = Integer.parseInt(interval2TextField.getText().trim());
+                } catch (NumberFormatException ignored) {
+                }
+                start(url2TextField.getText().trim(), interval, checkerId, maxChecker);
+            }
+        } else if (Main.getCheckerCountFromSettings() == 3) {
+            if (Helper.validateInput(url3TextField.getText().trim(), interval3TextField.getText().trim(), true)) {
+                int interval = 0;
+                try {
+                    interval = Integer.parseInt(interval3TextField.getText().trim());
+                } catch (NumberFormatException ignored) {
+                }
+                start(url3TextField.getText().trim(), interval, 3, 3);
+            }
         }
     }
 
