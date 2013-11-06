@@ -81,7 +81,7 @@ public class ConsoleApplication {
         } else if (myUpdater.isUpdateAvailable()) {
             System.out.println("There is an update to version " + myUpdater.getServerVersion() + " available.");
             System.out.println("Changes: " + myUpdater.getServerChangelog());
-            System.out.println("Please download it now by using \"wget https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases/download/v" + myUpdater.getServerVersion() + "/IMWD.jar\"." + "\n");
+            System.out.println("Please download it now by using \"wget https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases/download/v" + myUpdater.getServerVersion() + "/IMWD.jar\".");
             System.exit(0);
         } else {
             System.out.println("Congrats, no update found!");
