@@ -10,6 +10,8 @@ import java.util.TimerTask;
 public class Checker {
     private final String url;
     private final int interval;
+    private final boolean checkContent;
+    private final boolean checkPing;
     private final boolean logEnabled;
     private final boolean logValidChecks;
     private final boolean gui;
@@ -24,9 +26,11 @@ public class Checker {
      * @param pLogValidChecks Log even successful checks?
      * @param pUsingGui       Do we have to update a GUI?
      */
-    public Checker(String pUrl, int pInterval, boolean pLogEnabled, boolean pLogValidChecks, boolean pUsingGui) {
+    public Checker(String pUrl, int pInterval, boolean checkContent, boolean checkPing, boolean pLogEnabled, boolean pLogValidChecks, boolean pUsingGui) {
         this.url = pUrl;
         this.interval = pInterval;
+        this.checkContent = checkContent;
+        this.checkPing = checkPing;
         this.logEnabled = pLogEnabled;
         this.logValidChecks = pLogValidChecks;
         this.gui = pUsingGui;
@@ -73,25 +77,40 @@ public class Checker {
      * Every exception will be ignored!
      */
     public void runTest() {
-        try {
+        if (checkContent && checkPing) {
             if (testContent(this.url)) {
-                // Log this event
                 log(1);
             } else {
                 if (testContent("http://google.com")) {
                     if (testPing(this.url)) {
-                        // Log this event
                         log(2);
                     } else {
-                        // Log this event
                         log(3);
                     }
                 } else {
-                    // Log this event
                     log(4);
                 }
             }
-        } catch (Exception ignored) {
+        } else if (checkContent) {
+            if (testContent(this.url)) {
+                log(1);
+            } else {
+                if (testContent("http://google.com")) {
+                    log(3);
+                } else {
+                    log(4);
+                }
+            }
+        } else if (checkPing) {
+            if (testPing(this.url)) {
+                log(1);
+            } else {
+                if (testContent("http://google.com")) {
+                    log(3);
+                } else {
+                    log(4);
+                }
+            }
         }
     }
 
@@ -126,7 +145,7 @@ public class Checker {
         try {
             String cmd;
             if (System.getProperty("os.name").startsWith("Windows")) {
-                cmd = "ping -n 1 " + url.replace("http://", "");
+                cmd = "ping -n 1 -w 3000 " + url.replace("http://", "");
             } else {
                 cmd = "ping -c 1 " + url.replace("http://", "");
             }

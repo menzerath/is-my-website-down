@@ -19,6 +19,8 @@ public class GuiApplication extends JFrame {
     private static final Image iconNoConnection = Toolkit.getDefaultToolkit().getImage(GuiApplication.class.getResource("/res/ic_noConnection.png"));
 
     private static JFrame frame;
+    private JMenu mnChecks;
+    private JMenu mnLogs;
     private JPanel mainPanel;
     private JTextField urlTextField;
     private JTextField intervalTextField;
@@ -49,6 +51,9 @@ public class GuiApplication extends JFrame {
         frame.setResizable(false);
         createTrayIcon();
         frame.setVisible(true);
+
+        // Run an update-check
+        runUpdateCheck(true);
     }
 
     /**
@@ -115,8 +120,8 @@ public class GuiApplication extends JFrame {
         mnFile.add(mntmAbout);
         mnFile.add(mntmExit);
 
-        JMenu mnActions = new JMenu("Actions");
-        menuBar.add(mnActions);
+        JMenu mnTools = new JMenu("Tools");
+        menuBar.add(mnTools);
 
         JMenuItem mntmAutorun = new JMenuItem("Add to Autorun");
         mntmAutorun.addActionListener(new ActionListener() {
@@ -131,7 +136,7 @@ public class GuiApplication extends JFrame {
             mntmAutorun.setEnabled(false);
             mntmAutorun.setText("Add to Autorun (Windows-only)");
         }
-        mnActions.add(mntmAutorun);
+        mnTools.add(mntmAutorun);
 
         JMenuItem mntmUpdates = new JMenuItem("Check for Updates");
         mntmUpdates.addActionListener(new ActionListener() {
@@ -140,10 +145,33 @@ public class GuiApplication extends JFrame {
                 runUpdateCheck(false);
             }
         });
-        mnActions.add(mntmUpdates);
+        mnTools.add(mntmUpdates);
 
-        JMenu mnLogfile = new JMenu("Log-File");
-        menuBar.add(mnLogfile);
+        mnChecks = new JMenu("Checks");
+        menuBar.add(mnChecks);
+
+        final JCheckBoxMenuItem cbCheckContent = new JCheckBoxMenuItem("Content");
+        cbCheckContent.setSelected(Main.getCheckContentFromSettings());
+        cbCheckContent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                Main.setCheckContentForSettings(cbCheckContent.isSelected());
+            }
+        });
+        mnChecks.add(cbCheckContent);
+
+        final JCheckBoxMenuItem cbCheckPing = new JCheckBoxMenuItem("Ping");
+        cbCheckPing.setSelected(Main.getCheckPingFromSettings());
+        cbCheckPing.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                Main.setCheckPingForSettings(cbCheckPing.isSelected());
+            }
+        });
+        mnChecks.add(cbCheckPing);
+
+        mnLogs = new JMenu("Logs");
+        menuBar.add(mnLogs);
 
         final JCheckBoxMenuItem cbLogEnable = new JCheckBoxMenuItem("Enable");
         cbLogEnable.setSelected(Main.getCreateLogFromSettings());
@@ -153,7 +181,7 @@ public class GuiApplication extends JFrame {
                 Main.setCreateLogForSettings(cbLogEnable.isSelected());
             }
         });
-        mnLogfile.add(cbLogEnable);
+        mnLogs.add(cbLogEnable);
 
         final JCheckBoxMenuItem cbLogValid = new JCheckBoxMenuItem("Log valid checks");
         cbLogValid.setSelected(Main.getCreateValidLogFromSettings());
@@ -163,10 +191,7 @@ public class GuiApplication extends JFrame {
                 Main.setCreateValidLogForSettigs(cbLogValid.isSelected());
             }
         });
-        mnLogfile.add(cbLogValid);
-
-        // Run an update-check
-        runUpdateCheck(true);
+        mnLogs.add(cbLogValid);
     }
 
     /**
@@ -204,6 +229,11 @@ public class GuiApplication extends JFrame {
      * Prepares the GUI, the TrayIcon and starts the Checker
      */
     private void start(String url, int interval) {
+        if (!Main.getCheckContentFromSettings() && !Main.getCheckPingFromSettings()) {
+            JOptionPane.showMessageDialog(null, "You have to select at least one Checker!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         frame.setVisible(false);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         trayIcon.setToolTip("Running - IMWD");
@@ -211,6 +241,8 @@ public class GuiApplication extends JFrame {
         stopButton.setEnabled(true);
         urlTextField.setEditable(false);
         intervalTextField.setEditable(false);
+        mnChecks.setEnabled(false);
+        mnLogs.setEnabled(false);
 
         // Save the values
         Main.setUrlForSettings(url);
@@ -219,7 +251,7 @@ public class GuiApplication extends JFrame {
         trayIcon.setImage(iconOk);
 
         // Create the Checker
-        checker = new Checker(url, interval, Main.getCreateLogFromSettings(), Main.getCreateValidLogFromSettings(), true);
+        checker = new Checker(url, interval, Main.getCheckContentFromSettings(), Main.getCheckPingFromSettings(), Main.getCreateLogFromSettings(), Main.getCreateValidLogFromSettings(), true);
         checker.startTesting();
     }
 
@@ -238,6 +270,8 @@ public class GuiApplication extends JFrame {
         stopButton.setEnabled(false);
         urlTextField.setEditable(true);
         intervalTextField.setEditable(true);
+        mnChecks.setEnabled(true);
+        mnLogs.setEnabled(true);
     }
 
     /**
@@ -246,7 +280,7 @@ public class GuiApplication extends JFrame {
      *
      * @param startup Running this on startup? Then don't show "error"'s or "ok"'s.
      */
-    private void runUpdateCheck(final boolean startup) {
+    private static void runUpdateCheck(final boolean startup) {
         Thread thread = new Thread() {
             public void run() {
                 Updater myUpdater = new Updater();
@@ -311,7 +345,7 @@ public class GuiApplication extends JFrame {
             trayIcon.setToolTip("Website Not Reachable - IMWD");
         } else if (status == 3) {
             trayIcon.setImage(iconError);
-            trayIcon.displayMessage("Website Not Reachable!", "Unable to reach and ping the website.", TrayIcon.MessageType.ERROR);
+            trayIcon.displayMessage("Website Not Reachable!", "Unable to reach (and ping) the website.", TrayIcon.MessageType.ERROR);
             trayIcon.setToolTip("Website Not Reachable - IMWD");
         } else if (status == 4) {
             trayIcon.setImage(iconNoConnection);

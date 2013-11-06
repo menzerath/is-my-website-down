@@ -7,6 +7,8 @@ public class Main {
     private static final String IMWD_VERSION = "1.3.5";
     private static final String PREF_URL = "url";
     private static final String PREF_INTERVAL = "interval";
+    private static final String PREF_CHECK_CONTENT = "checkContent";
+    private static final String PREF_CHECK_PING = "checkPing";
     private static final String PREF_CREATELOG = "createLog";
     private static final String PREF_CREATEVALIDLOG = "createValidLog";
 
@@ -90,6 +92,24 @@ public class Main {
     /**
      * Get the last used setting OR the default value
      *
+     * @return Check content OR default value
+     */
+    public static boolean getCheckContentFromSettings() {
+        return getPreferences().getBoolean(PREF_CHECK_CONTENT, true);
+    }
+
+    /**
+     * Get the last used setting OR the default value
+     *
+     * @return Check ping OR default value
+     */
+    public static boolean getCheckPingFromSettings() {
+        return getPreferences().getBoolean(PREF_CHECK_PING, true);
+    }
+
+    /**
+     * Get the last used setting OR the default value
+     *
      * @return Create logfile OR default value
      */
     public static boolean getCreateLogFromSettings() {
@@ -121,6 +141,24 @@ public class Main {
      */
     public static void setIntervalForSettings(int value) {
         getPreferences().putInt(PREF_INTERVAL, value);
+    }
+
+    /**
+     * Save the specified value in the settings
+     *
+     * @param value "create a log"-setting to save
+     */
+    public static void setCheckContentForSettings(boolean value) {
+        getPreferences().putBoolean(PREF_CHECK_CONTENT, value);
+    }
+
+    /**
+     * Save the specified value in the settings
+     *
+     * @param value "create a log"-setting to save
+     */
+    public static void setCheckPingForSettings(boolean value) {
+        getPreferences().putBoolean(PREF_CHECK_PING, value);
     }
 
     /**
