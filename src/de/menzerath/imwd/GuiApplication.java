@@ -301,31 +301,16 @@ public class GuiApplication extends JFrame {
      */
     private void addChecker(int checkerId, int maxChecker) {
         if (checkerId == 1) {
-            if (Helper.validateInput(urlTextField.getText().trim(), intervalTextField.getText().trim(), true)) {
-                int interval = 0;
-                try {
-                    interval = Integer.parseInt(intervalTextField.getText().trim());
-                } catch (NumberFormatException ignored) {
-                }
-                start(urlTextField.getText().trim(), interval, checkerId, maxChecker);
+            if (Helper.validateUrlInput(urlTextField.getText().trim(), true) && Helper.validateIntervalInput(intervalTextField.getText().trim(), true)) {
+                start(urlTextField.getText().trim(), Helper.parseInt(intervalTextField.getText().trim()), checkerId, maxChecker);
             }
         } else if (checkerId == 2) {
-            if (Helper.validateInput(url2TextField.getText().trim(), interval2TextField.getText().trim(), true)) {
-                int interval = 0;
-                try {
-                    interval = Integer.parseInt(interval2TextField.getText().trim());
-                } catch (NumberFormatException ignored) {
-                }
-                start(url2TextField.getText().trim(), interval, checkerId, maxChecker);
+            if (Helper.validateUrlInput(url2TextField.getText().trim(), true) && Helper.validateIntervalInput(interval2TextField.getText().trim(), true)) {
+                start(url2TextField.getText().trim(), Helper.parseInt(interval2TextField.getText().trim()), checkerId, maxChecker);
             }
         } else if (Main.getCheckerCountFromSettings() == 3) {
-            if (Helper.validateInput(url3TextField.getText().trim(), interval3TextField.getText().trim(), true)) {
-                int interval = 0;
-                try {
-                    interval = Integer.parseInt(interval3TextField.getText().trim());
-                } catch (NumberFormatException ignored) {
-                }
-                start(url3TextField.getText().trim(), interval, 3, 3);
+            if (Helper.validateUrlInput(url3TextField.getText().trim(), true) && Helper.validateIntervalInput(interval3TextField.getText().trim(), true)) {
+                start(url3TextField.getText().trim(), Helper.parseInt(interval3TextField.getText().trim()), checkerId, maxChecker);
             }
         }
     }

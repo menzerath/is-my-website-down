@@ -11,15 +11,9 @@ public class ConsoleApplication {
      * @param interval Interval to check
      */
     public ConsoleApplication(String url, String interval) {
-        if (Helper.validateInput(url, interval, false)) {
-            int myInterval = 0;
-            try {
-                myInterval = Integer.parseInt(interval);
-            } catch (NumberFormatException ignored) {
-            }
-
+        if (Helper.validateUrlInput(url, false) && Helper.validateIntervalInput(interval, false)) {
             this.url = url;
-            this.interval = myInterval;
+            this.interval = Helper.parseInt(interval);
             run();
         } else {
             System.exit(1);
