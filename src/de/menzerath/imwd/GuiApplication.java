@@ -83,15 +83,8 @@ public class GuiApplication extends JFrame {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (Main.getCheckerCountFromSettings() == 1) {
-                    addChecker(1, 1);
-                } else if (Main.getCheckerCountFromSettings() == 2) {
-                    addChecker(1, 2);
-                    addChecker(2, 2);
-                } else if (Main.getCheckerCountFromSettings() == 3) {
-                    addChecker(1, 3);
-                    addChecker(2, 3);
-                    addChecker(3, 3);
+                for (int i = 1; i < Main.getCheckerCountFromSettings() + 1; i++) {
+                    addChecker(i);
                 }
             }
         });
@@ -296,21 +289,27 @@ public class GuiApplication extends JFrame {
      * Validates the input and starts the process
      * Not the best solution, but it works ;)
      *
-     * @param checkerId  Currently added Checker (ID)
-     * @param maxChecker How many Checkers will be added
+     * @param checkerId Currently added Checker (ID)
      */
-    private void addChecker(int checkerId, int maxChecker) {
+    private void addChecker(int checkerId) {
+        String errorMessage = "Enter a valid URL and interval:\nURL: Starts with \"http://\"\nInterval: Only Numbers, between 10 and 600";
         if (checkerId == 1) {
-            if (Helper.validateUrlInput(urlTextField.getText().trim(), true) && Helper.validateIntervalInput(intervalTextField.getText().trim(), true)) {
-                start(urlTextField.getText().trim(), Helper.parseInt(intervalTextField.getText().trim()), checkerId, maxChecker);
+            if (Helper.validateUrlInput(urlTextField.getText().trim()) && Helper.validateIntervalInput(intervalTextField.getText().trim())) {
+                start(urlTextField.getText().trim(), Helper.parseInt(intervalTextField.getText().trim()), checkerId, Main.getCheckerCountFromSettings());
+            } else {
+                JOptionPane.showMessageDialog(null, errorMessage, "Invalid Input (Website 1)", JOptionPane.ERROR_MESSAGE);
             }
         } else if (checkerId == 2) {
-            if (Helper.validateUrlInput(url2TextField.getText().trim(), true) && Helper.validateIntervalInput(interval2TextField.getText().trim(), true)) {
-                start(url2TextField.getText().trim(), Helper.parseInt(interval2TextField.getText().trim()), checkerId, maxChecker);
+            if (Helper.validateUrlInput(url2TextField.getText().trim()) && Helper.validateIntervalInput(interval2TextField.getText().trim())) {
+                start(url2TextField.getText().trim(), Helper.parseInt(interval2TextField.getText().trim()), checkerId, Main.getCheckerCountFromSettings());
+            } else {
+                JOptionPane.showMessageDialog(null, errorMessage, "Invalid Input (Website 2)", JOptionPane.ERROR_MESSAGE);
             }
         } else if (Main.getCheckerCountFromSettings() == 3) {
-            if (Helper.validateUrlInput(url3TextField.getText().trim(), true) && Helper.validateIntervalInput(interval3TextField.getText().trim(), true)) {
-                start(url3TextField.getText().trim(), Helper.parseInt(interval3TextField.getText().trim()), checkerId, maxChecker);
+            if (Helper.validateUrlInput(url3TextField.getText().trim()) && Helper.validateIntervalInput(interval3TextField.getText().trim())) {
+                start(url3TextField.getText().trim(), Helper.parseInt(interval3TextField.getText().trim()), checkerId, Main.getCheckerCountFromSettings());
+            } else {
+                JOptionPane.showMessageDialog(null, errorMessage, "Invalid Input (Website 3)", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -321,6 +320,7 @@ public class GuiApplication extends JFrame {
      */
     private void start(String url, int interval, int checkerId, int maxChecker) {
         if (!Main.getCheckContentFromSettings() && !Main.getCheckPingFromSettings()) {
+            // Show message only once (before adding last Checker)
             if (checkerId == maxChecker) {
                 JOptionPane.showMessageDialog(null, "You have to select at least one Check-Type (Content / Ping)!", "Error", JOptionPane.ERROR_MESSAGE);
             }

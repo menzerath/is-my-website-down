@@ -11,11 +11,12 @@ public class ConsoleApplication {
      * @param interval Interval to check
      */
     public ConsoleApplication(String url, String interval) {
-        if (Helper.validateUrlInput(url, false) && Helper.validateIntervalInput(interval, false)) {
+        if (Helper.validateUrlInput(url) && Helper.validateIntervalInput(interval)) {
             this.url = url;
             this.interval = Helper.parseInt(interval);
             run();
         } else {
+            System.out.println("Enter a valid URL and interval:\nURL: Starts with \"http://\"\nInterval: Only Numbers, between 10 and 600");
             System.exit(1);
         }
     }
