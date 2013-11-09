@@ -1,2 +1,2 @@
-2.0
-Check up to 3 Websites simultaneously, Disable single Checks, Easier Console-Application (no GUI), Some smaller fixes and improvements
+2.0.1
+Added own User-Agent for Content-Check, simplified Input-Check

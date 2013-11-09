@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.prefs.Preferences;
 
 public class Main {
-    private static final String IMWD_VERSION = "2.0";
+    private static final String IMWD_VERSION = "2.0.1";
     private static final String PREF_URL = "url";
     private static final String PREF_INTERVAL = "interval";
     private static final String PREF_CHECKER_COUNT = "checkerCount";
@@ -47,7 +47,7 @@ public class Main {
      */
     private static void sayHello() {
         System.out.println("##################################################");
-        System.out.println("### Is My Website Down? v" + Main.getVersion() + "                   ###");
+        System.out.println("### Is My Website Down? v" + Main.getVersion() + "                 ###");
         System.out.println("###                                            ###");
         System.out.println("### © 2012-2013: Marvin Menzerath              ###");
         System.out.println("### github.com/MarvinMenzerath/IsMyWebsiteDown ###");
