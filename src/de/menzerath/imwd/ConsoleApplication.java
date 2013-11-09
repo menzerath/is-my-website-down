@@ -1,9 +1,5 @@
 package de.menzerath.imwd;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 public class ConsoleApplication {
     private String url;
     private int interval;
@@ -47,27 +43,6 @@ public class ConsoleApplication {
         // Create the Checker and go!
         Checker checker = new Checker(1, url, interval, true, true, true, true, false);
         checker.startTesting();
-
-        // Add option to exit "Is My Website Down?" by typing "stop"
-        BufferedReader buf = new BufferedReader(new InputStreamReader(System.in));
-
-        boolean working = true;
-        while (working) {
-            try {
-                if (buf.readLine().equalsIgnoreCase("stop")) {
-                    checker.stopTesting();
-                    working = false;
-
-                    try {
-                        buf.close();
-                    } catch (IOException ignored) {
-                    }
-                }
-            } catch (IOException ignored) {
-            }
-        }
-
-        System.exit(0);
     }
 
     /**
