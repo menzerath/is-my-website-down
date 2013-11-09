@@ -2,6 +2,7 @@ package de.menzerath.imwd;
 
 import java.io.*;
 import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
@@ -124,7 +125,10 @@ public class Checker {
      */
     private boolean testContent(String url) {
         try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
+            URLConnection myConnection = new URL(url).openConnection();
+            myConnection.setRequestProperty("User-Agent", "IsMyWebsiteDown-Checker/" + Main.getVersion());
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(myConnection.getInputStream()));
             if (in.readLine() != null) {
                 in.close();
                 return true;
