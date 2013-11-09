@@ -22,14 +22,15 @@ public class Checker {
     /**
      * Put the specified values in our own parameters
      *
+     * @param pId             Unique ID of this Checker
      * @param pUrl            Which url will get checked
      * @param pInterval       How often will this url get checked (in seconds)
      * @param pLogEnabled     Create an log-file?
      * @param pLogValidChecks Log even successful checks?
      * @param pUsingGui       Do we have to update a GUI?
      */
-    public Checker(int id, String pUrl, int pInterval, boolean checkContent, boolean checkPing, boolean pLogEnabled, boolean pLogValidChecks, boolean pUsingGui) {
-        this.id = id;
+    public Checker(int pId, String pUrl, int pInterval, boolean checkContent, boolean checkPing, boolean pLogEnabled, boolean pLogValidChecks, boolean pUsingGui) {
+        this.id = pId;
         this.url = pUrl;
         this.interval = pInterval;
         this.checkContent = checkContent;
@@ -52,8 +53,7 @@ public class Checker {
             }
         }, 0, (interval * 1000));
 
-        // Log this event
-        log(10);
+        log(0);
     }
 
     /**
@@ -63,9 +63,6 @@ public class Checker {
     public void stopTesting() {
         timer.cancel();
         timer.purge();
-
-        // Log this event
-        log(11);
     }
 
     /**
@@ -179,7 +176,9 @@ public class Checker {
         // Build a message-string
         SimpleDateFormat df = new SimpleDateFormat(getDateFormat());
         String toLog = "[" + df.format(new Date()) + "]";
-        if (status == 1) {
+        if (status == 0) {
+            toLog += " [INFO] Checking " + url + " every " + interval + " seconds.";
+        } else if (status == 1) {
             toLog += " [OK] Everything OK.";
         } else if (status == 2) {
             toLog += " [WARNING] Only a Ping was successful.";
@@ -187,10 +186,6 @@ public class Checker {
             toLog += " [ERROR] Unable to reach the website.";
         } else if (status == 4) {
             toLog += " [ERROR] No connection to the internet.";
-        } else if (status == 10) {
-            toLog += " [INFO] Checking " + url + " every " + interval + " seconds.";
-        } else if (status == 11) {
-            toLog += " [INFO] IMWD stopped.";
         }
 
         // Print the message on the console
