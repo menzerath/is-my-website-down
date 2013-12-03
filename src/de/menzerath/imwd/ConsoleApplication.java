@@ -41,7 +41,7 @@ public class ConsoleApplication {
     }
 
     /**
-     * An update-check for the "ConsoleApplication": If there is an update available, it will stop and show an url to get the update.
+     * An update-check for the "ConsoleApplication": If there is an update available, it will show an url to get the update.
      */
     private void runUpdateCheck() {
         System.out.println("Checking for updates, please wait...");
@@ -51,8 +51,7 @@ public class ConsoleApplication {
         } else if (myUpdater.isUpdateAvailable()) {
             System.out.println("There is an update to version " + myUpdater.getServerVersion() + " available.");
             System.out.println("Changes: " + myUpdater.getServerChangelog());
-            System.out.println("Please download it now by using \"wget https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases/download/v" + myUpdater.getServerVersion() + "/IMWD.jar\".");
-            System.exit(0);
+            System.out.println("Please download it as soon as possible using \"wget https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases/download/v" + myUpdater.getServerVersion() + "/IMWD.jar\".");
         } else {
             System.out.println("Congrats, no update found!");
         }
