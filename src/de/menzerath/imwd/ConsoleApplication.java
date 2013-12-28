@@ -1,5 +1,8 @@
 package de.menzerath.imwd;
 
+import de.menzerath.util.Helper;
+import de.menzerath.util.Updater;
+
 public class ConsoleApplication {
     private String url;
     private int interval;

@@ -1,5 +1,7 @@
 package de.menzerath.imwd;
 
+import de.menzerath.util.Logger;
+
 import java.awt.*;
 import java.util.prefs.Preferences;
 
@@ -20,7 +22,7 @@ public class Main {
      * @param args Passed arguments for start
      */
     public static void main(String[] args) {
-        sayHello();
+        Logger.sayHello();
         if (args.length == 2) {
             // 2 Arguments passed, if they are the correct ones create a new ConsoleApplication, otherwise show the user the needed arguments
             if (args[0].trim().startsWith("--url=") && args[1].trim().startsWith("--interval=")) {
@@ -40,18 +42,6 @@ public class Main {
                 GuiApplication.startGUI();
             }
         }
-    }
-
-    /**
-     * Shows an informative message about "Is My Website Down?" on start
-     */
-    private static void sayHello() {
-        System.out.println("##################################################");
-        System.out.println("### Is My Website Down? v" + Main.getVersion() + "                 ###");
-        System.out.println("###                                            ###");
-        System.out.println("### © 2012-2014: Marvin Menzerath              ###");
-        System.out.println("### github.com/MarvinMenzerath/IsMyWebsiteDown ###");
-        System.out.println("##################################################\n");
     }
 
     /**

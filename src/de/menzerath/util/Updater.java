@@ -1,4 +1,6 @@
-package de.menzerath.imwd;
+package de.menzerath.util;
+
+import de.menzerath.imwd.Main;
 
 import java.net.URL;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package de.menzerath.imwd;
+package de.menzerath.util;
 
 public class Helper {
     private static final int MIN_INTERVAL = 10;

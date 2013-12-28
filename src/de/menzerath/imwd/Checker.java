@@ -1,43 +1,42 @@
 package de.menzerath.imwd;
 
-import java.io.*;
+import de.menzerath.util.Logger;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Checker {
-    private final int ID;
     private final String URL;
     private final int INTERVAL;
     private final boolean CHECK_CONTENT;
     private final boolean CHECK_PING;
-    private final boolean LOG_ENABLED;
-    private final boolean LOG_VALID_CHECKS;
-    private final boolean GUI;
+
+    private Logger logger;
     private Timer timer;
 
     /**
      * Put the specified values in our own parameters
      *
-     * @param pId             Unique ID of this Checker
-     * @param pUrl            Which url will get checked
-     * @param pInterval       How often will this url get checked (in seconds)
-     * @param pLogEnabled     Create an log-file?
-     * @param pLogValidChecks Log even successful checks?
-     * @param pUsingGui       Do we have to update a GUI?
+     * @param id             Unique ID of this Checker
+     * @param url            Which url will get checked
+     * @param interval       How often will this url get checked (in seconds)
+     * @param checkContent   If this Checker checks content
+     * @param checkPing      If this Checker checks ping
+     * @param logEnabled     Create a log-file?
+     * @param logValidChecks Log even successful checks?
+     * @param usingGui       Do we have to update a GUI?
      */
-    public Checker(int pId, String pUrl, int pInterval, boolean checkContent, boolean checkPing, boolean pLogEnabled, boolean pLogValidChecks, boolean pUsingGui) {
-        this.ID = pId;
-        this.URL = pUrl;
-        this.INTERVAL = pInterval;
+    public Checker(int id, String url, int interval, boolean checkContent, boolean checkPing, boolean logEnabled, boolean logValidChecks, boolean usingGui) {
+        this.URL = url;
+        this.INTERVAL = interval;
         this.CHECK_CONTENT = checkContent;
         this.CHECK_PING = checkPing;
-        this.LOG_ENABLED = pLogEnabled;
-        this.LOG_VALID_CHECKS = pLogValidChecks;
-        this.GUI = pUsingGui;
+
+        this.logger = new Logger(id, this.URL, this.INTERVAL, logEnabled, logValidChecks, usingGui);
     }
 
     /**
@@ -53,7 +52,7 @@ public class Checker {
             }
         }, 0, (INTERVAL * 1000));
 
-        log(0);
+        logger.start();
     }
 
     /**
@@ -79,36 +78,36 @@ public class Checker {
     public void runTest() {
         if (CHECK_CONTENT && CHECK_PING) {
             if (testContent(this.URL)) {
-                log(1);
+                logger.ok();
             } else {
-                if (testContent("http://google.com")) {
+                if (testConnection()) {
                     if (testPing(this.URL)) {
-                        log(2);
+                        logger.warning();
                     } else {
-                        log(3);
+                        logger.error();
                     }
                 } else {
-                    log(4);
+                    logger.noConnection();
                 }
             }
         } else if (CHECK_CONTENT) {
             if (testContent(this.URL)) {
-                log(1);
+                logger.ok();
             } else {
-                if (testContent("http://google.com")) {
-                    log(3);
+                if (testConnection()) {
+                    logger.error();
                 } else {
-                    log(4);
+                    logger.noConnection();
                 }
             }
         } else if (CHECK_PING) {
             if (testPing(this.URL)) {
-                log(1);
+                logger.ok();
             } else {
-                if (testContent("http://google.com")) {
-                    log(3);
+                if (testConnection()) {
+                    logger.error();
                 } else {
-                    log(4);
+                    logger.noConnection();
                 }
             }
         }
@@ -162,67 +161,11 @@ public class Checker {
     }
 
     /**
-     * This is the logger: It prints the information according to the status-integer as text on the console
-     * and changes the notification-icon if running with an GUI
+     * Third (optional) test: Check if there is a connection to the internet
      *
-     * @param status Specifies the test-result OR an current event
+     * @return Is a connection to the internet available?
      */
-    private void log(int status) {
-        // If running with an GUI, set the notification-icon
-        if (GUI) {
-            GuiApplication.setNotification(this.ID, this.URL.replace("http://", ""), status);
-        }
-
-        // Build a message-string
-        SimpleDateFormat df = new SimpleDateFormat(getDateFormat());
-        String toLog = "[" + this.ID + "]";
-        toLog += " [" + df.format(new Date()) + "]";
-        if (status == 0) {
-            toLog += " [INFO] Checking " + URL + " every " + INTERVAL + " seconds.";
-        } else if (status == 1) {
-            toLog += " [OK] Everything OK.";
-        } else if (status == 2) {
-            toLog += " [WARNING] Only a Ping was successful.";
-        } else if (status == 3) {
-            toLog += " [ERROR] Unable to reach the website.";
-        } else if (status == 4) {
-            toLog += " [ERROR] No connection to the internet.";
-        }
-
-        // Print the message on the console
-        if (status == 1 && LOG_VALID_CHECKS) {
-            System.out.println(toLog);
-        } else if (status != 1) {
-            System.out.println(toLog);
-        }
-
-        // Save the message in an file (if enabled)
-        if (LOG_ENABLED && (status != 1 || LOG_VALID_CHECKS)) {
-            File file = new File(getLogFileName());
-            try {
-                PrintWriter out = new PrintWriter(new FileOutputStream(file, true));
-                out.append(toLog).append("\r\n");
-                out.close();
-            } catch (IOException ignored) {
-            }
-        }
-    }
-
-    /**
-     * This is the name of the created log file
-     *
-     * @return Log-file name
-     */
-    private String getLogFileName() {
-        return "imwd_" + URL.replace("http://", "") + ".txt";
-    }
-
-    /**
-     * This is the date-format which will be used in the logs
-     *
-     * @return Date-format
-     */
-    private String getDateFormat() {
-        return "yyyy-MM-dd HH:mm:ss";
+    private boolean testConnection() {
+        return testContent("http://google.com");
     }
 }

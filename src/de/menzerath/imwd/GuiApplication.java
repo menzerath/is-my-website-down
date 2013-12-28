@@ -1,5 +1,8 @@
 package de.menzerath.imwd;
 
+import de.menzerath.util.Helper;
+import de.menzerath.util.Updater;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
