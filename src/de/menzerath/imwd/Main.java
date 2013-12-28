@@ -49,7 +49,7 @@ public class Main {
         System.out.println("##################################################");
         System.out.println("### Is My Website Down? v" + Main.getVersion() + "                 ###");
         System.out.println("###                                            ###");
-        System.out.println("### © 2012-2013: Marvin Menzerath              ###");
+        System.out.println("### © 2012-2014: Marvin Menzerath              ###");
         System.out.println("### github.com/MarvinMenzerath/IsMyWebsiteDown ###");
         System.out.println("##################################################\n");
     }

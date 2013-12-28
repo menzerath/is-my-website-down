@@ -127,8 +127,8 @@ public class GuiApplication extends JFrame {
                 JOptionPane.showMessageDialog(null,
                         "\"Is My Website Down?\" - Version " + Main.getVersion() +
                                 "\n\nIcons by Ampeross - http://ampeross.deviantart.com" +
-                                "\nSourcecode: http://github.com/MarvinMenzerath/IsMyWebsiteDown - CC-BY-SA 3.0 License" +
-                                "\n© 2012-2013: Marvin Menzerath - http://marvin-menzerath.de", "About \"Is My Website Down?\"", JOptionPane.INFORMATION_MESSAGE);
+                                "\nSourcecode: http://github.com/MarvinMenzerath/IsMyWebsiteDown - GPLv2" +
+                                "\n© 2012-2014: Marvin Menzerath - http://marvin-menzerath.de", "About \"Is My Website Down?\"", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         mnFile.add(mntmAbout);
