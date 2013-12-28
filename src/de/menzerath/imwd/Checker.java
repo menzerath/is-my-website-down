@@ -175,7 +175,8 @@ public class Checker {
 
         // Build a message-string
         SimpleDateFormat df = new SimpleDateFormat(getDateFormat());
-        String toLog = "[" + df.format(new Date()) + "]";
+        String toLog = "[" + this.ID + "]";
+        toLog += " [" + df.format(new Date()) + "]";
         if (status == 0) {
             toLog += " [INFO] Checking " + URL + " every " + INTERVAL + " seconds.";
         } else if (status == 1) {
