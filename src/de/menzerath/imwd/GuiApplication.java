@@ -13,11 +13,13 @@ import java.nio.file.StandardCopyOption;
 import java.security.CodeSource;
 
 public class GuiApplication extends JFrame {
+    // Tray-Icons
     private static final Image iconOk = Toolkit.getDefaultToolkit().getImage(GuiApplication.class.getResource("/res/ic_ok.png"));
     private static final Image iconWarning = Toolkit.getDefaultToolkit().getImage(GuiApplication.class.getResource("/res/ic_warning.png"));
     private static final Image iconError = Toolkit.getDefaultToolkit().getImage(GuiApplication.class.getResource("/res/ic_error.png"));
     private static final Image iconNoConnection = Toolkit.getDefaultToolkit().getImage(GuiApplication.class.getResource("/res/ic_noConnection.png"));
 
+    // GUI-Elements
     private static JFrame frame;
     private JPanel mainPanel;
     private JPanel websiteSettings2;
@@ -34,6 +36,7 @@ public class GuiApplication extends JFrame {
     private JButton startButton;
     private JButton stopButton;
 
+    // Other
     private static TrayIcon[] trayIcon = new TrayIcon[4];
     private Checker[] checker = new Checker[4];
 
@@ -97,9 +100,7 @@ public class GuiApplication extends JFrame {
             }
         });
 
-        // ##########################
-        // ### Create an JMenuBar ###
-        // ##########################
+        // Start: JMenuBar
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
 
@@ -253,6 +254,7 @@ public class GuiApplication extends JFrame {
             }
         });
         mnTools.add(mntmUpdates);
+        // End: JMenuBar
     }
 
     /**
@@ -261,7 +263,7 @@ public class GuiApplication extends JFrame {
     private static void createTrayIcon(int checkerId) {
         // Not supported? Bye, Bye!
         if (!SystemTray.isSupported()) {
-            System.out.println("SystemTray is not supported");
+            System.out.println("SystemTray is not supported. Exiting...");
             System.exit(1);
         }
 
@@ -280,7 +282,7 @@ public class GuiApplication extends JFrame {
             tray.add(trayIcon[checkerId]);
         } catch (AWTException e) {
             // Not possible? Bye, Bye!
-            System.out.println("TrayIcon could not be added.");
+            System.out.println("TrayIcon could not be added. Exiting...");
             System.exit(1);
         }
     }
@@ -329,6 +331,8 @@ public class GuiApplication extends JFrame {
 
         createTrayIcon(checkerId);
         trayIcon[checkerId].setToolTip("Running - IMWD");
+
+        // Disable/Dispose GUI(-elements)
         frame.setVisible(false);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mnChecks.setEnabled(false);
@@ -367,6 +371,8 @@ public class GuiApplication extends JFrame {
         }
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        // Enable GUI-elements
         mnChecks.setEnabled(true);
         mnChecker.setEnabled(true);
         mnLogs.setEnabled(true);
@@ -381,7 +387,7 @@ public class GuiApplication extends JFrame {
     }
 
     /**
-     * An update-check for the "GuiApplication": If there is an update available, it will show an message and the option to open
+     * An update-check for the "GuiApplication": If there is an update available, it will show an message and a button to open
      * the website in a browser.
      *
      * @param startup Running this on startup? Then don't show "error"'s or "ok"'s.
@@ -391,6 +397,7 @@ public class GuiApplication extends JFrame {
             public void run() {
                 Updater myUpdater = new Updater();
                 if (myUpdater.getServerVersion().equalsIgnoreCase("Error")) {
+                    // Show this message if the Updater was created by the user
                     if (!startup) {
                         JOptionPane.showMessageDialog(null, "Unable to search for Updates. Please visit \"https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases/\".\"", "Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -404,6 +411,7 @@ public class GuiApplication extends JFrame {
                         System.exit(0);
                     }
                 } else {
+                    // Show this message if the Updater was created by the user
                     if (!startup) {
                         JOptionPane.showMessageDialog(null, "Congrats, you are running the latest version of \"Is My Website Down?\".", "No Update Found", JOptionPane.INFORMATION_MESSAGE);
                     }
@@ -411,11 +419,10 @@ public class GuiApplication extends JFrame {
             }
         };
         thread.start();
-
     }
 
     /**
-     * Copy "Is My Website Down" into the Autorun-folder (Works with Windows XP, Vista, 7 and 8 (8.1).
+     * Copy "Is My Website Down" into the Autorun-folder (works with Windows XP, Vista, 7, 8 and 8.1).
      */
     private void addToAutorun() {
         try {

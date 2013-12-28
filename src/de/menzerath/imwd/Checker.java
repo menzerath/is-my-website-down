@@ -9,14 +9,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Checker {
-    private final int id;
-    private final String url;
-    private final int interval;
-    private final boolean checkContent;
-    private final boolean checkPing;
-    private final boolean logEnabled;
-    private final boolean logValidChecks;
-    private final boolean gui;
+    private final int ID;
+    private final String URL;
+    private final int INTERVAL;
+    private final boolean CHECK_CONTENT;
+    private final boolean CHECK_PING;
+    private final boolean LOG_ENABLED;
+    private final boolean LOG_VALID_CHECKS;
+    private final boolean GUI;
     private Timer timer;
 
     /**
@@ -30,14 +30,14 @@ public class Checker {
      * @param pUsingGui       Do we have to update a GUI?
      */
     public Checker(int pId, String pUrl, int pInterval, boolean checkContent, boolean checkPing, boolean pLogEnabled, boolean pLogValidChecks, boolean pUsingGui) {
-        this.id = pId;
-        this.url = pUrl;
-        this.interval = pInterval;
-        this.checkContent = checkContent;
-        this.checkPing = checkPing;
-        this.logEnabled = pLogEnabled;
-        this.logValidChecks = pLogValidChecks;
-        this.gui = pUsingGui;
+        this.ID = pId;
+        this.URL = pUrl;
+        this.INTERVAL = pInterval;
+        this.CHECK_CONTENT = checkContent;
+        this.CHECK_PING = checkPing;
+        this.LOG_ENABLED = pLogEnabled;
+        this.LOG_VALID_CHECKS = pLogValidChecks;
+        this.GUI = pUsingGui;
     }
 
     /**
@@ -51,7 +51,7 @@ public class Checker {
             public void run() {
                 runTest();
             }
-        }, 0, (interval * 1000));
+        }, 0, (INTERVAL * 1000));
 
         log(0);
     }
@@ -77,12 +77,12 @@ public class Checker {
      * Every exception will be ignored!
      */
     public void runTest() {
-        if (checkContent && checkPing) {
-            if (testContent(this.url)) {
+        if (CHECK_CONTENT && CHECK_PING) {
+            if (testContent(this.URL)) {
                 log(1);
             } else {
                 if (testContent("http://google.com")) {
-                    if (testPing(this.url)) {
+                    if (testPing(this.URL)) {
                         log(2);
                     } else {
                         log(3);
@@ -91,8 +91,8 @@ public class Checker {
                     log(4);
                 }
             }
-        } else if (checkContent) {
-            if (testContent(this.url)) {
+        } else if (CHECK_CONTENT) {
+            if (testContent(this.URL)) {
                 log(1);
             } else {
                 if (testContent("http://google.com")) {
@@ -101,8 +101,8 @@ public class Checker {
                     log(4);
                 }
             }
-        } else if (checkPing) {
-            if (testPing(this.url)) {
+        } else if (CHECK_PING) {
+            if (testPing(this.URL)) {
                 log(1);
             } else {
                 if (testContent("http://google.com")) {
@@ -169,15 +169,15 @@ public class Checker {
      */
     private void log(int status) {
         // If running with an GUI, set the notification-icon
-        if (gui) {
-            GuiApplication.setNotification(this.id, this.url.replace("http://", ""), status);
+        if (GUI) {
+            GuiApplication.setNotification(this.ID, this.URL.replace("http://", ""), status);
         }
 
         // Build a message-string
         SimpleDateFormat df = new SimpleDateFormat(getDateFormat());
         String toLog = "[" + df.format(new Date()) + "]";
         if (status == 0) {
-            toLog += " [INFO] Checking " + url + " every " + interval + " seconds.";
+            toLog += " [INFO] Checking " + URL + " every " + INTERVAL + " seconds.";
         } else if (status == 1) {
             toLog += " [OK] Everything OK.";
         } else if (status == 2) {
@@ -189,14 +189,14 @@ public class Checker {
         }
 
         // Print the message on the console
-        if (status == 1 && logValidChecks) {
+        if (status == 1 && LOG_VALID_CHECKS) {
             System.out.println(toLog);
         } else if (status != 1) {
             System.out.println(toLog);
         }
 
         // Save the message in an file (if enabled)
-        if (logEnabled && (status != 1 || logValidChecks)) {
+        if (LOG_ENABLED && (status != 1 || LOG_VALID_CHECKS)) {
             File file = new File(getLogFileName());
             try {
                 PrintWriter out = new PrintWriter(new FileOutputStream(file, true));
@@ -213,7 +213,7 @@ public class Checker {
      * @return Log-file name
      */
     private String getLogFileName() {
-        return "imwd_" + url.replace("http://", "") + ".txt";
+        return "imwd_" + URL.replace("http://", "") + ".txt";
     }
 
     /**
