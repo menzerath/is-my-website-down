@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Updater {
-    private final String UPDATE_URL = "https://raw.github.com/MarvinMenzerath/IsMyWebsiteDown/master/VERSION.txt";
-
     private static String cacheServerVersion = "Error";
     private static String cacheServerChangelog = "Error";
 
@@ -50,20 +48,20 @@ public class Updater {
      * Pulls data from the server and caches it for later access (to use with ConsoleApplication)
      */
     public void refresh() {
-        cacheServerVersion = getFileFromServer(UPDATE_URL).get(0);
-        cacheServerChangelog = getFileFromServer(UPDATE_URL).get(1);
+        ArrayList<String> fileContent = getUpdateFileFromServer();
+        cacheServerVersion = fileContent.get(0);
+        cacheServerChangelog = fileContent.get(1);
     }
 
     /**
      * Helper which gets content from a remote server and returns an ArrayList containing every line as a single entry
      *
-     * @param url URL to access
      * @return Content; each entry = one line
      */
-    private ArrayList<String> getFileFromServer(String url) {
+    private ArrayList<String> getUpdateFileFromServer() {
         ArrayList<String> lines = new ArrayList<>();
         try {
-            Scanner sc = new Scanner(new URL(url).openConnection().getInputStream());
+            Scanner sc = new Scanner(new URL("https://raw.github.com/MarvinMenzerath/IsMyWebsiteDown/master/VERSION.txt").openConnection().getInputStream());
             while (sc.hasNextLine()) {
                 lines.add(sc.nextLine().trim());
             }
