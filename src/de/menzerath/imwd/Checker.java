@@ -10,10 +10,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Checker {
-    private final String URL;
-    private final int INTERVAL;
-    private final boolean CHECK_CONTENT;
-    private final boolean CHECK_PING;
+    public final int ID;
+    public final String URL;
+    public final int INTERVAL;
+    public final boolean CHECK_CONTENT;
+    public final boolean CHECK_PING;
 
     private Logger logger;
     private Timer timer;
@@ -28,15 +29,16 @@ public class Checker {
      * @param checkPing      If this Checker checks ping
      * @param logEnabled     Create a log-file?
      * @param logValidChecks Log even successful checks?
-     * @param usingGui       Do we have to update a GUI?
+     * @param updateGui      Do we have to update a GUI?
      */
-    public Checker(int id, String url, int interval, boolean checkContent, boolean checkPing, boolean logEnabled, boolean logValidChecks, boolean usingGui) {
+    public Checker(int id, String url, int interval, boolean checkContent, boolean checkPing, boolean logEnabled, boolean logValidChecks, boolean updateGui) {
+        this.ID = id;
         this.URL = url;
         this.INTERVAL = interval;
         this.CHECK_CONTENT = checkContent;
         this.CHECK_PING = checkPing;
 
-        this.logger = new Logger(id, this.URL, this.INTERVAL, logEnabled, logValidChecks, usingGui);
+        this.logger = new Logger(this, logEnabled, logValidChecks, updateGui);
     }
 
     /**

@@ -1,5 +1,6 @@
 package de.menzerath.util;
 
+import de.menzerath.imwd.Checker;
 import de.menzerath.imwd.GuiApplication;
 import de.menzerath.imwd.Main;
 
@@ -11,30 +12,24 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Logger {
-    private final int CHECKER_ID;
-    private final String URL;
-    private final int INTERVAL;
+    private final Checker CHECKER;
     private final boolean CREATE_FILE;
     private final boolean LOG_VALID_CHECKS;
-    private final boolean GUI;
+    private final boolean UPDATE_GUI;
 
     /**
      * Put the specified values in our own parameters
      *
-     * @param checkerId  Unique ID of this Checker
-     * @param url        Which url will get checked
-     * @param interval   How often will this url get checked (in seconds)
-     * @param createFile Create a log-file?
-     * @param logValid   Log even successful checks?
-     * @param gui        Do we have to update a GUI?
+     * @param checker        "Logger's parent"
+     * @param createFile     Create a log-file?
+     * @param logValidChecks Log even successful checks?
+     * @param updateGui      Do we have to update a GUI?
      */
-    public Logger(int checkerId, String url, int interval, boolean createFile, boolean logValid, boolean gui) {
-        this.CHECKER_ID = checkerId;
-        this.URL = url;
-        this.INTERVAL = interval;
+    public Logger(Checker checker, boolean createFile, boolean logValidChecks, boolean updateGui) {
+        this.CHECKER = checker;
         this.CREATE_FILE = createFile;
-        this.LOG_VALID_CHECKS = logValid;
-        this.GUI = gui;
+        this.LOG_VALID_CHECKS = logValidChecks;
+        this.UPDATE_GUI = updateGui;
     }
 
     /**
@@ -53,7 +48,7 @@ public class Logger {
      * The Checker started its work
      */
     public void start() {
-        write(getLogHead() + "[INFO] Checking " + URL + " every " + INTERVAL + " seconds.");
+        write(getLogHead() + "[INFO] Checking " + CHECKER.URL + " every " + CHECKER.INTERVAL + " seconds.");
     }
 
     /**
@@ -85,7 +80,7 @@ public class Logger {
      */
     public void noConnection() {
         // Print this only once, but update the GUI!
-        if (CHECKER_ID != 1) {
+        if (CHECKER.ID != 1) {
             updateGui(4);
             return;
         }
@@ -103,7 +98,7 @@ public class Logger {
         System.out.println(message);
 
         if (CREATE_FILE) {
-            File file = new File("imwd_" + this.URL.replace("http://", "") + ".txt");
+            File file = new File("imwd_" + CHECKER.URL.replace("http://", "") + ".txt");
             try {
                 PrintWriter out = new PrintWriter(new FileOutputStream(file, true));
                 out.append(message).append("\r\n");
@@ -114,10 +109,10 @@ public class Logger {
     }
 
     private void updateGui(int status) {
-        if (GUI) GuiApplication.setNotification(CHECKER_ID, URL.replace("http://", ""), status);
+        if (UPDATE_GUI) GuiApplication.setNotification(CHECKER.ID, CHECKER.URL.replace("http://", ""), status);
     }
 
     private String getLogHead() {
-        return "[" + CHECKER_ID + "] [" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "] ";
+        return "[" + CHECKER.ID + "] [" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "] ";
     }
 }
