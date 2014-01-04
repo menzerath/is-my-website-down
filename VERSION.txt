@@ -1,2 +1,2 @@
-2.0.1
-Added own User-Agent for Content-Check, simplified Input-Check
+2.0.2
+Improved Updater + Logger, Changed UserAgent, New License: GPLv2

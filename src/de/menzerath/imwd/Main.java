@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.prefs.Preferences;
 
 public class Main {
-    private static final String IMWD_VERSION = "2.0.1";
+    private static final String IMWD_VERSION = "2.0.2";
     private static final String PREF_URL = "url";
     private static final String PREF_INTERVAL = "interval";
     private static final String PREF_CHECKER_COUNT = "checkerCount";
