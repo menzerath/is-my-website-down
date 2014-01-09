@@ -447,26 +447,30 @@ public class GuiApplication extends JFrame {
     }
 
     /**
-     * Changes the Notification according to the check-result
-     *
-     * @param status Result of the current check
+     * Changes TrayIcon (icon, tooltip) and shows a message
+     * @param checker       Which Checker updates the TrayIcon
+     * @param status        The test-result
+     * @param showMessage   Display a message
      */
-    public static void setNotification(int checkerId, String url, int status) {
+    public static void updateTrayIcon(Checker checker, int status, boolean showMessage) {
         if (status == 1) {
-            trayIcon[checkerId].setImage(iconOk);
-            trayIcon[checkerId].setToolTip("OK - IMWD\n" + url);
+            trayIcon[checker.ID].setImage(iconOk);
+            trayIcon[checker.ID].setToolTip("OK - IMWD\n" + checker.URL.replace("http://", ""));
         } else if (status == 2) {
-            trayIcon[checkerId].setImage(iconWarning);
-            trayIcon[checkerId].displayMessage("Not Reachable: " + url, "Unable to reach " + url + " while a ping was successful.", TrayIcon.MessageType.WARNING);
-            trayIcon[checkerId].setToolTip("Not Reachable - IMWD\n" + url);
+            trayIcon[checker.ID].setImage(iconWarning);
+            trayIcon[checker.ID].setToolTip("Not Reachable - IMWD\n" + checker.URL.replace("http://", ""));
+            if (showMessage)
+                trayIcon[checker.ID].displayMessage("Not Reachable: " + checker.URL.replace("http://", ""), "Unable to reach " + checker.URL.replace("http://", "") + " while a ping was successful.", TrayIcon.MessageType.WARNING);
         } else if (status == 3) {
-            trayIcon[checkerId].setImage(iconError);
-            trayIcon[checkerId].displayMessage("Not Reachable: " + url, "Unable to reach (and ping) " + url + ".", TrayIcon.MessageType.ERROR);
-            trayIcon[checkerId].setToolTip("Not Reachable - IMWD\n" + url);
+            trayIcon[checker.ID].setImage(iconError);
+            trayIcon[checker.ID].setToolTip("Not Reachable - IMWD\n" + checker.URL.replace("http://", ""));
+            if (showMessage)
+                trayIcon[checker.ID].displayMessage("Not Reachable: " + checker.URL.replace("http://", ""), "Unable to reach (and ping) " + checker.URL.replace("http://", "") + ".", TrayIcon.MessageType.ERROR);
         } else if (status == 4) {
-            trayIcon[checkerId].setImage(iconNoConnection);
-            trayIcon[checkerId].displayMessage("No Connection!", "Please check your connection to the internet.", TrayIcon.MessageType.ERROR);
-            trayIcon[checkerId].setToolTip("No Connection - IMWD\n" + url);
+            trayIcon[checker.ID].setImage(iconNoConnection);
+            trayIcon[checker.ID].setToolTip("No Connection - IMWD\n" + checker.URL.replace("http://", ""));
+            if (showMessage)
+                trayIcon[checker.ID].displayMessage("No Connection!", "Please check your connection to the internet.", TrayIcon.MessageType.ERROR);
         }
     }
 }

@@ -109,7 +109,13 @@ public class Logger {
     }
 
     private void updateGui(int status) {
-        if (UPDATE_GUI) GuiApplication.setNotification(CHECKER.ID, CHECKER.URL.replace("http://", ""), status);
+        if (UPDATE_GUI) {
+            if (status == 4 && CHECKER.ID != 1) {
+                GuiApplication.updateTrayIcon(CHECKER, status, false);
+            } else {
+                GuiApplication.updateTrayIcon(CHECKER, status, true);
+            }
+        }
     }
 
     private String getLogHead() {
