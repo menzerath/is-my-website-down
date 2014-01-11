@@ -2,9 +2,9 @@
 **"Is My Website Down?" periodically checks if your websites are reachable and notifies you if one of them is not.**
 
 ## Screenshots
-![GUI](http://marvin-menzerath.de/images/software/imwd1.png)
-![Notification](http://marvin-menzerath.de/images/software/imwd2.png)
-![Console](http://marvin-menzerath.de/images/software/imwd3.png)
+![GUI](http://menzerath.eu/wp-content/uploads/2014/01/imwd1.png)
+![Notification](http://menzerath.eu/wp-content/uploads/2014/01/imwd2.png)
+![Console](http://menzerath.eu/wp-content/uploads/2014/01/imwd3.png)
 
 ## How this works
 IMWD has a simple routine and checks your websites in a few steps:
@@ -21,7 +21,7 @@ If you want to contribute to this software, please adapt the current code-style.
 Also I am not quiet sure if you will be able to edit the GUI-Layout ("GuiApplication.form") if you are not using the IntelliJ IDEA.
 
 ## License
-Copyright (C) 2012-2014 [Marvin Menzerath](http://marvin-menzerath.de).
+Copyright (C) 2012-2014 [Marvin Menzerath](http://menzerath.eu).
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or any later version.
 
