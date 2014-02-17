@@ -33,4 +33,13 @@ public class Helper {
         }
         return myInt;
     }
+
+    /**
+     * Tell the user that he passed invalid arguments and exit IMWD
+     */
+    public static void invalidArguments() {
+        System.out.println("You have to pass the following arguments in this order:");
+        System.out.println("--url=http://website.com --interval=30");
+        System.exit(0);
+    }
 }

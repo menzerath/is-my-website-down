@@ -1,5 +1,6 @@
 package de.menzerath.imwd;
 
+import de.menzerath.util.Helper;
 import de.menzerath.util.Logger;
 
 import java.awt.*;
@@ -23,21 +24,20 @@ public class Main {
      */
     public static void main(String[] args) {
         Logger.sayHello();
-        if (args.length == 2) {
-            // 2 Arguments passed, if they are the correct ones create a new ConsoleApplication, otherwise show the user the needed arguments
+
+        boolean createLog = true;
+        if (args.length == 3 && args[2].equalsIgnoreCase("--nolog")) createLog = false;
+        if (args.length > 1 && args.length < 4) {
+            // Arguments passed, if they are the correct ones create a new ConsoleApplication, otherwise show the user the needed arguments
             if (args[0].trim().startsWith("--url=") && args[1].trim().startsWith("--interval=")) {
-                new ConsoleApplication(args[0].trim().substring(6), args[1].trim().substring(11));
+                new ConsoleApplication(args[0].trim().substring(6), args[1].trim().substring(11), createLog);
             } else {
-                System.out.println("You have to specify the following arguments in this order:");
-                System.out.println("--url=http://website.com --interval=30");
-                System.exit(0);
+                Helper.invalidArguments();
             }
         } else {
             // If this is running on a setup without an graphical desktop and no arguments were passed show the needed arguments
             if (GraphicsEnvironment.isHeadless()) {
-                System.out.println("You have to specify the following arguments in this order:");
-                System.out.println("--url=http://website.com --interval=30");
-                System.exit(0);
+                Helper.invalidArguments();
             } else {
                 GuiApplication.startGUI();
             }

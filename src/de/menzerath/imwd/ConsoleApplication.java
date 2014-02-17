@@ -6,17 +6,20 @@ import de.menzerath.util.Updater;
 public class ConsoleApplication {
     private String url;
     private int interval;
+    private boolean createLog;
 
     /**
      * Validate the values, save them and run the checker
      *
-     * @param url      URL to check
-     * @param interval Interval to check
+     * @param url       URL to check
+     * @param interval  Interval to check
+     * @param createLog Create a logfile or not
      */
-    public ConsoleApplication(String url, String interval) {
+    public ConsoleApplication(String url, String interval, boolean createLog) {
         if (Helper.validateUrlInput(url) && Helper.validateIntervalInput(interval)) {
             this.url = url;
             this.interval = Helper.parseInt(interval);
+            this.createLog = createLog;
             run();
         } else {
             System.out.println("Enter a valid URL and interval:\nURL: Starts with \"http://\"\nInterval: Only Numbers, between 10 and 600");
@@ -35,11 +38,11 @@ public class ConsoleApplication {
         System.out.println("\nStarting with the following settings:");
         System.out.println("URL: " + url);
         System.out.println("Interval: " + interval + " seconds");
-        System.out.println("Log-File: Yes");
-        System.out.println("Log valid checks: Yes\n");
+        if (createLog) System.out.println("Log-File: Yes");
+        if (!createLog) System.out.println("Log-File: No");
 
         // Create the Checker and go!
-        Checker checker = new Checker(1, url, interval, true, true, true, true, false);
+        Checker checker = new Checker(1, url, interval, true, true, createLog, true, false);
         checker.startTesting();
     }
 
