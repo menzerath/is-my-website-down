@@ -141,7 +141,7 @@ public class GuiApplication extends JFrame {
         mnChecker = new JMenu("Checker");
         menuBar.add(mnChecker);
 
-        final JRadioButtonMenuItem rbOne = new JRadioButtonMenuItem("One");
+        final JRadioButtonMenuItem rbOne = new JRadioButtonMenuItem("1");
         if (checkerAmount == 1) rbOne.setSelected(true);
         rbOne.addActionListener(new ActionListener() {
             @Override
@@ -154,7 +154,7 @@ public class GuiApplication extends JFrame {
         });
         mnChecker.add(rbOne);
 
-        final JRadioButtonMenuItem rbTwo = new JRadioButtonMenuItem("Two");
+        final JRadioButtonMenuItem rbTwo = new JRadioButtonMenuItem("2");
         if (checkerAmount == 2) rbTwo.setSelected(true);
         rbTwo.addActionListener(new ActionListener() {
             @Override
@@ -167,7 +167,7 @@ public class GuiApplication extends JFrame {
         });
         mnChecker.add(rbTwo);
 
-        final JRadioButtonMenuItem rbThree = new JRadioButtonMenuItem("Three");
+        final JRadioButtonMenuItem rbThree = new JRadioButtonMenuItem("3");
         if (checkerAmount == 3) rbThree.setSelected(true);
         rbThree.addActionListener(new ActionListener() {
             @Override
