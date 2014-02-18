@@ -34,6 +34,9 @@ public class Messages {
     public static final String ABOUT_SOURCE = "Sourcecode: http://github.com/MarvinMenzerath/IsMyWebsiteDown - GPLv3";
     public static final String ABOUT_AUTHOR = "© 2012-2014: Marvin Menzerath - http://menzerath.eu";
     public static final String NO_CHECK_SELECTED = "You have to select at least one Check-Type (Content / Ping)!";
+    public static final String AUTORUN_DONE_TITLE = "Finished";
+    public static final String AUTORUN_DONE = "It's done!\nPlease remember to copy new versions/updates to the Autorun.";
+    public static final String AUTORUN_ERROR = "Could not copy IMWD to your Autorun. Please check...\n\n  * You are allowed to copy files to the Autorun-Folder.\n  * You are running Windows Vista or higher.\n\nException: ";
     // END: GuiApplication
 
     // START: Updates

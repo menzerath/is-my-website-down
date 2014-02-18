@@ -1,6 +1,15 @@
 package de.menzerath.util;
 
+import de.menzerath.imwd.GuiApplication;
 import de.menzerath.imwd.Main;
+
+import javax.swing.*;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.security.CodeSource;
 
 public class Helper {
 
@@ -38,5 +47,22 @@ public class Helper {
         } catch (NumberFormatException ignored) {
         }
         return myInt;
+    }
+
+    /**
+     * Copy "Is My Website Down" into the Autorun-folder (works with Windows Vista, 7, 8 and 8.1).
+     */
+    public static void addToAutorun() {
+        try {
+            CodeSource cSource = GuiApplication.class.getProtectionDomain().getCodeSource();
+            File sourceFile = new File(cSource.getLocation().toURI().getPath());
+            Path source = Paths.get(sourceFile.getParentFile().getPath() + File.separator + sourceFile.getName());
+            Path dest = Paths.get("C:\\Users\\" + System.getProperty("user.name") + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\IMWD.jar");
+            Files.copy(source, dest, StandardCopyOption.REPLACE_EXISTING);
+            JOptionPane.showMessageDialog(null, Messages.AUTORUN_DONE, Messages.AUTORUN_DONE_TITLE, JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, Messages.AUTORUN_ERROR + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
