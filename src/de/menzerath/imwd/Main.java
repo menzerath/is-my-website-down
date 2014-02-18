@@ -1,20 +1,26 @@
 package de.menzerath.imwd;
 
-import de.menzerath.util.Helper;
-import de.menzerath.util.Logger;
+import de.menzerath.util.Messages;
 
 import java.awt.*;
 import java.util.prefs.Preferences;
 
 public class Main {
-    private static final String IMWD_VERSION = "2.0.2";
+    public static final String APPLICATION = "Is My Website Down?";
+    public static final String APPLICATION_SHORT = "IMWD";
+    public static final String VERSION = "2.0.2";
+    public static final String URL = "https://github.com/MarvinMenzerath/IsMyWebsiteDown";
+    public static final String URL_RELEASE = "https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases";
+    public static final int MIN_INTERVAL = 10;
+    public static final int MAX_INTERVAL = 300;
+
     private static final String PREF_URL = "url";
     private static final String PREF_INTERVAL = "interval";
     private static final String PREF_CHECKER_COUNT = "checkerCount";
     private static final String PREF_CHECK_CONTENT = "checkContent";
     private static final String PREF_CHECK_PING = "checkPing";
-    private static final String PREF_CREATELOG = "createLog";
-    private static final String PREF_CREATEVALIDLOG = "createValidLog";
+    private static final String PREF_CREATE_LOG = "createLog";
+    private static final String PREF_LOG_VALID_CHECKS = "createValidLog";
 
     /**
      * The Beginning!
@@ -23,7 +29,7 @@ public class Main {
      * @param args Passed arguments for start
      */
     public static void main(String[] args) {
-        Logger.sayHello();
+        sayHello();
 
         boolean createLog = true;
         if (args.length == 3 && args[2].equalsIgnoreCase("--nolog")) createLog = false;
@@ -32,12 +38,14 @@ public class Main {
             if (args[0].trim().startsWith("--url=") && args[1].trim().startsWith("--interval=")) {
                 new ConsoleApplication(args[0].trim().substring(6), args[1].trim().substring(11), createLog);
             } else {
-                Helper.invalidArguments();
+                System.out.println(Messages.INVALID_ARGUMENTS);
+                System.exit(1);
             }
         } else {
             // If this is running on a setup without an graphical desktop and no arguments were passed show the needed arguments
             if (GraphicsEnvironment.isHeadless()) {
-                Helper.invalidArguments();
+                System.out.println(Messages.INVALID_ARGUMENTS);
+                System.exit(1);
             } else {
                 GuiApplication.startGUI();
             }
@@ -45,12 +53,15 @@ public class Main {
     }
 
     /**
-     * Displays the version of this "Is My Website Down?"-file
-     *
-     * @return The version of this file
+     * Shows an informative message about "Is My Website Down?" on start
      */
-    public static String getVersion() {
-        return IMWD_VERSION;
+    public static void sayHello() {
+        System.out.println("##################################################");
+        System.out.println("### " + APPLICATION + " v" + VERSION + "                 ###");
+        System.out.println("###                                            ###");
+        System.out.println("### © 2012-2014: Marvin Menzerath              ###");
+        System.out.println("### " + URL.substring(8) + " ###");
+        System.out.println("##################################################\n");
     }
 
     /**
@@ -113,7 +124,7 @@ public class Main {
      * @return Create logfile OR default value
      */
     public static boolean getCreateLogFromSettings() {
-        return getPreferences().getBoolean(PREF_CREATELOG, false);
+        return getPreferences().getBoolean(PREF_CREATE_LOG, false);
     }
 
     /**
@@ -122,7 +133,7 @@ public class Main {
      * @return Log successful checks OR default value
      */
     public static boolean getCreateValidLogFromSettings() {
-        return getPreferences().getBoolean(PREF_CREATEVALIDLOG, false);
+        return getPreferences().getBoolean(PREF_LOG_VALID_CHECKS, false);
     }
 
     /**
@@ -176,7 +187,7 @@ public class Main {
      * @param value "create a log"-setting to save
      */
     public static void setCreateLogForSettings(boolean value) {
-        getPreferences().putBoolean(PREF_CREATELOG, value);
+        getPreferences().putBoolean(PREF_CREATE_LOG, value);
     }
 
     /**
@@ -185,6 +196,6 @@ public class Main {
      * @param value "log successful checks"-setting to save
      */
     public static void setCreateValidLogForSettigs(boolean value) {
-        getPreferences().putBoolean(PREF_CREATEVALIDLOG, value);
+        getPreferences().putBoolean(PREF_LOG_VALID_CHECKS, value);
     }
 }

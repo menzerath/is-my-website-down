@@ -1,6 +1,7 @@
 package de.menzerath.imwd;
 
 import de.menzerath.util.Helper;
+import de.menzerath.util.Messages;
 import de.menzerath.util.Updater;
 
 import javax.swing.*;
@@ -59,7 +60,7 @@ public class GuiApplication extends JFrame {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
-        frame.setTitle("Is My Website Down?");
+        frame.setTitle(Main.APPLICATION);
         frame.setIconImage(iconOk);
         frame.setResizable(false);
         frame.setVisible(true);
@@ -129,10 +130,10 @@ public class GuiApplication extends JFrame {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 JOptionPane.showMessageDialog(null,
-                        "\"Is My Website Down?\" - Version " + Main.getVersion() +
-                                "\n\nIcons by Ampeross - http://ampeross.deviantart.com" +
-                                "\nSourcecode: http://github.com/MarvinMenzerath/IsMyWebsiteDown - GPLv3" +
-                                "\n© 2012-2014: Marvin Menzerath - http://menzerath.eu", "About \"Is My Website Down?\"", JOptionPane.INFORMATION_MESSAGE);
+                        Main.APPLICATION + " - Version " + Main.VERSION +
+                                "\n\n" + Messages.ABOUT_ICONS +
+                                "\n" + Messages.ABOUT_SOURCE +
+                                "\n" + Messages.ABOUT_AUTHOR, "About", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         mnFile.add(mntmAbout);
@@ -221,7 +222,7 @@ public class GuiApplication extends JFrame {
         });
         mnLogs.add(cbLogEnable);
 
-        final JCheckBoxMenuItem cbLogValid = new JCheckBoxMenuItem("Log valid checks");
+        final JCheckBoxMenuItem cbLogValid = new JCheckBoxMenuItem("Log valid Checks");
         cbLogValid.setSelected(Main.getCreateValidLogFromSettings());
         cbLogValid.addActionListener(new ActionListener() {
             @Override
@@ -271,9 +272,9 @@ public class GuiApplication extends JFrame {
         }
 
         SystemTray tray = SystemTray.getSystemTray();
-        trayIcon[checkerId] = new TrayIcon(iconOk, "Is My Website Down?");
+        trayIcon[checkerId] = new TrayIcon(iconOk, Main.APPLICATION);
         trayIcon[checkerId].setImageAutoSize(true);
-        trayIcon[checkerId].setToolTip("Stopped - IMWD");
+        trayIcon[checkerId].setToolTip("Stopped - " + Main.APPLICATION_SHORT);
         trayIcon[checkerId].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -297,24 +298,23 @@ public class GuiApplication extends JFrame {
      * @param checkerId Currently added Checker (ID)
      */
     private void addChecker(int checkerId) {
-        String errorMessage = "Enter a valid URL and interval:\nURL: Starts with \"http://\"\nInterval: Only Numbers, between 10 and 600";
         if (checkerId == 1) {
             if (Helper.validateUrlInput(urlTextField.getText().trim()) && Helper.validateIntervalInput(intervalTextField.getText().trim())) {
                 start(urlTextField.getText().trim(), Helper.parseInt(intervalTextField.getText().trim()), checkerId, Main.getCheckerCountFromSettings());
             } else {
-                JOptionPane.showMessageDialog(null, errorMessage, "Invalid Input (Website 1)", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, Messages.INVALID_PARAMETERS, "Invalid Input (Website 1)", JOptionPane.ERROR_MESSAGE);
             }
         } else if (checkerId == 2) {
             if (Helper.validateUrlInput(url2TextField.getText().trim()) && Helper.validateIntervalInput(interval2TextField.getText().trim())) {
                 start(url2TextField.getText().trim(), Helper.parseInt(interval2TextField.getText().trim()), checkerId, Main.getCheckerCountFromSettings());
             } else {
-                JOptionPane.showMessageDialog(null, errorMessage, "Invalid Input (Website 2)", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, Messages.INVALID_PARAMETERS, "Invalid Input (Website 2)", JOptionPane.ERROR_MESSAGE);
             }
         } else if (Main.getCheckerCountFromSettings() == 3) {
             if (Helper.validateUrlInput(url3TextField.getText().trim()) && Helper.validateIntervalInput(interval3TextField.getText().trim())) {
                 start(url3TextField.getText().trim(), Helper.parseInt(interval3TextField.getText().trim()), checkerId, Main.getCheckerCountFromSettings());
             } else {
-                JOptionPane.showMessageDialog(null, errorMessage, "Invalid Input (Website 3)", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, Messages.INVALID_PARAMETERS, "Invalid Input (Website 3)", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -327,13 +327,13 @@ public class GuiApplication extends JFrame {
         if (!Main.getCheckContentFromSettings() && !Main.getCheckPingFromSettings()) {
             // Show message only once (before adding last Checker)
             if (checkerId == maxChecker) {
-                JOptionPane.showMessageDialog(null, "You have to select at least one Check-Type (Content / Ping)!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, Messages.NO_CHECK_SELECTED, "Error", JOptionPane.ERROR_MESSAGE);
             }
             return;
         }
 
         createTrayIcon(checkerId);
-        trayIcon[checkerId].setToolTip("Running - IMWD");
+        trayIcon[checkerId].setToolTip("Running - " + Main.APPLICATION_SHORT);
 
         // Disable/Dispose GUI(-elements)
         frame.setVisible(false);
@@ -402,13 +402,15 @@ public class GuiApplication extends JFrame {
                 if (myUpdater.getServerVersion().equalsIgnoreCase("Error")) {
                     // Show this message if the Updater was created by the user
                     if (!startup) {
-                        JOptionPane.showMessageDialog(null, "Unable to search for Updates. Please visit \"https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases/\".", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, Messages.UPDATE_ERROR, "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else if (myUpdater.isUpdateAvailable()) {
-                    int value = JOptionPane.showConfirmDialog(null, "There is an update to version " + myUpdater.getServerVersion() + " available.\nChanges: " + myUpdater.getServerChangelog() + "\n\nDo you want to download it now?", "Update Available", JOptionPane.YES_NO_OPTION);
+                    int value = JOptionPane.showConfirmDialog(null, Messages.UPDATE_AVAILABLE.replace("%version", myUpdater.getServerVersion()) +
+                            "\n" + Messages.UPDATE_AVAILABLE_CHANGES.replace("%changes", myUpdater.getServerChangelog()) +
+                            "\n\n" + Messages.UPDATE_NOW, Messages.UPDATE_AVAILABLE_TITLE, JOptionPane.YES_NO_OPTION);
                     if (value == JOptionPane.YES_OPTION) {
                         try {
-                            Desktop.getDesktop().browse(new URI("https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases"));
+                            Desktop.getDesktop().browse(new URI(Main.URL_RELEASE));
                         } catch (Exception ignored) {
                         }
                         System.exit(0);
@@ -416,7 +418,7 @@ public class GuiApplication extends JFrame {
                 } else {
                     // Show this message if the Updater was created by the user
                     if (!startup) {
-                        JOptionPane.showMessageDialog(null, "Congrats, you are running the latest version of \"Is My Website Down?\".", "No Update Found", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, Messages.UPDATE_NO_UPDATE_LONG, Messages.UPDATE_NO_UPDATE, JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             }
@@ -455,22 +457,22 @@ public class GuiApplication extends JFrame {
     public static void updateTrayIcon(Checker checker, int status, boolean showMessage) {
         if (status == 1) {
             trayIcon[checker.ID].setImage(iconOk);
-            trayIcon[checker.ID].setToolTip("OK - IMWD\n" + checker.URL.replace("http://", ""));
+            trayIcon[checker.ID].setToolTip(Messages.OK + " - " + Main.APPLICATION_SHORT + "\n" + checker.URL.replace("http://", ""));
         } else if (status == 2) {
             trayIcon[checker.ID].setImage(iconWarning);
-            trayIcon[checker.ID].setToolTip("Not Reachable - IMWD\n" + checker.URL.replace("http://", ""));
+            trayIcon[checker.ID].setToolTip(Messages.ERROR_NOT_REACHABLE_TITLE + " - " + Main.APPLICATION_SHORT + "\n" + checker.URL.replace("http://", ""));
             if (showMessage)
-                trayIcon[checker.ID].displayMessage("Not Reachable: " + checker.URL.replace("http://", ""), "Unable to reach " + checker.URL.replace("http://", "") + " while a ping was successful.", TrayIcon.MessageType.WARNING);
+                trayIcon[checker.ID].displayMessage(Messages.ERROR_NOT_REACHABLE_TITLE + ": " + checker.URL.replace("http://", ""), Messages.ERROR_NOT_REACHABLE_PING, TrayIcon.MessageType.WARNING);
         } else if (status == 3) {
             trayIcon[checker.ID].setImage(iconError);
-            trayIcon[checker.ID].setToolTip("Not Reachable - IMWD\n" + checker.URL.replace("http://", ""));
+            trayIcon[checker.ID].setToolTip(Messages.ERROR_NOT_REACHABLE_TITLE + " - " + Main.APPLICATION_SHORT + "\n" + checker.URL.replace("http://", ""));
             if (showMessage)
-                trayIcon[checker.ID].displayMessage("Not Reachable: " + checker.URL.replace("http://", ""), "Unable to reach (and ping) " + checker.URL.replace("http://", "") + ".", TrayIcon.MessageType.ERROR);
+                trayIcon[checker.ID].displayMessage(Messages.ERROR_NOT_REACHABLE_TITLE + ": " + checker.URL.replace("http://", ""), Messages.ERROR_NOT_REACHABLE_NO_PING, TrayIcon.MessageType.ERROR);
         } else if (status == 4) {
             trayIcon[checker.ID].setImage(iconNoConnection);
-            trayIcon[checker.ID].setToolTip("No Connection - IMWD\n" + checker.URL.replace("http://", ""));
+            trayIcon[checker.ID].setToolTip(Messages.ERROR_NO_CONNECTION_TITLE + " - " + Main.APPLICATION_SHORT + "\n" + checker.URL.replace("http://", ""));
             if (showMessage)
-                trayIcon[checker.ID].displayMessage("No Connection!", "Please check your connection to the internet.", TrayIcon.MessageType.ERROR);
+                trayIcon[checker.ID].displayMessage(Messages.ERROR_NO_CONNECTION_TITLE, Messages.ERROR_NO_CONNECTION, TrayIcon.MessageType.ERROR);
         }
     }
 }

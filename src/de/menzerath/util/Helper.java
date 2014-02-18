@@ -1,8 +1,8 @@
 package de.menzerath.util;
 
+import de.menzerath.imwd.Main;
+
 public class Helper {
-    private static final int MIN_INTERVAL = 10;
-    private static final int MAX_INTERVAL = 300;
 
     /**
      * This method validates the user-input (URL) and checks if it is ok.
@@ -22,9 +22,15 @@ public class Helper {
      */
     public static boolean validateIntervalInput(String interval) {
         int myInterval = parseInt(interval);
-        return !(myInterval < MIN_INTERVAL || myInterval > MAX_INTERVAL);
+        return !(myInterval < Main.MIN_INTERVAL || myInterval > Main.MAX_INTERVAL);
     }
 
+    /**
+     * Parse a String and return an Integer.
+     *
+     * @param integer String to parse
+     * @return Parsed String; 0 on error
+     */
     public static int parseInt(String integer) {
         int myInt = 0;
         try {
@@ -32,14 +38,5 @@ public class Helper {
         } catch (NumberFormatException ignored) {
         }
         return myInt;
-    }
-
-    /**
-     * Tell the user that he passed invalid arguments and exit IMWD
-     */
-    public static void invalidArguments() {
-        System.out.println("You have to pass the following arguments in this order:");
-        System.out.println("--url=http://website.com --interval=30");
-        System.exit(0);
     }
 }

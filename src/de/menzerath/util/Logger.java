@@ -2,7 +2,6 @@ package de.menzerath.util;
 
 import de.menzerath.imwd.Checker;
 import de.menzerath.imwd.GuiApplication;
-import de.menzerath.imwd.Main;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,29 +32,17 @@ public class Logger {
     }
 
     /**
-     * Shows an informative message about "Is My Website Down?" on start
-     */
-    public static void sayHello() {
-        System.out.println("##################################################");
-        System.out.println("### Is My Website Down? v" + Main.getVersion() + "                 ###");
-        System.out.println("###                                            ###");
-        System.out.println("### © 2012-2014: Marvin Menzerath              ###");
-        System.out.println("### github.com/MarvinMenzerath/IsMyWebsiteDown ###");
-        System.out.println("##################################################\n");
-    }
-
-    /**
      * The Checker started its work
      */
     public void start() {
-        write(getLogHead() + "[INFO] Checking " + CHECKER.URL + " every " + CHECKER.INTERVAL + " seconds.");
+        write(getLogHead() + "[INFO] " + Messages.LOG_START.replace("%url", CHECKER.URL).replace("%interval", "" + CHECKER.INTERVAL));
     }
 
     /**
      * This was a successful check
      */
     public void ok() {
-        if (LOG_VALID_CHECKS) write(getLogHead() + "[OK] Everything OK.");
+        if (LOG_VALID_CHECKS) write(getLogHead() + "[OK] " + Messages.LOG_OK);
         updateGui(1);
     }
 
@@ -63,7 +50,7 @@ public class Logger {
      * This is only a warning - it might get worse
      */
     public void warning() {
-        write(getLogHead() + "[WARNING] Only a Ping was successful.");
+        write(getLogHead() + "[WARNING] " + Messages.LOG_PING_ONLY);
         updateGui(2);
     }
 
@@ -71,7 +58,7 @@ public class Logger {
      * Website is gone
      */
     public void error() {
-        write(getLogHead() + "[ERROR] Unable to reach the website.");
+        write(getLogHead() + "[ERROR] " + Messages.LOG_ERROR);
         updateGui(3);
     }
 
@@ -84,8 +71,7 @@ public class Logger {
             updateGui(4);
             return;
         }
-
-        write(getLogHead().replace("[1]", "[X]") + "[ERROR] No connection to the internet.");
+        write(getLogHead().replace("[1]", "[A]") + "[ERROR] " + Messages.LOG_NO_CONNECTION);
         updateGui(4);
     }
 

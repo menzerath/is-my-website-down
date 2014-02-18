@@ -23,7 +23,7 @@ public class Updater {
      * @return Availability of an update
      */
     public boolean isUpdateAvailable() {
-        return !getServerVersion().equalsIgnoreCase(Main.getVersion());
+        return !getServerVersion().equalsIgnoreCase(Main.VERSION);
     }
 
     /**

@@ -1,6 +1,7 @@
 package de.menzerath.imwd;
 
 import de.menzerath.util.Helper;
+import de.menzerath.util.Messages;
 import de.menzerath.util.Updater;
 
 public class ConsoleApplication {
@@ -22,7 +23,7 @@ public class ConsoleApplication {
             this.createLog = createLog;
             run();
         } else {
-            System.out.println("Enter a valid URL and interval:\nURL: Starts with \"http://\"\nInterval: Only Numbers, between 10 and 600");
+            System.out.println(Messages.INVALID_PARAMETERS);
             System.exit(1);
         }
     }
@@ -32,14 +33,14 @@ public class ConsoleApplication {
      */
     private void run() {
         // Run the update-check
-        runUpdateCheck();
+        updateCheck();
 
         // Display the used values
-        System.out.println("\nStarting with the following settings:");
-        System.out.println("URL: " + url);
-        System.out.println("Interval: " + interval + " seconds");
-        if (createLog) System.out.println("Log-File: Yes");
-        if (!createLog) System.out.println("Log-File: No");
+        System.out.println(Messages.CONSOLE_START);
+        System.out.println("URL:      " + url);
+        System.out.println("Interval: " + interval + "s");
+        if (createLog) System.out.println("Log-File: Yes" + "\n");
+        if (!createLog) System.out.println("Log-File: No" + "\n");
 
         // Create the Checker and go!
         Checker checker = new Checker(1, url, interval, true, true, createLog, true, false);
@@ -49,17 +50,14 @@ public class ConsoleApplication {
     /**
      * An update-check for the "ConsoleApplication": If there is an update available, it will show an url to get the update.
      */
-    private void runUpdateCheck() {
-        System.out.println("Checking for updates, please wait...");
+    private void updateCheck() {
         Updater myUpdater = new Updater();
         if (myUpdater.getServerVersion().equalsIgnoreCase("Error")) {
-            System.out.println("Unable to search for Updates. Please visit \"https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases/\"." + "\n");
+            System.out.println(Messages.UPDATE_ERROR + "\n");
         } else if (myUpdater.isUpdateAvailable()) {
-            System.out.println("There is an update to version " + myUpdater.getServerVersion() + " available.");
-            System.out.println("Changes: " + myUpdater.getServerChangelog());
-            System.out.println("Please download it as soon as possible using \"wget https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases/download/v" + myUpdater.getServerVersion() + "/IMWD.jar\".");
-        } else {
-            System.out.println("Congrats, no update found!");
+            System.out.println(Messages.UPDATE_AVAILABLE.replace("%version", myUpdater.getServerVersion()));
+            System.out.println(Messages.UPDATE_AVAILABLE_CHANGES.replace("%changes", myUpdater.getServerChangelog()));
+            System.out.println(Messages.UPDATE_MANUAL.replace("%version", myUpdater.getServerVersion()) + "\n");
         }
     }
 }
