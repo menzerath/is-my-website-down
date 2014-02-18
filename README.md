@@ -16,10 +16,6 @@ IMWD has a simple routine and checks your websites in a few steps:
 If you only want to download and run IMWD, simply grab a current release from [here](https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases) or heise.de:  
 <a title="Is My Website Down - Download - heise online" href="http://www.heise.de/download/is-my-website-down-1190272.html"><img alt="Is My Website Down - Download - heise online" title="Is My Website Down - Download - heise online" src="http://www.heise.de/software/icons/download_logo1.png" /></a>
 
-## Contribution
-If you want to contribute to this software, please adapt the current code-style. This makes further programming easier for everyone.
-Also I am not quiet sure if you will be able to edit the GUI-Layout ("GuiApplication.form") if you are not using the IntelliJ IDEA.
-
 ## License
 Copyright (C) 2012-2014 [Marvin Menzerath](http://menzerath.eu)
 
