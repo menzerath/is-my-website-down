@@ -98,14 +98,28 @@ public class GuiApplication extends JFrame {
             }
         });
 
-        // Start: JMenuBar
+        // START: JMenuBar
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
 
+        // START: File-Menu
         JMenu mnFile = new JMenu("File");
+        JMenuItem mntmAbout = new JMenuItem("About");
+        JMenuItem mntmExit = new JMenuItem("Exit");
         menuBar.add(mnFile);
 
-        JMenuItem mntmExit = new JMenuItem("Exit");
+        mntmAbout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                JOptionPane.showMessageDialog(null,
+                        Main.APPLICATION + " - Version " + Main.VERSION +
+                                "\n\n" + Messages.ABOUT_ICONS +
+                                "\n" + Messages.ABOUT_SOURCE +
+                                "\n" + Messages.ABOUT_AUTHOR, "About", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        mnFile.add(mntmAbout);
+
         mntmExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
@@ -118,25 +132,21 @@ public class GuiApplication extends JFrame {
                 System.exit(0);
             }
         });
-
-        JMenuItem mntmAbout = new JMenuItem("About");
-        mntmAbout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                JOptionPane.showMessageDialog(null,
-                        Main.APPLICATION + " - Version " + Main.VERSION +
-                                "\n\n" + Messages.ABOUT_ICONS +
-                                "\n" + Messages.ABOUT_SOURCE +
-                                "\n" + Messages.ABOUT_AUTHOR, "About", JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
-        mnFile.add(mntmAbout);
         mnFile.add(mntmExit);
+        // END: File-Menu
 
+        // START: Checker-Menu
         mnChecker = new JMenu("Checker");
+        final JRadioButtonMenuItem rbOne = new JRadioButtonMenuItem("1");
+        final JRadioButtonMenuItem rbTwo = new JRadioButtonMenuItem("2");
+        final JRadioButtonMenuItem rbThree = new JRadioButtonMenuItem("3");
         menuBar.add(mnChecker);
 
-        final JRadioButtonMenuItem rbOne = new JRadioButtonMenuItem("1");
+        ButtonGroup checkerGroup = new ButtonGroup();
+        checkerGroup.add(rbOne);
+        checkerGroup.add(rbTwo);
+        checkerGroup.add(rbThree);
+
         if (checkerAmount == 1) rbOne.setSelected(true);
         rbOne.addActionListener(new ActionListener() {
             @Override
@@ -149,7 +159,6 @@ public class GuiApplication extends JFrame {
         });
         mnChecker.add(rbOne);
 
-        final JRadioButtonMenuItem rbTwo = new JRadioButtonMenuItem("2");
         if (checkerAmount == 2) rbTwo.setSelected(true);
         rbTwo.addActionListener(new ActionListener() {
             @Override
@@ -162,7 +171,6 @@ public class GuiApplication extends JFrame {
         });
         mnChecker.add(rbTwo);
 
-        final JRadioButtonMenuItem rbThree = new JRadioButtonMenuItem("3");
         if (checkerAmount == 3) rbThree.setSelected(true);
         rbThree.addActionListener(new ActionListener() {
             @Override
@@ -174,16 +182,14 @@ public class GuiApplication extends JFrame {
             }
         });
         mnChecker.add(rbThree);
+        // END: Checker-Menu
 
-        ButtonGroup checkerGroup = new ButtonGroup();
-        checkerGroup.add(rbOne);
-        checkerGroup.add(rbTwo);
-        checkerGroup.add(rbThree);
-
+        // START: Checks-Menu
         mnChecks = new JMenu("Checks");
+        final JCheckBoxMenuItem cbCheckContent = new JCheckBoxMenuItem("Content");
+        final JCheckBoxMenuItem cbCheckPing = new JCheckBoxMenuItem("Ping");
         menuBar.add(mnChecks);
 
-        final JCheckBoxMenuItem cbCheckContent = new JCheckBoxMenuItem("Content");
         cbCheckContent.setSelected(Main.getCheckContentFromSettings());
         cbCheckContent.addActionListener(new ActionListener() {
             @Override
@@ -193,7 +199,6 @@ public class GuiApplication extends JFrame {
         });
         mnChecks.add(cbCheckContent);
 
-        final JCheckBoxMenuItem cbCheckPing = new JCheckBoxMenuItem("Ping");
         cbCheckPing.setSelected(Main.getCheckPingFromSettings());
         cbCheckPing.addActionListener(new ActionListener() {
             @Override
@@ -202,21 +207,32 @@ public class GuiApplication extends JFrame {
             }
         });
         mnChecks.add(cbCheckPing);
+        // END: Checks-Menu
 
+        // START: Log-Menu
         mnLogs = new JMenu("Logs");
+        final JCheckBoxMenuItem cbLogEnable = new JCheckBoxMenuItem("Enable");
+        final JCheckBoxMenuItem cbLogValid = new JCheckBoxMenuItem("Log valid Checks");
         menuBar.add(mnLogs);
 
-        final JCheckBoxMenuItem cbLogEnable = new JCheckBoxMenuItem("Enable");
         cbLogEnable.setSelected(Main.getCreateLogFromSettings());
         cbLogEnable.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Main.setCreateLogForSettings(cbLogEnable.isSelected());
+
+                if (!cbLogEnable.isSelected()) {
+                    cbLogValid.setEnabled(false);
+                    cbLogValid.setSelected(false);
+                    Main.setCreateValidLogForSettigs(false);
+                } else {
+                    cbLogValid.setEnabled(true);
+                }
             }
         });
         mnLogs.add(cbLogEnable);
 
-        final JCheckBoxMenuItem cbLogValid = new JCheckBoxMenuItem("Log valid Checks");
+        cbLogValid.setEnabled(cbLogEnable.isSelected());
         cbLogValid.setSelected(Main.getCreateValidLogFromSettings());
         cbLogValid.addActionListener(new ActionListener() {
             @Override
@@ -225,7 +241,9 @@ public class GuiApplication extends JFrame {
             }
         });
         mnLogs.add(cbLogValid);
+        // END: Log-Menu
 
+        // START: Tools-Menu
         JMenu mnTools = new JMenu("Tools");
         menuBar.add(mnTools);
 
@@ -255,7 +273,8 @@ public class GuiApplication extends JFrame {
             }
         });
         mnTools.add(mntmUpdates);
-        // End: JMenuBar
+        // END: Tools-Menu
+        // END: JMenuBar
     }
 
     /**
