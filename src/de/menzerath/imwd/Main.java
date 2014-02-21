@@ -7,7 +7,7 @@ import java.awt.*;
 public class Main {
     public static final String APPLICATION = "Is My Website Down?";
     public static final String APPLICATION_SHORT = "IMWD";
-    public static final String VERSION = "2.1";
+    public static final String VERSION = "2.0.2";
     public static final String URL = "https://github.com/MarvinMenzerath/IsMyWebsiteDown";
     public static final String URL_RELEASE = "https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases";
     public static final int MIN_INTERVAL = 10;
@@ -48,7 +48,7 @@ public class Main {
      */
     public static void sayHello() {
         System.out.println("##################################################");
-        System.out.println("### " + APPLICATION + " v" + VERSION + "                   ###");
+        System.out.println("### " + APPLICATION + " v" + VERSION + "                 ###");
         System.out.println("###                                            ###");
         System.out.println("### © 2012-2014: Marvin Menzerath              ###");
         System.out.println("### " + URL.substring(8) + " ###");

@@ -1,2 +1,2 @@
-2.1
-New Autorun, Option to disable TrayIcon-Messages, Option to disable Logging in Console and many Bugfixes
+2.0.2
+Improved Updater + Logger, Changed UserAgent, New License: GPLv2
