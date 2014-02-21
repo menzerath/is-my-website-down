@@ -58,13 +58,13 @@ public class GuiApplication extends JFrame {
         frame.setTitle(Main.APPLICATION);
         frame.setIconImage(iconOk);
         frame.setResizable(false);
-        if (!Main.getAutorunFromSettings()) frame.setVisible(true);
+        if (!SettingsManager.getAutorunFromSettings()) frame.setVisible(true);
 
         // Run an update-check
         runUpdateCheck(true);
 
-        if (Main.getAutorunFromSettings()) {
-            for (int i = 1; i < Main.getCheckerCountFromSettings() + 1; i++) {
+        if (SettingsManager.getAutorunFromSettings()) {
+            for (int i = 1; i < SettingsManager.getCheckerCountFromSettings() + 1; i++) {
                 gui.addChecker(i);
             }
         }
@@ -75,23 +75,23 @@ public class GuiApplication extends JFrame {
      */
     public GuiApplication() {
         // How many Checkers will be shown
-        int checkerAmount = Main.getCheckerCountFromSettings();
+        int checkerAmount = SettingsManager.getCheckerCountFromSettings();
         if (checkerAmount < 3) websiteSettings3.setVisible(false);
         if (checkerAmount < 2) websiteSettings2.setVisible(false);
         pack();
 
         // Load saved / default values
-        urlTextField.setText(Main.getUrlFromSettings(1));
-        url2TextField.setText(Main.getUrlFromSettings(2));
-        url3TextField.setText(Main.getUrlFromSettings(3));
-        intervalTextField.setText("" + Main.getIntervalFromSettings(1));
-        interval2TextField.setText("" + Main.getIntervalFromSettings(2));
-        interval3TextField.setText("" + Main.getIntervalFromSettings(3));
+        urlTextField.setText(SettingsManager.getUrlFromSettings(1));
+        url2TextField.setText(SettingsManager.getUrlFromSettings(2));
+        url3TextField.setText(SettingsManager.getUrlFromSettings(3));
+        intervalTextField.setText("" + SettingsManager.getIntervalFromSettings(1));
+        interval2TextField.setText("" + SettingsManager.getIntervalFromSettings(2));
+        interval3TextField.setText("" + SettingsManager.getIntervalFromSettings(3));
 
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                for (int i = 1; i < Main.getCheckerCountFromSettings() + 1; i++) {
+                for (int i = 1; i < SettingsManager.getCheckerCountFromSettings() + 1; i++) {
                     addChecker(i);
                 }
             }
@@ -158,7 +158,7 @@ public class GuiApplication extends JFrame {
         rbOne.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.setCheckerCountForSettings(1);
+                SettingsManager.setCheckerCountForSettings(1);
                 websiteSettings2.setVisible(false);
                 websiteSettings3.setVisible(false);
                 frame.pack();
@@ -170,7 +170,7 @@ public class GuiApplication extends JFrame {
         rbTwo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.setCheckerCountForSettings(2);
+                SettingsManager.setCheckerCountForSettings(2);
                 websiteSettings2.setVisible(true);
                 websiteSettings3.setVisible(false);
                 frame.pack();
@@ -182,7 +182,7 @@ public class GuiApplication extends JFrame {
         rbThree.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.setCheckerCountForSettings(3);
+                SettingsManager.setCheckerCountForSettings(3);
                 websiteSettings2.setVisible(true);
                 websiteSettings3.setVisible(true);
                 frame.pack();
@@ -197,20 +197,20 @@ public class GuiApplication extends JFrame {
         final JCheckBoxMenuItem cbCheckPing = new JCheckBoxMenuItem("Ping");
         menuBar.add(mnChecks);
 
-        cbCheckContent.setSelected(Main.getCheckContentFromSettings());
+        cbCheckContent.setSelected(SettingsManager.getCheckContentFromSettings());
         cbCheckContent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                Main.setCheckContentForSettings(cbCheckContent.isSelected());
+                SettingsManager.setCheckContentForSettings(cbCheckContent.isSelected());
             }
         });
         mnChecks.add(cbCheckContent);
 
-        cbCheckPing.setSelected(Main.getCheckPingFromSettings());
+        cbCheckPing.setSelected(SettingsManager.getCheckPingFromSettings());
         cbCheckPing.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                Main.setCheckPingForSettings(cbCheckPing.isSelected());
+                SettingsManager.setCheckPingForSettings(cbCheckPing.isSelected());
             }
         });
         mnChecks.add(cbCheckPing);
@@ -222,16 +222,16 @@ public class GuiApplication extends JFrame {
         final JCheckBoxMenuItem cbLogValid = new JCheckBoxMenuItem("Log valid Checks");
         menuBar.add(mnLogs);
 
-        cbLogEnable.setSelected(Main.getCreateLogFromSettings());
+        cbLogEnable.setSelected(SettingsManager.getCreateLogFromSettings());
         cbLogEnable.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.setCreateLogForSettings(cbLogEnable.isSelected());
+                SettingsManager.setCreateLogForSettings(cbLogEnable.isSelected());
 
                 if (!cbLogEnable.isSelected()) {
                     cbLogValid.setEnabled(false);
                     cbLogValid.setSelected(false);
-                    Main.setCreateValidLogForSettigs(false);
+                    SettingsManager.setCreateValidLogForSettigs(false);
                 } else {
                     cbLogValid.setEnabled(true);
                 }
@@ -240,11 +240,11 @@ public class GuiApplication extends JFrame {
         mnLogs.add(cbLogEnable);
 
         cbLogValid.setEnabled(cbLogEnable.isSelected());
-        cbLogValid.setSelected(Main.getCreateValidLogFromSettings());
+        cbLogValid.setSelected(SettingsManager.getCreateValidLogFromSettings());
         cbLogValid.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.setCreateValidLogForSettigs(cbLogValid.isSelected());
+                SettingsManager.setCreateValidLogForSettigs(cbLogValid.isSelected());
             }
         });
         mnLogs.add(cbLogValid);
@@ -258,7 +258,7 @@ public class GuiApplication extends JFrame {
         cbAutorun.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                Main.setAutorunForSettigs(cbAutorun.isSelected());
+                SettingsManager.setAutorunForSettigs(cbAutorun.isSelected());
 
                 if (cbAutorun.isSelected()) {
                     if (!Helper.addToAutorun()) {
@@ -271,7 +271,7 @@ public class GuiApplication extends JFrame {
         });
 
         // Change the text if the user doesn't use Windows and disable it
-        cbAutorun.setSelected(Main.getAutorunFromSettings());
+        cbAutorun.setSelected(SettingsManager.getAutorunFromSettings());
         if (!System.getProperty("os.name").startsWith("Windows")) {
             cbAutorun.setEnabled(false);
             cbAutorun.setText("Add to Autorun (Windows only)");
@@ -296,11 +296,11 @@ public class GuiApplication extends JFrame {
         final JCheckBoxMenuItem cbNotificationBubbles = new JCheckBoxMenuItem("Show Notification-Bubbles");
         menuBar.add(mnOther);
 
-        cbNotificationBubbles.setSelected(Main.getShowBubblesSettings());
+        cbNotificationBubbles.setSelected(SettingsManager.getShowBubblesSettings());
         cbNotificationBubbles.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                Main.setShowBubblesSettigs(cbNotificationBubbles.isSelected());
+                SettingsManager.setShowBubblesSettigs(cbNotificationBubbles.isSelected());
             }
         });
         mnOther.add(cbNotificationBubbles);
@@ -347,19 +347,19 @@ public class GuiApplication extends JFrame {
     private void addChecker(int checkerId) {
         if (checkerId == 1) {
             if (Helper.validateUrlInput(urlTextField.getText().trim()) && Helper.validateIntervalInput(intervalTextField.getText().trim())) {
-                start(urlTextField.getText().trim(), Helper.parseInt(intervalTextField.getText().trim()), checkerId, Main.getCheckerCountFromSettings());
+                start(urlTextField.getText().trim(), Helper.parseInt(intervalTextField.getText().trim()), checkerId, SettingsManager.getCheckerCountFromSettings());
             } else {
                 JOptionPane.showMessageDialog(null, Messages.INVALID_PARAMETERS, "Invalid Input (Website 1)", JOptionPane.ERROR_MESSAGE);
             }
         } else if (checkerId == 2) {
             if (Helper.validateUrlInput(url2TextField.getText().trim()) && Helper.validateIntervalInput(interval2TextField.getText().trim())) {
-                start(url2TextField.getText().trim(), Helper.parseInt(interval2TextField.getText().trim()), checkerId, Main.getCheckerCountFromSettings());
+                start(url2TextField.getText().trim(), Helper.parseInt(interval2TextField.getText().trim()), checkerId, SettingsManager.getCheckerCountFromSettings());
             } else {
                 JOptionPane.showMessageDialog(null, Messages.INVALID_PARAMETERS, "Invalid Input (Website 2)", JOptionPane.ERROR_MESSAGE);
             }
-        } else if (Main.getCheckerCountFromSettings() == 3) {
+        } else if (SettingsManager.getCheckerCountFromSettings() == 3) {
             if (Helper.validateUrlInput(url3TextField.getText().trim()) && Helper.validateIntervalInput(interval3TextField.getText().trim())) {
-                start(url3TextField.getText().trim(), Helper.parseInt(interval3TextField.getText().trim()), checkerId, Main.getCheckerCountFromSettings());
+                start(url3TextField.getText().trim(), Helper.parseInt(interval3TextField.getText().trim()), checkerId, SettingsManager.getCheckerCountFromSettings());
             } else {
                 JOptionPane.showMessageDialog(null, Messages.INVALID_PARAMETERS, "Invalid Input (Website 3)", JOptionPane.ERROR_MESSAGE);
             }
@@ -371,7 +371,7 @@ public class GuiApplication extends JFrame {
      * Prepares the GUI, the TrayIcon and starts the Checker
      */
     private void start(String url, int interval, int checkerId, int maxChecker) {
-        if (!Main.getCheckContentFromSettings() && !Main.getCheckPingFromSettings()) {
+        if (!SettingsManager.getCheckContentFromSettings() && !SettingsManager.getCheckPingFromSettings()) {
             // Show message only once (before adding last Checker)
             if (checkerId == maxChecker) {
                 JOptionPane.showMessageDialog(null, Messages.NO_CHECK_SELECTED, "Error", JOptionPane.ERROR_MESSAGE);
@@ -398,11 +398,11 @@ public class GuiApplication extends JFrame {
         stopButton.setEnabled(true);
 
         // Save the values
-        Main.setUrlForSettings(checkerId, url);
-        Main.setIntervalForSettings(checkerId, interval);
+        SettingsManager.setUrlForSettings(checkerId, url);
+        SettingsManager.setIntervalForSettings(checkerId, interval);
 
         // Create the Checker
-        checker[checkerId] = new Checker(checkerId, url, interval, Main.getCheckContentFromSettings(), Main.getCheckPingFromSettings(), Main.getCreateLogFromSettings(), Main.getCreateValidLogFromSettings(), true);
+        checker[checkerId] = new Checker(checkerId, url, interval, SettingsManager.getCheckContentFromSettings(), SettingsManager.getCheckPingFromSettings(), SettingsManager.getCreateLogFromSettings(), SettingsManager.getCreateValidLogFromSettings(), true);
         checker[checkerId].startTesting();
     }
 
@@ -487,17 +487,17 @@ public class GuiApplication extends JFrame {
         } else if (status == 2) {
             trayIcon[checker.ID].setImage(iconWarning);
             trayIcon[checker.ID].setToolTip(Messages.ERROR_NOT_REACHABLE_TITLE + " - " + Main.APPLICATION_SHORT + "\n" + checker.URL.replace("http://", ""));
-            if (showMessage && Main.getShowBubblesSettings())
+            if (showMessage && SettingsManager.getShowBubblesSettings())
                 trayIcon[checker.ID].displayMessage(Messages.ERROR_NOT_REACHABLE_TITLE + ": " + checker.URL.replace("http://", ""), Messages.ERROR_NOT_REACHABLE_PING, TrayIcon.MessageType.WARNING);
         } else if (status == 3) {
             trayIcon[checker.ID].setImage(iconError);
             trayIcon[checker.ID].setToolTip(Messages.ERROR_NOT_REACHABLE_TITLE + " - " + Main.APPLICATION_SHORT + "\n" + checker.URL.replace("http://", ""));
-            if (showMessage && Main.getShowBubblesSettings())
+            if (showMessage && SettingsManager.getShowBubblesSettings())
                 trayIcon[checker.ID].displayMessage(Messages.ERROR_NOT_REACHABLE_TITLE + ": " + checker.URL.replace("http://", ""), Messages.ERROR_NOT_REACHABLE_NO_PING, TrayIcon.MessageType.ERROR);
         } else if (status == 4) {
             trayIcon[checker.ID].setImage(iconNoConnection);
             trayIcon[checker.ID].setToolTip(Messages.ERROR_NO_CONNECTION_TITLE + " - " + Main.APPLICATION_SHORT + "\n" + checker.URL.replace("http://", ""));
-            if (showMessage && Main.getShowBubblesSettings())
+            if (showMessage && SettingsManager.getShowBubblesSettings())
                 trayIcon[checker.ID].displayMessage(Messages.ERROR_NO_CONNECTION_TITLE, Messages.ERROR_NO_CONNECTION, TrayIcon.MessageType.ERROR);
         }
     }
