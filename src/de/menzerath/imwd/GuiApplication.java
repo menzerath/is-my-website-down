@@ -252,9 +252,12 @@ public class GuiApplication extends JFrame {
 
         // START: Tools-Menu
         JMenu mnTools = new JMenu("Tools");
+        final JCheckBoxMenuItem cbAutorun = new JCheckBoxMenuItem("Start with Windows");
         menuBar.add(mnTools);
 
-        final JCheckBoxMenuItem cbAutorun = new JCheckBoxMenuItem("Start with Windows");
+        cbAutorun.setSelected(SettingsManager.getAutorunFromSettings());
+        if (SettingsManager.getAutorunFromSettings())
+            Helper.addToAutorun(); // If there was an update, update file in Autorun!
         cbAutorun.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
@@ -271,7 +274,6 @@ public class GuiApplication extends JFrame {
         });
 
         // Change the text if the user doesn't use Windows and disable it
-        cbAutorun.setSelected(SettingsManager.getAutorunFromSettings());
         if (!System.getProperty("os.name").startsWith("Windows")) {
             cbAutorun.setEnabled(false);
             cbAutorun.setText("Add to Autorun (Windows only)");
