@@ -22,6 +22,7 @@ public class Main {
     private static final String PREF_CREATE_LOG = "createLog";
     private static final String PREF_LOG_VALID_CHECKS = "createValidLog";
     private static final String PREF_AUTORUN = "autorun";
+    private static final String PREF_SHOW_BUBBLES = "showBubbles";
 
     /**
      * The Beginning!
@@ -147,6 +148,15 @@ public class Main {
     }
 
     /**
+     * Get the last used setting OR the default value
+     *
+     * @return Show Notification-Bubbles OR default value
+     */
+    public static boolean getShowBubblesSettings() {
+        return getPreferences().getBoolean(PREF_SHOW_BUBBLES, true);
+    }
+
+    /**
      * Save the specified value in the settings
      *
      * @param value The url to save
@@ -216,5 +226,14 @@ public class Main {
      */
     public static void setAutorunForSettigs(boolean value) {
         getPreferences().putBoolean(PREF_AUTORUN, value);
+    }
+
+    /**
+     * Save the specified value in the settings
+     *
+     * @param value "show Notification-Bubbles"-setting to save
+     */
+    public static void setShowBubblesSettigs(boolean value) {
+        getPreferences().putBoolean(PREF_SHOW_BUBBLES, value);
     }
 }

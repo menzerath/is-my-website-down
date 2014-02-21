@@ -290,6 +290,21 @@ public class GuiApplication extends JFrame {
         });
         mnTools.add(mntmUpdates);
         // END: Tools-Menu
+
+        // START: Other-Menu
+        JMenu mnOther = new JMenu("Other");
+        final JCheckBoxMenuItem cbNotificationBubbles = new JCheckBoxMenuItem("Show Notification-Bubbles");
+        menuBar.add(mnOther);
+
+        cbNotificationBubbles.setSelected(Main.getShowBubblesSettings());
+        cbNotificationBubbles.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                Main.setShowBubblesSettigs(cbNotificationBubbles.isSelected());
+            }
+        });
+        mnOther.add(cbNotificationBubbles);
+        // END: Other-Menu
         // END: JMenuBar
     }
 
@@ -472,17 +487,17 @@ public class GuiApplication extends JFrame {
         } else if (status == 2) {
             trayIcon[checker.ID].setImage(iconWarning);
             trayIcon[checker.ID].setToolTip(Messages.ERROR_NOT_REACHABLE_TITLE + " - " + Main.APPLICATION_SHORT + "\n" + checker.URL.replace("http://", ""));
-            if (showMessage)
+            if (showMessage && Main.getShowBubblesSettings())
                 trayIcon[checker.ID].displayMessage(Messages.ERROR_NOT_REACHABLE_TITLE + ": " + checker.URL.replace("http://", ""), Messages.ERROR_NOT_REACHABLE_PING, TrayIcon.MessageType.WARNING);
         } else if (status == 3) {
             trayIcon[checker.ID].setImage(iconError);
             trayIcon[checker.ID].setToolTip(Messages.ERROR_NOT_REACHABLE_TITLE + " - " + Main.APPLICATION_SHORT + "\n" + checker.URL.replace("http://", ""));
-            if (showMessage)
+            if (showMessage && Main.getShowBubblesSettings())
                 trayIcon[checker.ID].displayMessage(Messages.ERROR_NOT_REACHABLE_TITLE + ": " + checker.URL.replace("http://", ""), Messages.ERROR_NOT_REACHABLE_NO_PING, TrayIcon.MessageType.ERROR);
         } else if (status == 4) {
             trayIcon[checker.ID].setImage(iconNoConnection);
             trayIcon[checker.ID].setToolTip(Messages.ERROR_NO_CONNECTION_TITLE + " - " + Main.APPLICATION_SHORT + "\n" + checker.URL.replace("http://", ""));
-            if (showMessage)
+            if (showMessage && Main.getShowBubblesSettings())
                 trayIcon[checker.ID].displayMessage(Messages.ERROR_NO_CONNECTION_TITLE, Messages.ERROR_NO_CONNECTION, TrayIcon.MessageType.ERROR);
         }
     }
