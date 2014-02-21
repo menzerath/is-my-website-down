@@ -50,17 +50,24 @@ public class GuiApplication extends JFrame {
         }
 
         frame = new JFrame("GuiApplication");
-        frame.setContentPane(new GuiApplication().mainPanel);
+        GuiApplication gui = new GuiApplication();
+        frame.setContentPane(gui.mainPanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setTitle(Main.APPLICATION);
         frame.setIconImage(iconOk);
         frame.setResizable(false);
-        frame.setVisible(true);
+        if (!Main.getAutorunFromSettings()) frame.setVisible(true);
 
         // Run an update-check
         runUpdateCheck(true);
+
+        if (Main.getAutorunFromSettings()) {
+            for (int i = 1; i < Main.getCheckerCountFromSettings() + 1; i++) {
+                gui.addChecker(i);
+            }
+        }
     }
 
     /**
@@ -247,23 +254,32 @@ public class GuiApplication extends JFrame {
         JMenu mnTools = new JMenu("Tools");
         menuBar.add(mnTools);
 
-        JMenuItem mntmAutorun = new JMenuItem("Add to Autorun");
-        mntmAutorun.addActionListener(new ActionListener() {
+        final JCheckBoxMenuItem cbAutorun = new JCheckBoxMenuItem("Start with Windows");
+        cbAutorun.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                Helper.addToAutorun();
+                Main.setAutorunForSettigs(cbAutorun.isSelected());
+
+                if (cbAutorun.isSelected()) {
+                    if (!Helper.addToAutorun()) {
+                        JOptionPane.showMessageDialog(null, Messages.AUTORUN_ERROR, "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    Helper.removeFromAutorun();
+                }
             }
         });
 
         // Change the text if the user doesn't use Windows and disable it
         if (!System.getProperty("os.name").startsWith("Windows")) {
-            mntmAutorun.setEnabled(false);
-            mntmAutorun.setText("Add to Autorun (Windows only)");
+            cbAutorun.setEnabled(false);
+            cbAutorun.setText("Add to Autorun (Windows only)");
         } else if (System.getProperty("os.name").equals("Windows XP")) {
-            mntmAutorun.setEnabled(false);
-            mntmAutorun.setText("Add to Autorun (Vista or higher)");
+            cbAutorun.setEnabled(false);
+            cbAutorun.setText("Add to Autorun (Vista or higher)");
         }
-        mnTools.add(mntmAutorun);
+        cbAutorun.setSelected(Main.getAutorunFromSettings());
+        mnTools.add(cbAutorun);
 
         JMenuItem mntmUpdates = new JMenuItem("Check for Updates");
         mntmUpdates.addActionListener(new ActionListener() {

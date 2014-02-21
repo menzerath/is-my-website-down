@@ -21,6 +21,7 @@ public class Main {
     private static final String PREF_CHECK_PING = "checkPing";
     private static final String PREF_CREATE_LOG = "createLog";
     private static final String PREF_LOG_VALID_CHECKS = "createValidLog";
+    private static final String PREF_AUTORUN = "autorun";
 
     /**
      * The Beginning!
@@ -137,6 +138,15 @@ public class Main {
     }
 
     /**
+     * Get the last used setting OR the default value
+     *
+     * @return Start checking on start OR default value
+     */
+    public static boolean getAutorunFromSettings() {
+        return getPreferences().getBoolean(PREF_AUTORUN, false);
+    }
+
+    /**
      * Save the specified value in the settings
      *
      * @param value The url to save
@@ -197,5 +207,14 @@ public class Main {
      */
     public static void setCreateValidLogForSettigs(boolean value) {
         getPreferences().putBoolean(PREF_LOG_VALID_CHECKS, value);
+    }
+
+    /**
+     * Save the specified value in the settings
+     *
+     * @param value "autorun"-setting to save
+     */
+    public static void setAutorunForSettigs(boolean value) {
+        getPreferences().putBoolean(PREF_AUTORUN, value);
     }
 }
