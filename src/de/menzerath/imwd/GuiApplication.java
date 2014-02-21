@@ -271,6 +271,7 @@ public class GuiApplication extends JFrame {
         });
 
         // Change the text if the user doesn't use Windows and disable it
+        cbAutorun.setSelected(Main.getAutorunFromSettings());
         if (!System.getProperty("os.name").startsWith("Windows")) {
             cbAutorun.setEnabled(false);
             cbAutorun.setText("Add to Autorun (Windows only)");
@@ -278,7 +279,6 @@ public class GuiApplication extends JFrame {
             cbAutorun.setEnabled(false);
             cbAutorun.setText("Add to Autorun (Vista or higher)");
         }
-        cbAutorun.setSelected(Main.getAutorunFromSettings());
         mnTools.add(cbAutorun);
 
         JMenuItem mntmUpdates = new JMenuItem("Check for Updates");
