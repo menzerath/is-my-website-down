@@ -43,7 +43,7 @@ public class Messages {
     public static final String UPDATE_ERROR = "Unable to search for Updates. Please visit \"" + Main.URL_RELEASE + "\".";
     public static final String UPDATE_AVAILABLE_TITLE = "Update available";
     public static final String UPDATE_AVAILABLE = "There is an Update for " + Main.APPLICATION_SHORT + " to version %version available.";
-    public static final String UPDATE_AVAILABLE_CHANGES = "Changes: %changes";
+    public static final String UPDATE_AVAILABLE_CHANGES = "Changes: %changes\nVisit \"" + Main.URL_RELEASE + "\" for a full Changelog.";
     public static final String UPDATE_NOW = "Do you want to Download it now?";
     public static final String UPDATE_MANUAL = "Download Update using \"wget " + Main.URL_RELEASE + "/download/v%version/IMWD.jar\".";
     // END: Updates
