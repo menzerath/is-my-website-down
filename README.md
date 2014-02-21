@@ -6,7 +6,7 @@
 ![Notification](http://menzerath.eu/wp-content/uploads/2014/01/imwd2.png)
 ![Console](http://menzerath.eu/wp-content/uploads/2014/01/imwd3.png)
 
-## How this works
+## How IMWD Works
 IMWD has a simple routine and checks your websites in a few steps:
 
 1. **Fetch content**: Tries to get any content from the website. If this fails, tries to get content from http://google.com to check if there is an connection to the internet.
@@ -16,7 +16,7 @@ IMWD has a simple routine and checks your websites in a few steps:
 If you only want to download and run IMWD, simply grab a current release from [here](https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases) or heise.de:  
 <a title="Is My Website Down - Download - heise online" href="http://www.heise.de/download/is-my-website-down-1190272.html"><img alt="Is My Website Down - Download - heise online" title="Is My Website Down - Download - heise online" src="http://www.heise.de/software/icons/download_logo1.png" /></a>
 
-## Start
+## How To Use
 ### GUI
 Simply open the downloaded file by double-clicking it, enter URL and interval and click "Start".
 Settings are available in the Menu-Bar.
