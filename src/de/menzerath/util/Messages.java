@@ -34,7 +34,7 @@ public class Messages {
     public static final String ABOUT_SOURCE = "Sourcecode: http://github.com/MarvinMenzerath/IsMyWebsiteDown - GPLv3";
     public static final String ABOUT_AUTHOR = "© 2012-2014: Marvin Menzerath - http://menzerath.eu";
     public static final String NO_CHECK_SELECTED = "You have to select at least one Check-Type (Content / Ping)!";
-    public static final String AUTORUN_ERROR = "Could not copy IMWD to your Autorun. Please check...\n\n  * You are allowed to copy files to the Autorun-Folder.\n  * You are running Windows Vista or higher.";
+    public static final String AUTORUN_ERROR = "Could not copy " + Main.APPLICATION_SHORT + " to your Autorun. Please check...\n\n  * You are allowed to copy files to the Autorun-Folder.\n  * You are running Windows Vista or higher.";
     // END: GuiApplication
 
     // START: Updates
@@ -42,7 +42,7 @@ public class Messages {
     public static final String UPDATE_NO_UPDATE_LONG = "You are running the latest version of \"" + Main.APPLICATION + "\" (v" + Main.VERSION + ").";
     public static final String UPDATE_ERROR = "Unable to search for Updates. Please visit \"" + Main.URL_RELEASE + "\".";
     public static final String UPDATE_AVAILABLE_TITLE = "Update available";
-    public static final String UPDATE_AVAILABLE = "There is an Update to version %version available.";
+    public static final String UPDATE_AVAILABLE = "There is an Update for " + Main.APPLICATION_SHORT + " to version %version available.";
     public static final String UPDATE_AVAILABLE_CHANGES = "Changes: %changes";
     public static final String UPDATE_NOW = "Do you want to Download it now?";
     public static final String UPDATE_MANUAL = "Download Update using \"wget " + Main.URL_RELEASE + "/download/v%version/IMWD.jar\".";
