@@ -1,5 +1,6 @@
 # Is My Website Down?
 **"Is My Website Down?" periodically checks if your websites are reachable and notifies you if one of them is not.**
+[![Build Status](https://travis-ci.org/MarvinMenzerath/IsMyWebsiteDown.png?branch=master)](https://travis-ci.org/MarvinMenzerath/IsMyWebsiteDown)
 
 ## Screenshots
 ![GUI](http://menzerath.eu/wp-content/uploads/2014/01/imwd1.png)
