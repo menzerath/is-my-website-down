@@ -1,30 +1,29 @@
 # Is My Website Down?
-**"Is My Website Down?" periodically checks if your websites are reachable and notifies you if one of them is not.**
+**"Is My Website Down?" periodically Checks if your Websites are Reachable and Notifies you if one of them is not.**  
 [![Build Status](https://travis-ci.org/MarvinMenzerath/IsMyWebsiteDown.png?branch=master)](https://travis-ci.org/MarvinMenzerath/IsMyWebsiteDown)
 
-## Screenshots
-![GUI](http://menzerath.eu/wp-content/uploads/2014/01/imwd1.png =300x)
-![Notification](http://menzerath.eu/wp-content/uploads/2014/01/imwd2.png =300x)
-![Console](http://menzerath.eu/wp-content/uploads/2014/01/imwd3.png =300x)
-
 ## How IMWD Works
-IMWD has a simple routine and checks your websites in a few steps:
+IMWD uses a simple Algorithm to Check your Websites in two steps:
 
-1. **Fetch content**: Tries to get any content from the website. If this fails, tries to get content from http://google.com to check if there is an connection to the internet.
-2. **Ping**: Pings the website to check if "only" the webserver is down or the whole server.
+1. **Fetch Content**: IMWD tries to get any Content from the Website. If this fails, IWMD tries to get content from http://google.com to check if there is a connection to the internet.
+2. **Ping**: IWMD sends a few Pings to your Website to check if "only" the Webserver is down or the whole Server.
 
-## Download
-If you only want to download and run IMWD, simply grab a current release from [here](https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases) or heise.de:  
+## Screenshots
+<img src="http://menzerath.eu/wp-content/uploads/2014/01/imwd1.png" alt="GUI" width="280px"/>
+<img src="http://menzerath.eu/wp-content/uploads/2014/01/imwd2.png" alt="Notification" width="280px" />
+<img src="http://menzerath.eu/wp-content/uploads/2014/01/imwd3.png" alt="Console" width="280px" />
+
+## Getting Started
+
+### Download
+Grab a current release from [**here**](https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases) or heise.de:  
 <a title="Is My Website Down - Download - heise online" href="http://www.heise.de/download/is-my-website-down-1190272.html"><img alt="Is My Website Down - Download - heise online" title="Is My Website Down - Download - heise online" src="http://www.heise.de/software/icons/download_logo1.png" /></a>
 
-## How To Use
-### GUI
-Simply open the downloaded file by double-clicking it, enter URL and interval and click "Start".
-Settings are available in the Menu-Bar.
+### Run
+Start IMWD by typing `java -jar IMWD.jar` if you want to use the **Graphical User Interface**.  
+Otherwise run `java -jar IMWD.jar --url=http://website.com --interval=30` to use IMWD in your **Console**. If you want to disable logging into a file, add `--nolog` to this command.
 
-### Console
-Start IMWD by typing `java -jar IMWD.jar --url=http://website.com --interval=30`.
-If you want to disable logging into a file, add `--nolog` to the command.
+If you are a Windows-User, you are able to start IMWD by double-clicking it.
 
 ## License
 Copyright (C) 2012-2014 [Marvin Menzerath](http://menzerath.eu)
