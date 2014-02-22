@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>eu.menzerath.imwd</groupId>
+    <artifactId>IsMyWebsiteDown</artifactId>
+    <version>2.1</version>
+    <packaging>jar</packaging>
+
+    <name>IsMyWebsiteDown</name>
+    <description>"Is My Website Down?" periodically checks if your websites are reachable and notifies you if one of
+        them is not.
+    </description>
+    <url>https://github.com/MarvinMenzerath/IsMyWebsiteDown</url>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.intellij</groupId>
+            <artifactId>forms_rt</artifactId>
+            <version>7.0.3</version>
+        </dependency>
+    </dependencies>
+</project>

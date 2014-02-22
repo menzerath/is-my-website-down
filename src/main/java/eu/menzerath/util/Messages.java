@@ -1,6 +1,6 @@
-package de.menzerath.util;
+package eu.menzerath.util;
 
-import de.menzerath.imwd.Main;
+import eu.menzerath.imwd.Main;
 
 public class Messages {
     // START: Main

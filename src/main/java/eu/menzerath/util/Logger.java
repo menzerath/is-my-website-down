@@ -1,7 +1,7 @@
-package de.menzerath.util;
+package eu.menzerath.util;
 
-import de.menzerath.imwd.Checker;
-import de.menzerath.imwd.GuiApplication;
+import eu.menzerath.imwd.Checker;
+import eu.menzerath.imwd.GuiApplication;
 
 import java.io.File;
 import java.io.FileOutputStream;

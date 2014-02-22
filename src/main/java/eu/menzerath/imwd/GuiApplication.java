@@ -1,8 +1,8 @@
-package de.menzerath.imwd;
+package eu.menzerath.imwd;
 
-import de.menzerath.util.Helper;
-import de.menzerath.util.Messages;
-import de.menzerath.util.Updater;
+import eu.menzerath.util.Helper;
+import eu.menzerath.util.Messages;
+import eu.menzerath.util.Updater;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,10 +12,10 @@ import java.net.URI;
 
 public class GuiApplication extends JFrame {
     // Tray-Icons
-    private static final Image iconOk = Toolkit.getDefaultToolkit().getImage(GuiApplication.class.getResource("/res/ic_ok.png"));
-    private static final Image iconWarning = Toolkit.getDefaultToolkit().getImage(GuiApplication.class.getResource("/res/ic_warning.png"));
-    private static final Image iconError = Toolkit.getDefaultToolkit().getImage(GuiApplication.class.getResource("/res/ic_error.png"));
-    private static final Image iconNoConnection = Toolkit.getDefaultToolkit().getImage(GuiApplication.class.getResource("/res/ic_noConnection.png"));
+    private static final Image iconOk = Toolkit.getDefaultToolkit().getImage(GuiApplication.class.getResource("/icons/ok.png"));
+    private static final Image iconWarning = Toolkit.getDefaultToolkit().getImage(GuiApplication.class.getResource("/icons/warning.png"));
+    private static final Image iconError = Toolkit.getDefaultToolkit().getImage(GuiApplication.class.getResource("/icons/error.png"));
+    private static final Image iconNoConnection = Toolkit.getDefaultToolkit().getImage(GuiApplication.class.getResource("/icons/noConnection.png"));
 
     // GUI-Elements
     private static JFrame frame;

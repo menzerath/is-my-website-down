@@ -1,6 +1,6 @@
-package de.menzerath.imwd;
+package eu.menzerath.imwd;
 
-import de.menzerath.util.Messages;
+import eu.menzerath.util.Messages;
 
 import java.awt.*;
 

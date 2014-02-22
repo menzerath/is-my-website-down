@@ -1,8 +1,8 @@
-package de.menzerath.imwd;
+package eu.menzerath.imwd;
 
-import de.menzerath.util.Helper;
-import de.menzerath.util.Messages;
-import de.menzerath.util.Updater;
+import eu.menzerath.util.Helper;
+import eu.menzerath.util.Messages;
+import eu.menzerath.util.Updater;
 
 public class ConsoleApplication {
     private String url;

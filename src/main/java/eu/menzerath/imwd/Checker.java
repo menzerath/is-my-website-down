@@ -1,6 +1,6 @@
-package de.menzerath.imwd;
+package eu.menzerath.imwd;
 
-import de.menzerath.util.Logger;
+import eu.menzerath.util.Logger;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

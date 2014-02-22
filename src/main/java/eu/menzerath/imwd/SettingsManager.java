@@ -1,4 +1,4 @@
-package de.menzerath.imwd;
+package eu.menzerath.imwd;
 
 import java.util.prefs.Preferences;
 
