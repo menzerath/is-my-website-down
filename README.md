@@ -3,9 +3,9 @@
 [![Build Status](https://travis-ci.org/MarvinMenzerath/IsMyWebsiteDown.png?branch=master)](https://travis-ci.org/MarvinMenzerath/IsMyWebsiteDown)
 
 ## Screenshots
-![GUI](http://menzerath.eu/wp-content/uploads/2014/01/imwd1.png)
-![Notification](http://menzerath.eu/wp-content/uploads/2014/01/imwd2.png)
-![Console](http://menzerath.eu/wp-content/uploads/2014/01/imwd3.png)
+![GUI](http://menzerath.eu/wp-content/uploads/2014/01/imwd1.png =300x)
+![Notification](http://menzerath.eu/wp-content/uploads/2014/01/imwd2.png =300x)
+![Console](http://menzerath.eu/wp-content/uploads/2014/01/imwd3.png =300x)
 
 ## How IMWD Works
 IMWD has a simple routine and checks your websites in a few steps:
