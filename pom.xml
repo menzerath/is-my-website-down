@@ -23,6 +23,10 @@
         </dependency>
     </dependencies>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -37,7 +41,7 @@
                                 <goal>copy-dependencies</goal>
                             </goals>
                             <configuration>
-                                <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                                <outputDirectory>lib/</outputDirectory>
                                 <overWriteReleases>false</overWriteReleases>
                                 <overWriteSnapshots>false</overWriteSnapshots>
                                 <overWriteIfNewer>true</overWriteIfNewer>
@@ -59,7 +63,7 @@
                         </archive>
                     </configuration>
                 </plugin>
-                
+
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.1</version>
