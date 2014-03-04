@@ -15,6 +15,10 @@
     </description>
     <url>https://github.com/MarvinMenzerath/IsMyWebsiteDown</url>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.intellij</groupId>
@@ -23,37 +27,15 @@
         </dependency>
     </dependencies>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <build>
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>ideauidesigner-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>javac2</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <fork>true</fork>
-                        <debug>true</debug>
-                        <failOnError>true</failOnError>
-                    </configuration>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
+                <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
                     <configuration>
                         <archive>
                             <manifest>
-                                <addClasspath>true</addClasspath>
                                 <mainClass>eu.menzerath.imwd.Main</mainClass>
                             </manifest>
                         </archive>
