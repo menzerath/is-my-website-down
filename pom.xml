@@ -17,9 +17,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>ideauidesigner-maven-plugin</artifactId>
-            <version>1.0-beta-1</version>
+            <groupId>com.intellij</groupId>
+            <artifactId>forms_rt</artifactId>
+            <version>7.0.3</version>
         </dependency>
     </dependencies>
 
@@ -53,6 +53,7 @@
                     <configuration>
                         <archive>
                             <manifest>
+                                <addClasspath>true</addClasspath>
                                 <mainClass>eu.menzerath.imwd.Main</mainClass>
                             </manifest>
                         </archive>
