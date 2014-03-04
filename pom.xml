@@ -15,6 +15,10 @@
     </description>
     <url>https://github.com/MarvinMenzerath/IsMyWebsiteDown</url>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.intellij</groupId>
@@ -27,32 +31,29 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.4</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <mainClass>eu.menzerath.imwd.Main</mainClass>
+                            </manifest>
+                        </archive>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
+                    </configuration>
                     <executions>
                         <execution>
-                            <id>package-jar-with-dependencies</id>
+                            <id>make-assembly</id>
                             <phase>package</phase>
                             <goals>
                                 <goal>single</goal>
                             </goals>
-                            <configuration>
-                                <appendAssemblyId>false</appendAssemblyId>
-                                <descriptorRefs>
-                                    <descriptorRef>jar-with-dependencies</descriptorRef>
-                                </descriptorRefs>
-                                <archive>
-                                    <manifest>
-                                        <mainClass>eu.menzerath.imwd.Main</mainClass>
-                                    </manifest>
-                                </archive>
-                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
                 <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
+                    <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.1</version>
                     <configuration>
                         <source>1.7</source>
