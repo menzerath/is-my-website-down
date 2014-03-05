@@ -18,7 +18,7 @@ IMWD uses a simple Algorithm to Check your Websites in two steps:
 Grab a current release from [**here**](https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases) or heise.de:  
 <a title="Is My Website Down - Download - heise online" href="http://www.heise.de/download/is-my-website-down-1190272.html"><img alt="Is My Website Down - Download - heise online" title="Is My Website Down - Download - heise online" src="http://www.heise.de/software/icons/download_logo1.png" /></a>
 
-A (broken?) development-version is available from [**here**](http://menzerath.eu:8080/job/IsMyWebsiteDown/).
+A development-version is available from [**here**](http://menzerath.eu:8080/job/IsMyWebsiteDown/).
 
 ### Run
 Start IMWD by typing `java -jar IMWD.jar` if you want to use the **Graphical User Interface**.  
