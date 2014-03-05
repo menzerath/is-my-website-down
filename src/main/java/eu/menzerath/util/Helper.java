@@ -28,9 +28,8 @@ public class Helper {
      * @param interval Given interavl to check
      * @return If the input could be validated or not
      */
-    public static boolean validateIntervalInput(String interval) {
-        int myInterval = parseInt(interval);
-        return !(myInterval < Main.MIN_INTERVAL || myInterval > Main.MAX_INTERVAL);
+    public static boolean validateIntervalInput(int interval) {
+        return !(interval < Main.MIN_INTERVAL || interval > Main.MAX_INTERVAL);
     }
 
     /**

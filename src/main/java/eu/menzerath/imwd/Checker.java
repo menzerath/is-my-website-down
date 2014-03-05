@@ -121,7 +121,7 @@ public class Checker {
      * @param url URL to check
      * @return Is there any content at the url?
      */
-    private boolean testContent(String url) {
+    public boolean testContent(String url) {
         try {
             URLConnection myConnection = new URL(url).openConnection();
             myConnection.setRequestProperty("User-Agent", "IsMyWebsiteDown/" + Main.VERSION);
@@ -145,7 +145,7 @@ public class Checker {
      * @param url URL to check
      * @return Is a ping successful?
      */
-    private boolean testPing(String url) {
+    public boolean testPing(String url) {
         try {
             String cmd;
             if (System.getProperty("os.name").startsWith("Windows")) {

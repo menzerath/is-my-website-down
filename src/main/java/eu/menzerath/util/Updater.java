@@ -48,6 +48,7 @@ public class Updater {
      * Pulls data from the server and caches it for later access (to use with ConsoleApplication)
      */
     public void refresh() {
+        if (Main.VERSION.contains("SNAPSHOT")) return;
         ArrayList<String> fileContent = getUpdateFileFromServer();
         cacheServerVersion = fileContent.get(0);
         cacheServerChangelog = fileContent.get(1);
