@@ -14,7 +14,7 @@ public class SettingsManager {
     private static final String PREF_SHOW_BUBBLES = "showBubbles";
 
     /**
-     * Get the Preferences from the user-node AND the "Main"-class
+     * Get the Preferences from the user-node
      *
      * @return Preferences
      */
