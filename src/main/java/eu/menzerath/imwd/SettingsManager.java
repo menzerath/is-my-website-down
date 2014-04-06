@@ -65,7 +65,7 @@ public class SettingsManager {
      */
 
     /*
-     * BEGIN: SettingsManager-Setter
+     * BEGIN: Settings-Setter
      */
     public static void setUrlForSettings(int id, String value) {
         getPreferences().put(PREF_URL + id, value);
