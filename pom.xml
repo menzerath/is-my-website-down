@@ -21,10 +21,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.intellij</groupId>
-            <artifactId>forms_rt</artifactId>
-            <version>7.0.3</version>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>ideauidesigner-maven-plugin</artifactId>
+            <version>1.0-beta-1</version>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -36,26 +37,56 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <configuration>
-                        <archive>
-                            <manifest>
-                                <mainClass>eu.menzerath.imwd.Main</mainClass>
-                            </manifest>
-                        </archive>
-                    </configuration>
+                    <version>2.4</version>
                 </plugin>
 
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.1</version>
-                    <configuration>
-                        <source>1.7</source>
-                        <target>1.7</target>
-                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>ideauidesigner-maven-plugin</artifactId>
+                    <version>1.0-beta-1</version>
                 </plugin>
             </plugins>
         </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>eu.menzerath.imwd.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>ideauidesigner-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>javac2</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
     </build>
 </project>
