@@ -274,13 +274,11 @@ public class GuiApplication extends JFrame {
             }
         });
 
-        // Change the text if the user doesn't use Windows and disable it
+        // Do not show these items if the user doesn't use Windows
         if (!System.getProperty("os.name").startsWith("Windows")) {
-            cbAutorun.setEnabled(false);
-            cbAutorun.setText("Add to Autorun (Windows only)");
+            cbAutorun.setVisible(false);
         } else if (System.getProperty("os.name").equals("Windows XP")) {
-            cbAutorun.setEnabled(false);
-            cbAutorun.setText("Add to Autorun (Vista or higher)");
+            cbAutorun.setVisible(false);
         }
         mnTools.add(cbAutorun);
 

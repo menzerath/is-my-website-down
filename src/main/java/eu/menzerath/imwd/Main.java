@@ -25,7 +25,7 @@ public class Main {
         boolean createLog = true;
         if (args.length == 3 && args[2].equalsIgnoreCase("--nolog")) createLog = false;
         if (args.length > 1 && args.length < 4) {
-            // Arguments passed, if they are the correct ones create a new ConsoleApplication, otherwise show the user the needed arguments
+            // Arguments passed, if they are the correct ones: create a new ConsoleApplication, otherwise show the user the needed arguments
             if (args[0].trim().startsWith("--url=") && args[1].trim().startsWith("--interval=")) {
                 new ConsoleApplication(args[0].trim().substring(6), args[1].trim().substring(11), createLog);
             } else {
@@ -33,7 +33,7 @@ public class Main {
                 System.exit(1);
             }
         } else {
-            // If this is running on a setup without an graphical desktop and no arguments were passed show the needed arguments
+            // Running on a setup without graphical desktop and no arguments passed: show the needed arguments
             if (GraphicsEnvironment.isHeadless()) {
                 System.out.println(Messages.INVALID_ARGUMENTS);
                 System.exit(1);

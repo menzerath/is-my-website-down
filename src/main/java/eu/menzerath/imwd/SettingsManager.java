@@ -14,7 +14,7 @@ public class SettingsManager {
     private static final String PREF_SHOW_BUBBLES = "showBubbles";
 
     /**
-     * Get the Preferences from the user-node AND the "Main"-class
+     * Get the Preferences from the user-node
      *
      * @return Preferences
      */
@@ -65,7 +65,7 @@ public class SettingsManager {
      */
 
     /*
-     * BEGIN: SettingsManager-Setter
+     * BEGIN: Settings-Setter
      */
     public static void setUrlForSettings(int id, String value) {
         getPreferences().put(PREF_URL + id, value);
