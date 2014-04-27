@@ -62,7 +62,7 @@ public class Updater {
     private ArrayList<String> getUpdateFileFromServer() {
         ArrayList<String> lines = new ArrayList<>();
         try {
-            Scanner sc = new Scanner(new URL("https://raw.github.com/MarvinMenzerath/IsMyWebsiteDown/master/VERSION.txt").openConnection().getInputStream());
+            Scanner sc = new Scanner(new URL("https://raw.githubusercontent.com/MarvinMenzerath/IsMyWebsiteDown/master/VERSION.txt").openConnection().getInputStream());
             while (sc.hasNextLine()) {
                 lines.add(sc.nextLine().trim());
             }

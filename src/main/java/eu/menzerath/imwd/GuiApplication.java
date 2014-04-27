@@ -502,5 +502,4 @@ public class GuiApplication extends JFrame {
                 trayIcon[checker.ID].displayMessage(Messages.ERROR_NO_CONNECTION_TITLE, Messages.ERROR_NO_CONNECTION, TrayIcon.MessageType.ERROR);
         }
     }
-
 }
