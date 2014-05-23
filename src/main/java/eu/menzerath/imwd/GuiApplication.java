@@ -43,10 +43,17 @@ public class GuiApplication extends JFrame {
      * Prepares everything and then shows the form
      */
     public static void startGUI() {
-        // For an nicer look according to the used OS.
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception ignored) {
+        // For an nicer look: Windows - default / Other - Nimbus
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception ignored) {
+            }
+        } else {
+            try {
+                UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+            } catch (Exception ignored) {
+            }
         }
 
         frame = new JFrame("GuiApplication");
