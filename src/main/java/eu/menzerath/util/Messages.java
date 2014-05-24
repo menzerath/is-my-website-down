@@ -5,7 +5,7 @@ import eu.menzerath.imwd.Main;
 public class Messages {
     // START: Main
     public static final String INVALID_ARGUMENTS = "You have to pass the following arguments in this order:\n--url=http://website.com --interval=30";
-    public static final String INVALID_PARAMETERS = "Enter a valid URL and interval:\nURL: Starts with \"http://\"\nInterval: Only Numbers, between " + Main.MIN_INTERVAL + " and " + Main.MAX_INTERVAL;
+    public static final String INVALID_PARAMETERS = "Enter a valid URL and Interval:\nURL: Has to start with \"http://\"\nInterval: Only Numbers (between " + Main.MIN_INTERVAL + " and " + Main.MAX_INTERVAL + ") are allowed";
     // END: Main
 
     // START: Message-Bubbles
@@ -33,7 +33,6 @@ public class Messages {
     public static final String ABOUT_ICONS = "Icons: Ampeross - http://ampeross.deviantart.com";
     public static final String ABOUT_SOURCE = "Sourcecode: http://github.com/MarvinMenzerath/IsMyWebsiteDown - GPLv3";
     public static final String ABOUT_AUTHOR = "© 2012-2014: Marvin Menzerath - http://menzerath.eu";
-    public static final String NO_CHECK_SELECTED = "You have to select at least one Check-Type (Content / Ping)!";
     public static final String AUTORUN_ERROR = "Could not copy " + Main.APPLICATION_SHORT + " to your Autorun. Please check...\n\n  * You are allowed to copy files to the Autorun-Folder.\n  * You are running Windows Vista or higher.";
     // END: GuiApplication
 

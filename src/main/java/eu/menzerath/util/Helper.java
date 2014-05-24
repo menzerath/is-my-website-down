@@ -19,7 +19,7 @@ public class Helper {
      * @return If the input could be validated or not
      */
     public static boolean validateUrlInput(String url) {
-        return url.startsWith("http://");
+        return url.trim().startsWith("http://");
     }
 
     /**
@@ -41,7 +41,7 @@ public class Helper {
     public static int parseInt(String integer) {
         int myInt = 0;
         try {
-            myInt = Integer.parseInt(integer);
+            myInt = Integer.parseInt(integer.trim());
         } catch (NumberFormatException ignored) {
         }
         return myInt;

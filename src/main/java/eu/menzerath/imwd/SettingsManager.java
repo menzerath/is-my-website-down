@@ -37,12 +37,12 @@ public class SettingsManager {
         return getPreferences().getInt(PREF_CHECKER_COUNT, 1);
     }
 
-    public static boolean getCheckContentFromSettings() {
-        return getPreferences().getBoolean(PREF_CHECK_CONTENT, true);
+    public static boolean getCheckContentFromSettings(int id) {
+        return getPreferences().getBoolean(PREF_CHECK_CONTENT + id, true);
     }
 
-    public static boolean getCheckPingFromSettings() {
-        return getPreferences().getBoolean(PREF_CHECK_PING, true);
+    public static boolean getCheckPingFromSettings(int id) {
+        return getPreferences().getBoolean(PREF_CHECK_PING + id, true);
     }
 
     public static boolean getCreateLogFromSettings() {
@@ -79,12 +79,12 @@ public class SettingsManager {
         getPreferences().putInt(PREF_CHECKER_COUNT, value);
     }
 
-    public static void setCheckContentForSettings(boolean value) {
-        getPreferences().putBoolean(PREF_CHECK_CONTENT, value);
+    public static void setCheckContentForSettings(int id, boolean value) {
+        getPreferences().putBoolean(PREF_CHECK_CONTENT + id, value);
     }
 
-    public static void setCheckPingForSettings(boolean value) {
-        getPreferences().putBoolean(PREF_CHECK_PING, value);
+    public static void setCheckPingForSettings(int id, boolean value) {
+        getPreferences().putBoolean(PREF_CHECK_PING + id, value);
     }
 
     public static void setCreateLogForSettings(boolean value) {

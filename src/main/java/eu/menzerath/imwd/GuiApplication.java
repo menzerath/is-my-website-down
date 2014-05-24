@@ -20,23 +20,35 @@ public class GuiApplication extends JFrame {
     // GUI-Elements
     private static JFrame frame;
     private JPanel mainPanel;
-    private JPanel websiteSettings2;
-    private JPanel websiteSettings3;
-    private JMenu mnChecks;
     private JMenu mnChecker;
     private JMenu mnLogs;
-    private JTextField urlTextField;
-    private JTextField url2TextField;
-    private JTextField url3TextField;
-    private JTextField intervalTextField;
-    private JTextField interval2TextField;
-    private JTextField interval3TextField;
+    private JTextField url1;
+    private JTextField url2;
+    private JTextField url3;
+    private JTextField interval1;
+    private JTextField interval2;
+    private JTextField interval3;
+    private JCheckBox content1;
+    private JCheckBox content2;
+    private JCheckBox content3;
+    private JCheckBox ping1;
+    private JCheckBox ping2;
+    private JCheckBox ping3;
     private JButton startButton;
     private JButton stopButton;
+    private JPanel websiteSettings1;
+    private JPanel websiteSettings2;
+    private JPanel websiteSettings3;
+
+    private JPanel[] websiteSettings;
+    private JTextField[] url;
+    private JTextField[] interval;
+    private JCheckBox[] content;
+    private JCheckBox[] ping;
 
     // Other
-    private static TrayIcon[] trayIcon = new TrayIcon[4];
-    private Checker[] checker = new Checker[4];
+    private static TrayIcon[] trayIcon = new TrayIcon[3];
+    private Checker[] checker = new Checker[3];
 
     /**
      * Start the GUI!
@@ -71,8 +83,8 @@ public class GuiApplication extends JFrame {
         runUpdateCheck(true);
 
         if (SettingsManager.getAutorunFromSettings()) {
-            for (int i = 1; i < SettingsManager.getCheckerCountFromSettings() + 1; i++) {
-                gui.addChecker(i);
+            for (int i = 0; i < SettingsManager.getCheckerCountFromSettings(); i++) {
+                gui.start(i);
             }
         }
     }
@@ -81,25 +93,30 @@ public class GuiApplication extends JFrame {
      * Gives every button an action and adds an JMenuBar
      */
     public GuiApplication() {
-        // How many Checkers will be shown
-        int checkerAmount = SettingsManager.getCheckerCountFromSettings();
-        if (checkerAmount < 3) websiteSettings3.setVisible(false);
-        if (checkerAmount < 2) websiteSettings2.setVisible(false);
-        pack();
+        // Load important GUI-elements
+        websiteSettings = new JPanel[]{websiteSettings1, websiteSettings2, websiteSettings3};
+        url = new JTextField[]{url1, url2, url3};
+        interval = new JTextField[]{interval1, interval2, interval3};
+        content = new JCheckBox[]{content1, content2, content3};
+        ping = new JCheckBox[]{ping1, ping2, ping3};
 
         // Load saved / default values
-        urlTextField.setText(SettingsManager.getUrlFromSettings(1));
-        url2TextField.setText(SettingsManager.getUrlFromSettings(2));
-        url3TextField.setText(SettingsManager.getUrlFromSettings(3));
-        intervalTextField.setText("" + SettingsManager.getIntervalFromSettings(1));
-        interval2TextField.setText("" + SettingsManager.getIntervalFromSettings(2));
-        interval3TextField.setText("" + SettingsManager.getIntervalFromSettings(3));
+        for (int i = 0; i < 3; i++) {
+            url[i].setText(SettingsManager.getUrlFromSettings(i));
+            interval[i].setText("" + SettingsManager.getIntervalFromSettings(i));
+            content[i].setSelected(SettingsManager.getCheckContentFromSettings(i));
+            ping[i].setSelected(SettingsManager.getCheckPingFromSettings(i));
+        }
+
+        // How many Checkers will be shown
+        final int checkerAmount = SettingsManager.getCheckerCountFromSettings();
+        addWebsiteSettings(checkerAmount);
 
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                for (int i = 1; i < SettingsManager.getCheckerCountFromSettings() + 1; i++) {
-                    addChecker(i);
+                for (int i = 0; i < SettingsManager.getCheckerCountFromSettings(); i++) {
+                    start(i);
                 }
             }
         });
@@ -139,9 +156,9 @@ public class GuiApplication extends JFrame {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 try {
-                    checker[1].stopTesting();
-                    checker[2].stopTesting();
-                    checker[3].stopTesting();
+                    for (int i = 0; i < 3; i++) {
+                        checker[i].stopTesting();
+                    }
                 } catch (NullPointerException ignored) {
                 }
                 System.exit(0);
@@ -152,77 +169,26 @@ public class GuiApplication extends JFrame {
 
         // START: Checker-Menu
         mnChecker = new JMenu("Checker");
-        final JRadioButtonMenuItem rbOne = new JRadioButtonMenuItem("1");
-        final JRadioButtonMenuItem rbTwo = new JRadioButtonMenuItem("2");
-        final JRadioButtonMenuItem rbThree = new JRadioButtonMenuItem("3");
-        menuBar.add(mnChecker);
 
+        final JRadioButtonMenuItem[] rb = new JRadioButtonMenuItem[3];
         ButtonGroup checkerGroup = new ButtonGroup();
-        checkerGroup.add(rbOne);
-        checkerGroup.add(rbTwo);
-        checkerGroup.add(rbThree);
+        for (int i = 0; i < 3; i++) {
+            final int j = i + 1;
+            rb[i] = new JRadioButtonMenuItem("" + (i + 1));
+            rb[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    SettingsManager.setCheckerCountForSettings(j);
+                    addWebsiteSettings(j);
+                }
+            });
+            checkerGroup.add(rb[i]);
+            mnChecker.add(rb[i]);
+        }
+        rb[checkerAmount - 1].setSelected(true);
 
-        if (checkerAmount == 1) rbOne.setSelected(true);
-        rbOne.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SettingsManager.setCheckerCountForSettings(1);
-                websiteSettings2.setVisible(false);
-                websiteSettings3.setVisible(false);
-                frame.pack();
-            }
-        });
-        mnChecker.add(rbOne);
-
-        if (checkerAmount == 2) rbTwo.setSelected(true);
-        rbTwo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SettingsManager.setCheckerCountForSettings(2);
-                websiteSettings2.setVisible(true);
-                websiteSettings3.setVisible(false);
-                frame.pack();
-            }
-        });
-        mnChecker.add(rbTwo);
-
-        if (checkerAmount == 3) rbThree.setSelected(true);
-        rbThree.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SettingsManager.setCheckerCountForSettings(3);
-                websiteSettings2.setVisible(true);
-                websiteSettings3.setVisible(true);
-                frame.pack();
-            }
-        });
-        mnChecker.add(rbThree);
+        menuBar.add(mnChecker);
         // END: Checker-Menu
-
-        // START: Checks-Menu
-        mnChecks = new JMenu("Checks");
-        final JCheckBoxMenuItem cbCheckContent = new JCheckBoxMenuItem("Content");
-        final JCheckBoxMenuItem cbCheckPing = new JCheckBoxMenuItem("Ping");
-        menuBar.add(mnChecks);
-
-        cbCheckContent.setSelected(SettingsManager.getCheckContentFromSettings());
-        cbCheckContent.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                SettingsManager.setCheckContentForSettings(cbCheckContent.isSelected());
-            }
-        });
-        mnChecks.add(cbCheckContent);
-
-        cbCheckPing.setSelected(SettingsManager.getCheckPingFromSettings());
-        cbCheckPing.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                SettingsManager.setCheckPingForSettings(cbCheckPing.isSelected());
-            }
-        });
-        mnChecks.add(cbCheckPing);
-        // END: Checks-Menu
 
         // START: Log-Menu
         mnLogs = new JMenu("Logs");
@@ -347,44 +313,18 @@ public class GuiApplication extends JFrame {
     }
 
     /**
-     * Validates the input and starts the process
-     * Not the best solution, but it works ;)
-     *
-     * @param checkerId Currently added Checker (ID)
-     */
-    private void addChecker(int checkerId) {
-        if (checkerId == 1) {
-            if (Helper.validateUrlInput(urlTextField.getText().trim()) && Helper.validateIntervalInput(Helper.parseInt(intervalTextField.getText().trim()))) {
-                start(urlTextField.getText().trim(), Helper.parseInt(intervalTextField.getText().trim()), checkerId, SettingsManager.getCheckerCountFromSettings());
-            } else {
-                JOptionPane.showMessageDialog(null, Messages.INVALID_PARAMETERS, "Invalid Input (Website 1)", JOptionPane.ERROR_MESSAGE);
-            }
-        } else if (checkerId == 2) {
-            if (Helper.validateUrlInput(url2TextField.getText().trim()) && Helper.validateIntervalInput(Helper.parseInt(interval2TextField.getText().trim()))) {
-                start(url2TextField.getText().trim(), Helper.parseInt(interval2TextField.getText().trim()), checkerId, SettingsManager.getCheckerCountFromSettings());
-            } else {
-                JOptionPane.showMessageDialog(null, Messages.INVALID_PARAMETERS, "Invalid Input (Website 2)", JOptionPane.ERROR_MESSAGE);
-            }
-        } else if (SettingsManager.getCheckerCountFromSettings() == 3) {
-            if (Helper.validateUrlInput(url3TextField.getText().trim()) && Helper.validateIntervalInput(Helper.parseInt(interval3TextField.getText().trim()))) {
-                start(url3TextField.getText().trim(), Helper.parseInt(interval3TextField.getText().trim()), checkerId, SettingsManager.getCheckerCountFromSettings());
-            } else {
-                JOptionPane.showMessageDialog(null, Messages.INVALID_PARAMETERS, "Invalid Input (Website 3)", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
-
-    /**
      * Start testing!
      * Prepares the GUI, the TrayIcon and starts the Checker
      */
-    private void start(String url, int interval, int checkerId, int maxChecker) {
-        if (!SettingsManager.getCheckContentFromSettings() && !SettingsManager.getCheckPingFromSettings()) {
-            // Show message only once (before adding last Checker)
-            if (checkerId == maxChecker) {
-                JOptionPane.showMessageDialog(null, Messages.NO_CHECK_SELECTED, "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            return;
+    //private void start(int checkerId, String url, int interval, boolean checkContent, boolean checkPing, int maxChecker) {
+    private void start(int checkerId) {
+        String cUrl = url[checkerId].getText().trim();
+        int cInterval = Helper.parseInt(interval[checkerId].getText().trim());
+        boolean cContent = content[checkerId].isSelected();
+        boolean cPing = ping[checkerId].isSelected();
+
+        if (!Helper.validateUrlInput(cUrl) || !Helper.validateIntervalInput(cInterval)) {
+            JOptionPane.showMessageDialog(null, Messages.INVALID_PARAMETERS, "Invalid Input (Website " + checkerId + ")", JOptionPane.ERROR_MESSAGE);
         }
 
         createTrayIcon(checkerId);
@@ -393,24 +333,25 @@ public class GuiApplication extends JFrame {
         // Disable/Dispose GUI(-elements)
         frame.setVisible(false);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        mnChecks.setEnabled(false);
         mnChecker.setEnabled(false);
         mnLogs.setEnabled(false);
-        urlTextField.setEditable(false);
-        url2TextField.setEditable(false);
-        url3TextField.setEditable(false);
-        intervalTextField.setEditable(false);
-        interval2TextField.setEditable(false);
-        interval3TextField.setEditable(false);
+        for (int i = 0; i < 3; i++) {
+            this.url[i].setEnabled(false);
+            this.interval[i].setEnabled(false);
+            this.content[i].setEnabled(false);
+            this.ping[i].setEnabled(false);
+        }
         startButton.setEnabled(false);
         stopButton.setEnabled(true);
 
         // Save the values
-        SettingsManager.setUrlForSettings(checkerId, url);
-        SettingsManager.setIntervalForSettings(checkerId, interval);
+        SettingsManager.setUrlForSettings(checkerId, cUrl);
+        SettingsManager.setIntervalForSettings(checkerId, cInterval);
+        SettingsManager.setCheckContentForSettings(checkerId, cContent);
+        SettingsManager.setCheckPingForSettings(checkerId, cPing);
 
         // Create the Checker
-        checker[checkerId] = new Checker(checkerId, url, interval, SettingsManager.getCheckContentFromSettings(), SettingsManager.getCheckPingFromSettings(), SettingsManager.getCreateLogFromSettings(), SettingsManager.getCreateValidLogFromSettings(), true);
+        checker[checkerId] = new Checker(checkerId, cUrl, cInterval, cContent, cPing, SettingsManager.getCreateLogFromSettings(), SettingsManager.getCreateValidLogFromSettings(), true);
         checker[checkerId].startTesting();
     }
 
@@ -420,7 +361,7 @@ public class GuiApplication extends JFrame {
      */
     private void stop() {
         SystemTray tray = SystemTray.getSystemTray();
-        for (int i = 1; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             try {
                 tray.remove(trayIcon[i]);
                 checker[i].stopTesting();
@@ -431,17 +372,30 @@ public class GuiApplication extends JFrame {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // Enable GUI-elements
-        mnChecks.setEnabled(true);
         mnChecker.setEnabled(true);
         mnLogs.setEnabled(true);
-        urlTextField.setEditable(true);
-        url2TextField.setEditable(true);
-        url3TextField.setEditable(true);
-        intervalTextField.setEditable(true);
-        interval2TextField.setEditable(true);
-        interval3TextField.setEditable(true);
+        for (int i = 0; i < 3; i++) {
+            this.url[i].setEnabled(true);
+            this.interval[i].setEnabled(true);
+            this.content[i].setEnabled(true);
+            this.ping[i].setEnabled(true);
+        }
         startButton.setEnabled(true);
         stopButton.setEnabled(false);
+    }
+
+    /**
+     * Hide unused Checkers and show the needed ones
+     * @param checkerAmount Amount of used Websites
+     */
+    private void addWebsiteSettings(int checkerAmount) {
+        for (int i = 0; i < 3; i++) {
+            websiteSettings[i].setVisible(true);
+        }
+        for (int i = checkerAmount; i < 3; i++) {
+            websiteSettings[i].setVisible(false);
+        }
+        frame.pack();
     }
 
     /**
