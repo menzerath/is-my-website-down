@@ -67,6 +67,7 @@ public class GuiApplication extends JFrame {
             } catch (Exception ignored) {
             }
             JFrame.setDefaultLookAndFeelDecorated(true);
+            JDialog.setDefaultLookAndFeelDecorated(true);
         }
 
         frame = new JFrame("GuiApplication");
