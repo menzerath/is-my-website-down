@@ -66,6 +66,7 @@ public class GuiApplication extends JFrame {
                 UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
             } catch (Exception ignored) {
             }
+            JFrame.setDefaultLookAndFeelDecorated(true);
         }
 
         frame = new JFrame("GuiApplication");
