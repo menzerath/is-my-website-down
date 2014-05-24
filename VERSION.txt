@@ -1,2 +1,2 @@
-2.1
-New Autorun, Option to disable TrayIcon-Messages, Option to disable Logging in Console and many Bugfixes
+2.1.1
+Set "Check Content" / "Check Ping" per Website, Allow use of HTTPS-URLs, Modified GUI and Icons, Bugfixes
