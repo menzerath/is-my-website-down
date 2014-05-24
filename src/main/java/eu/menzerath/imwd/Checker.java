@@ -125,6 +125,7 @@ public class Checker {
         try {
             URLConnection myConnection = new URL(url).openConnection();
             myConnection.setRequestProperty("User-Agent", "IsMyWebsiteDown/" + Main.VERSION);
+            myConnection.setRequestProperty("Connection", "close");
 
             BufferedReader in = new BufferedReader(new InputStreamReader(myConnection.getInputStream()));
             if (in.readLine() != null) {
@@ -148,10 +149,12 @@ public class Checker {
     public boolean testPing(String url) {
         try {
             String cmd;
+            url = url.replace("http://", "");
+            url = url.replace("https://", "");
             if (System.getProperty("os.name").startsWith("Windows")) {
-                cmd = "ping -n 1 -w 3000 " + url.replace("http://", "");
+                cmd = "ping -n 1 -w 3000 " + url;
             } else {
-                cmd = "ping -c 1 " + url.replace("http://", "");
+                cmd = "ping -c 1 " + url;
             }
 
             Process myProcess = Runtime.getRuntime().exec(cmd);

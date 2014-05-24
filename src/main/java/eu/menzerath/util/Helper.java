@@ -19,7 +19,7 @@ public class Helper {
      * @return If the input could be validated or not
      */
     public static boolean validateUrlInput(String url) {
-        return url.trim().startsWith("http://");
+        return url.trim().startsWith("http://") || url.trim().startsWith("https://");
     }
 
     /**

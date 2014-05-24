@@ -5,7 +5,7 @@ import eu.menzerath.imwd.Main;
 public class Messages {
     // START: Main
     public static final String INVALID_ARGUMENTS = "You have to pass the following arguments in this order:\n--url=http://website.com --interval=30";
-    public static final String INVALID_PARAMETERS = "Enter a valid URL and Interval:\nURL: Has to start with \"http://\"\nInterval: Only Numbers (between " + Main.MIN_INTERVAL + " and " + Main.MAX_INTERVAL + ") are allowed";
+    public static final String INVALID_PARAMETERS = "Enter a valid URL and Interval:\nURL: Has to start with \"http://\" or \"https://\"\nInterval: Only Numbers (between " + Main.MIN_INTERVAL + " and " + Main.MAX_INTERVAL + ") are allowed";
     // END: Main
 
     // START: Message-Bubbles

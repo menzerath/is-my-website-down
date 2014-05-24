@@ -316,7 +316,6 @@ public class GuiApplication extends JFrame {
      * Start testing!
      * Prepares the GUI, the TrayIcon and starts the Checker
      */
-    //private void start(int checkerId, String url, int interval, boolean checkContent, boolean checkPing, int maxChecker) {
     private void start(int checkerId) {
         String cUrl = url[checkerId].getText().trim();
         int cInterval = Helper.parseInt(interval[checkerId].getText().trim());
@@ -325,6 +324,7 @@ public class GuiApplication extends JFrame {
 
         if (!Helper.validateUrlInput(cUrl) || !Helper.validateIntervalInput(cInterval)) {
             JOptionPane.showMessageDialog(null, Messages.INVALID_PARAMETERS, "Invalid Input (Website " + checkerId + ")", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         createTrayIcon(checkerId);
