@@ -13,7 +13,12 @@ public class HelperTest {
 
     @Test
     public void testUrlValidator2() {
-        Assert.assertFalse(Helper.validateUrlInput("https://google.com"));
+        Assert.assertTrue(Helper.validateUrlInput("https://google.com"));
+    }
+
+    @Test
+    public void testUrlValidator3() {
+        Assert.assertFalse(Helper.validateUrlInput("ftp://google.com"));
     }
 
     @Test
