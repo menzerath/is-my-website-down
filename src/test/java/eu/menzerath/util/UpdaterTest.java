@@ -13,7 +13,7 @@ public class UpdaterTest {
         if (Main.VERSION.contains("SNAPSHOT")) {
             Assert.assertEquals("Error", updater.getServerVersion());
         } else {
-            Assert.assertNotEquals("Error", updater.getServerVersion());
+            Assert.assertFalse(updater.getServerVersion().equals("Error"));
         }
     }
 
@@ -24,7 +24,7 @@ public class UpdaterTest {
         if (Main.VERSION.contains("SNAPSHOT")) {
             Assert.assertEquals("Error", updater.getServerChangelog());
         } else {
-            Assert.assertNotEquals("Error", updater.getServerChangelog());
+            Assert.assertFalse(updater.getServerChangelog().equals("Error"));
         }
     }
 }
