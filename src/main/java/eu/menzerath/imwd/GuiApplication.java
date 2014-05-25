@@ -39,6 +39,16 @@ public class GuiApplication extends JFrame {
     private JPanel websiteSettings1;
     private JPanel websiteSettings2;
     private JPanel websiteSettings3;
+    private JPanel websiteSettings4;
+    private JPanel websiteSettings5;
+    private JTextField url4;
+    private JTextField interval4;
+    private JCheckBox content4;
+    private JCheckBox ping4;
+    private JTextField url5;
+    private JTextField interval5;
+    private JCheckBox content5;
+    private JCheckBox ping5;
 
     private JPanel[] websiteSettings;
     private JTextField[] url;
@@ -47,8 +57,9 @@ public class GuiApplication extends JFrame {
     private JCheckBox[] ping;
 
     // Other
-    private static TrayIcon[] trayIcon = new TrayIcon[3];
-    private Checker[] checker = new Checker[3];
+    private static final int maxCheckerId = 5;
+    private static TrayIcon[] trayIcon = new TrayIcon[maxCheckerId];
+    private Checker[] checker = new Checker[maxCheckerId];
 
     /**
      * Start the GUI!
@@ -96,14 +107,14 @@ public class GuiApplication extends JFrame {
      */
     public GuiApplication() {
         // Load important GUI-elements
-        websiteSettings = new JPanel[]{websiteSettings1, websiteSettings2, websiteSettings3};
-        url = new JTextField[]{url1, url2, url3};
-        interval = new JTextField[]{interval1, interval2, interval3};
-        content = new JCheckBox[]{content1, content2, content3};
-        ping = new JCheckBox[]{ping1, ping2, ping3};
+        websiteSettings = new JPanel[]{websiteSettings1, websiteSettings2, websiteSettings3, websiteSettings4, websiteSettings5};
+        url = new JTextField[]{url1, url2, url3, url4, url5};
+        interval = new JTextField[]{interval1, interval2, interval3, interval4, interval5};
+        content = new JCheckBox[]{content1, content2, content3, content4, content5};
+        ping = new JCheckBox[]{ping1, ping2, ping3, ping4, ping5};
 
         // Load saved / default values
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < maxCheckerId; i++) {
             url[i].setText(SettingsManager.getUrlFromSettings(i));
             interval[i].setText("" + SettingsManager.getIntervalFromSettings(i));
             content[i].setSelected(SettingsManager.getCheckContentFromSettings(i));
@@ -157,11 +168,11 @@ public class GuiApplication extends JFrame {
         mntmExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                try {
-                    for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < 5; i++) {
+                    try {
                         checker[i].stopTesting();
+                    } catch (NullPointerException ignored) {
                     }
-                } catch (NullPointerException ignored) {
                 }
                 System.exit(0);
             }
@@ -172,9 +183,9 @@ public class GuiApplication extends JFrame {
         // START: Checker-Menu
         mnChecker = new JMenu("Checker");
 
-        final JRadioButtonMenuItem[] rb = new JRadioButtonMenuItem[3];
+        final JRadioButtonMenuItem[] rb = new JRadioButtonMenuItem[maxCheckerId];
         ButtonGroup checkerGroup = new ButtonGroup();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < maxCheckerId; i++) {
             final int j = i + 1;
             rb[i] = new JRadioButtonMenuItem("" + (i + 1));
             rb[i].addActionListener(new ActionListener() {
@@ -337,7 +348,7 @@ public class GuiApplication extends JFrame {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mnChecker.setEnabled(false);
         mnLogs.setEnabled(false);
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < maxCheckerId; i++) {
             this.url[i].setEnabled(false);
             this.interval[i].setEnabled(false);
             this.content[i].setEnabled(false);
@@ -363,7 +374,7 @@ public class GuiApplication extends JFrame {
      */
     private void stop() {
         SystemTray tray = SystemTray.getSystemTray();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < maxCheckerId; i++) {
             try {
                 tray.remove(trayIcon[i]);
                 checker[i].stopTesting();
@@ -376,7 +387,7 @@ public class GuiApplication extends JFrame {
         // Enable GUI-elements
         mnChecker.setEnabled(true);
         mnLogs.setEnabled(true);
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < maxCheckerId; i++) {
             this.url[i].setEnabled(true);
             this.interval[i].setEnabled(true);
             this.content[i].setEnabled(true);
@@ -391,10 +402,10 @@ public class GuiApplication extends JFrame {
      * @param checkerAmount Amount of used Websites
      */
     private void addWebsiteSettings(int checkerAmount) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < maxCheckerId; i++) {
             websiteSettings[i].setVisible(true);
         }
-        for (int i = checkerAmount; i < 3; i++) {
+        for (int i = checkerAmount; i < maxCheckerId; i++) {
             websiteSettings[i].setVisible(false);
         }
         frame.pack();
