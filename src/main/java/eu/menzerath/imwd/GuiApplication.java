@@ -415,6 +415,11 @@ public class GuiApplication extends JFrame {
                     if (!startup) {
                         JOptionPane.showMessageDialog(null, Messages.UPDATE_ERROR, "Error", JOptionPane.ERROR_MESSAGE);
                     }
+                } else if (myUpdater.getServerVersion().equalsIgnoreCase("SNAPSHOT")) {
+                    // Show this message if the Updater was created by the user
+                    if (!startup) {
+                        JOptionPane.showMessageDialog(null, Messages.UPDATE_SNAPSHOT, "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 } else if (myUpdater.isUpdateAvailable()) {
                     int value = JOptionPane.showConfirmDialog(null, Messages.UPDATE_AVAILABLE.replace("%version", myUpdater.getServerVersion()) +
                             "\n" + Messages.UPDATE_AVAILABLE_CHANGES.replace("%changes", myUpdater.getServerChangelog()) +

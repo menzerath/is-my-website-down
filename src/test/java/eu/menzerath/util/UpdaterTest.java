@@ -11,8 +11,9 @@ public class UpdaterTest {
         Updater updater = new Updater();
 
         if (Main.VERSION.contains("SNAPSHOT")) {
-            Assert.assertEquals("Error", updater.getServerVersion());
+            Assert.assertEquals("SNAPSHOT", updater.getServerVersion());
         } else {
+            Assert.assertFalse(updater.getServerVersion().equals("SNAPSHOT"));
             Assert.assertFalse(updater.getServerVersion().equals("Error"));
         }
     }
@@ -22,8 +23,9 @@ public class UpdaterTest {
         Updater updater = new Updater();
 
         if (Main.VERSION.contains("SNAPSHOT")) {
-            Assert.assertEquals("Error", updater.getServerChangelog());
+            Assert.assertEquals("SNAPSHOT", updater.getServerChangelog());
         } else {
+            Assert.assertFalse(updater.getServerChangelog().equals("SNAPSHOT"));
             Assert.assertFalse(updater.getServerChangelog().equals("Error"));
         }
     }

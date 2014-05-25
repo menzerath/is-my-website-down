@@ -45,13 +45,17 @@ public class Updater {
     }
 
     /**
-     * Pulls data from the server and caches it for later access (to use with ConsoleApplication)
+     * Pulls data from the server and caches it for later access (to use with ConsoleApplication) if this is not a SNAPSHOT-version
      */
     public void refresh() {
-        if (Main.VERSION.contains("SNAPSHOT")) return;
-        ArrayList<String> fileContent = getUpdateFileFromServer();
-        cacheServerVersion = fileContent.get(0);
-        cacheServerChangelog = fileContent.get(1);
+        if (Main.VERSION.contains("SNAPSHOT")) {
+            cacheServerVersion = "SNAPSHOT";
+            cacheServerChangelog = "SNAPSHOT";
+        } else {
+            ArrayList<String> fileContent = getUpdateFileFromServer();
+            cacheServerVersion = fileContent.get(0);
+            cacheServerChangelog = fileContent.get(1);
+        }
     }
 
     /**

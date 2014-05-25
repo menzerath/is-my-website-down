@@ -54,6 +54,8 @@ public class ConsoleApplication {
         Updater myUpdater = new Updater();
         if (myUpdater.getServerVersion().equalsIgnoreCase("Error")) {
             System.out.println(Messages.UPDATE_ERROR + "\n");
+        } else if (myUpdater.getServerVersion().equals("SNAPSHOT")) {
+            System.out.println(Messages.UPDATE_SNAPSHOT + "\n");
         } else if (myUpdater.isUpdateAvailable()) {
             System.out.println(Messages.UPDATE_AVAILABLE.replace("%version", myUpdater.getServerVersion()));
             System.out.println(Messages.UPDATE_AVAILABLE_CHANGES.replace("%changes", myUpdater.getServerChangelog()));
