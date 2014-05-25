@@ -39,8 +39,7 @@ public class ConsoleApplication {
         System.out.println(Messages.CONSOLE_START);
         System.out.println("URL:      " + url);
         System.out.println("Interval: " + interval + "s");
-        if (createLog) System.out.println("Log-File: Yes" + "\n");
-        if (!createLog) System.out.println("Log-File: No" + "\n");
+        System.out.println("Log-File: " + createLog + "\n");
 
         // Create the Checker and go!
         Checker checker = new Checker(1, url, interval, true, true, createLog, true, false);
