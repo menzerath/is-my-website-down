@@ -30,8 +30,6 @@ public class GuiApplication extends JFrame {
     private JPanel websiteSettings6;
     private JPanel websiteSettings7;
     private JPanel websiteSettings8;
-    private JPanel websiteSettings9;
-    private JPanel websiteSettings10;
     private JTextField url1;
     private JTextField url2;
     private JTextField url3;
@@ -40,8 +38,6 @@ public class GuiApplication extends JFrame {
     private JTextField url6;
     private JTextField url7;
     private JTextField url8;
-    private JTextField url9;
-    private JTextField url10;
     private JTextField interval1;
     private JTextField interval2;
     private JTextField interval3;
@@ -50,8 +46,6 @@ public class GuiApplication extends JFrame {
     private JTextField interval6;
     private JTextField interval7;
     private JTextField interval8;
-    private JTextField interval9;
-    private JTextField interval10;
     private JCheckBox content1;
     private JCheckBox content2;
     private JCheckBox content3;
@@ -60,8 +54,6 @@ public class GuiApplication extends JFrame {
     private JCheckBox content6;
     private JCheckBox content7;
     private JCheckBox content8;
-    private JCheckBox content9;
-    private JCheckBox content10;
     private JCheckBox ping1;
     private JCheckBox ping2;
     private JCheckBox ping3;
@@ -70,8 +62,6 @@ public class GuiApplication extends JFrame {
     private JCheckBox ping6;
     private JCheckBox ping7;
     private JCheckBox ping8;
-    private JCheckBox ping9;
-    private JCheckBox ping10;
     private JButton startButton;
     private JButton stopButton;
 
@@ -83,7 +73,7 @@ public class GuiApplication extends JFrame {
     private JCheckBox[] ping;
 
     // Other
-    private static final int maxCheckerId = 10;
+    private static final int maxCheckerId = 8;
     private static TrayIcon[] trayIcon = new TrayIcon[maxCheckerId];
     private Checker[] checker = new Checker[maxCheckerId];
 
@@ -92,19 +82,10 @@ public class GuiApplication extends JFrame {
      * Prepares everything and then shows the form
      */
     public static void startGUI() {
-        // For an nicer look: Windows - default / Other - Nimbus
-        if (System.getProperty("os.name").startsWith("Windows")) {
-            try {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception ignored) {
-            }
-        } else {
-            try {
-                UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-            } catch (Exception ignored) {
-            }
-            JFrame.setDefaultLookAndFeelDecorated(true);
-            JDialog.setDefaultLookAndFeelDecorated(true);
+        // For an nicer look according to the used OS
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception ignored) {
         }
 
         frame = new JFrame("GuiApplication");
@@ -133,11 +114,11 @@ public class GuiApplication extends JFrame {
      */
     public GuiApplication() {
         // Load important GUI-elements
-        websiteSettings = new JPanel[]{websiteSettings1, websiteSettings2, websiteSettings3, websiteSettings4, websiteSettings5, websiteSettings6, websiteSettings7, websiteSettings8, websiteSettings9, websiteSettings10};
-        url = new JTextField[]{url1, url2, url3, url4, url5, url6, url7, url8, url9, url10};
-        interval = new JTextField[]{interval1, interval2, interval3, interval4, interval5, interval6, interval7, interval8, interval9, interval10};
-        content = new JCheckBox[]{content1, content2, content3, content4, content5, content6, content7, content8, content9, content10};
-        ping = new JCheckBox[]{ping1, ping2, ping3, ping4, ping5, ping6, ping7, ping8, ping9, ping10};
+        websiteSettings = new JPanel[]{websiteSettings1, websiteSettings2, websiteSettings3, websiteSettings4, websiteSettings5, websiteSettings6, websiteSettings7, websiteSettings8};
+        url = new JTextField[]{url1, url2, url3, url4, url5, url6, url7, url8};
+        interval = new JTextField[]{interval1, interval2, interval3, interval4, interval5, interval6, interval7, interval8};
+        content = new JCheckBox[]{content1, content2, content3, content4, content5, content6, content7, content8};
+        ping = new JCheckBox[]{ping1, ping2, ping3, ping4, ping5, ping6, ping7, ping8};
 
         // Load saved / default values
         for (int i = 0; i < maxCheckerId; i++) {

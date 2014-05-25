@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="eu.menzerath.imwd.GuiApplication">
-  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="3" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="3" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="5" left="5" bottom="5" right="5"/>
     <constraints>
-      <xy x="20" y="20" width="1359" height="358"/>
+      <xy x="20" y="20" width="1148" height="358"/>
     </constraints>
     <properties>
       <enabled value="true"/>
@@ -16,7 +16,7 @@
       <grid id="8623d" binding="websiteSettings1" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="5" left="5" bottom="5" right="5"/>
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="etched" title="Website 1">
@@ -100,10 +100,212 @@
           </component>
         </children>
       </grid>
+      <grid id="9855b" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="2" bottom="0" right="2"/>
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="4" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none">
+          <title-color color="-16777216"/>
+        </border>
+        <children>
+          <component id="467dc" class="javax.swing.JButton" binding="startButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="&amp;Start"/>
+            </properties>
+          </component>
+          <component id="24da1" class="javax.swing.JButton" binding="stopButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="S&amp;top"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="dc51d" binding="websiteSettings6" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="5" left="5" bottom="5" right="5"/>
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="etched" title="Website 6">
+          <title-color color="-16777216"/>
+        </border>
+        <children>
+          <component id="89fca" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="URL:"/>
+            </properties>
+          </component>
+          <component id="806e7" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Interval:"/>
+            </properties>
+          </component>
+          <component id="2e9aa" class="javax.swing.JTextField" binding="url6">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <nextFocusableComponent value=""/>
+            </properties>
+          </component>
+          <component id="ef774" class="javax.swing.JTextField" binding="interval6">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="bf7e1" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <horizontalAlignment value="10"/>
+              <text value="Sec"/>
+            </properties>
+          </component>
+          <component id="d8fd7" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Settings:"/>
+            </properties>
+          </component>
+          <component id="2fdff" class="javax.swing.JCheckBox" binding="ping6">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <alignmentY value="0.0"/>
+              <margin top="0" left="0" bottom="0" right="0"/>
+              <selected value="true"/>
+              <text value="Check Ping"/>
+            </properties>
+          </component>
+          <component id="1b478" class="javax.swing.JCheckBox" binding="content6">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <alignmentY value="0.0"/>
+              <hideActionText value="false"/>
+              <horizontalAlignment value="10"/>
+              <margin top="0" left="0" bottom="0" right="0"/>
+              <selected value="true"/>
+              <text value="Check Content"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="d53d4" binding="websiteSettings5" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="5" left="5" bottom="5" right="5"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="etched" title="Website 5">
+          <title-color color="-16777216"/>
+        </border>
+        <children>
+          <component id="206d" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="URL:"/>
+            </properties>
+          </component>
+          <component id="a5230" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Interval:"/>
+            </properties>
+          </component>
+          <component id="90213" class="javax.swing.JTextField" binding="url5">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <nextFocusableComponent value=""/>
+            </properties>
+          </component>
+          <component id="9942d" class="javax.swing.JTextField" binding="interval5">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="59815" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <horizontalAlignment value="10"/>
+              <text value="Sec"/>
+            </properties>
+          </component>
+          <component id="ac192" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Settings:"/>
+            </properties>
+          </component>
+          <component id="5beff" class="javax.swing.JCheckBox" binding="content5">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <alignmentY value="0.0"/>
+              <hideActionText value="false"/>
+              <horizontalAlignment value="10"/>
+              <margin top="0" left="0" bottom="0" right="0"/>
+              <selected value="true"/>
+              <text value="Check Content"/>
+            </properties>
+          </component>
+          <component id="166a3" class="javax.swing.JCheckBox" binding="ping5">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <alignmentY value="0.0"/>
+              <margin top="0" left="0" bottom="0" right="0"/>
+              <selected value="true"/>
+              <text value="Check Ping"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
       <grid id="47caf" binding="websiteSettings2" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="5" left="5" bottom="5" right="5"/>
         <constraints>
-          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <enabled value="true"/>
@@ -190,7 +392,7 @@
       <grid id="edf5c" binding="websiteSettings3" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="5" left="5" bottom="5" right="5"/>
         <constraints>
-          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="etched" title="Website 3">
@@ -271,38 +473,10 @@
           </component>
         </children>
       </grid>
-      <grid id="9855b" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="2" bottom="0" right="2"/>
-        <constraints>
-          <grid row="2" column="0" row-span="1" col-span="6" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-        <border type="none">
-          <title-color color="-16777216"/>
-        </border>
-        <children>
-          <component id="467dc" class="javax.swing.JButton" binding="startButton" default-binding="true">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="&amp;Start"/>
-            </properties>
-          </component>
-          <component id="24da1" class="javax.swing.JButton" binding="stopButton" default-binding="true">
-            <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="S&amp;top"/>
-            </properties>
-          </component>
-        </children>
-      </grid>
       <grid id="4741d" binding="websiteSettings4" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="5" left="5" bottom="5" right="5"/>
         <constraints>
-          <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="etched" title="Website 4">
@@ -382,180 +556,6 @@
               <margin top="0" left="0" bottom="0" right="0"/>
               <selected value="true"/>
               <text value="Check Ping"/>
-            </properties>
-          </component>
-        </children>
-      </grid>
-      <grid id="d53d4" binding="websiteSettings5" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="5" left="5" bottom="5" right="5"/>
-        <constraints>
-          <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-        <border type="etched" title="Website 5">
-          <title-color color="-16777216"/>
-        </border>
-        <children>
-          <component id="206d" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="URL:"/>
-            </properties>
-          </component>
-          <component id="a5230" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Interval:"/>
-            </properties>
-          </component>
-          <component id="90213" class="javax.swing.JTextField" binding="url5">
-            <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <nextFocusableComponent value=""/>
-            </properties>
-          </component>
-          <component id="9942d" class="javax.swing.JTextField" binding="interval5">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties/>
-          </component>
-          <component id="59815" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <horizontalAlignment value="10"/>
-              <text value="Sec"/>
-            </properties>
-          </component>
-          <component id="ac192" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Settings:"/>
-            </properties>
-          </component>
-          <component id="5beff" class="javax.swing.JCheckBox" binding="content5">
-            <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <alignmentY value="0.0"/>
-              <hideActionText value="false"/>
-              <horizontalAlignment value="10"/>
-              <margin top="0" left="0" bottom="0" right="0"/>
-              <selected value="true"/>
-              <text value="Check Content"/>
-            </properties>
-          </component>
-          <component id="166a3" class="javax.swing.JCheckBox" binding="ping5">
-            <constraints>
-              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <alignmentY value="0.0"/>
-              <margin top="0" left="0" bottom="0" right="0"/>
-              <selected value="true"/>
-              <text value="Check Ping"/>
-            </properties>
-          </component>
-        </children>
-      </grid>
-      <grid id="dc51d" binding="websiteSettings6" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="5" left="5" bottom="5" right="5"/>
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-        <border type="etched" title="Website 6">
-          <title-color color="-16777216"/>
-        </border>
-        <children>
-          <component id="89fca" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="URL:"/>
-            </properties>
-          </component>
-          <component id="806e7" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Interval:"/>
-            </properties>
-          </component>
-          <component id="2e9aa" class="javax.swing.JTextField" binding="url6">
-            <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <nextFocusableComponent value=""/>
-            </properties>
-          </component>
-          <component id="ef774" class="javax.swing.JTextField" binding="interval6">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties/>
-          </component>
-          <component id="bf7e1" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <horizontalAlignment value="10"/>
-              <text value="Sec"/>
-            </properties>
-          </component>
-          <component id="d8fd7" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Settings:"/>
-            </properties>
-          </component>
-          <component id="2fdff" class="javax.swing.JCheckBox" binding="ping6">
-            <constraints>
-              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <alignmentY value="0.0"/>
-              <margin top="0" left="0" bottom="0" right="0"/>
-              <selected value="true"/>
-              <text value="Check Ping"/>
-            </properties>
-          </component>
-          <component id="1b478" class="javax.swing.JCheckBox" binding="content6">
-            <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <alignmentY value="0.0"/>
-              <hideActionText value="false"/>
-              <horizontalAlignment value="10"/>
-              <margin top="0" left="0" bottom="0" right="0"/>
-              <selected value="true"/>
-              <text value="Check Content"/>
             </properties>
           </component>
         </children>
@@ -722,180 +722,6 @@
             </properties>
           </component>
           <component id="ab5cd" class="javax.swing.JCheckBox" binding="ping8">
-            <constraints>
-              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <alignmentY value="0.0"/>
-              <margin top="0" left="0" bottom="0" right="0"/>
-              <selected value="true"/>
-              <text value="Check Ping"/>
-            </properties>
-          </component>
-        </children>
-      </grid>
-      <grid id="c4d0d" binding="websiteSettings9" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="5" left="5" bottom="5" right="5"/>
-        <constraints>
-          <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-        <border type="etched" title="Website 9">
-          <title-color color="-16777216"/>
-        </border>
-        <children>
-          <component id="2b6e3" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="URL:"/>
-            </properties>
-          </component>
-          <component id="e6f0c" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Interval:"/>
-            </properties>
-          </component>
-          <component id="83acf" class="javax.swing.JTextField" binding="url9">
-            <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <nextFocusableComponent value=""/>
-            </properties>
-          </component>
-          <component id="9bb17" class="javax.swing.JTextField" binding="interval9">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties/>
-          </component>
-          <component id="2ae2" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <horizontalAlignment value="10"/>
-              <text value="Sec"/>
-            </properties>
-          </component>
-          <component id="7f4f7" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Settings:"/>
-            </properties>
-          </component>
-          <component id="fdad6" class="javax.swing.JCheckBox" binding="content9">
-            <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <alignmentY value="0.0"/>
-              <hideActionText value="false"/>
-              <horizontalAlignment value="10"/>
-              <margin top="0" left="0" bottom="0" right="0"/>
-              <selected value="true"/>
-              <text value="Check Content"/>
-            </properties>
-          </component>
-          <component id="ac40" class="javax.swing.JCheckBox" binding="ping9">
-            <constraints>
-              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <alignmentY value="0.0"/>
-              <margin top="0" left="0" bottom="0" right="0"/>
-              <selected value="true"/>
-              <text value="Check Ping"/>
-            </properties>
-          </component>
-        </children>
-      </grid>
-      <grid id="18cb5" binding="websiteSettings10" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="5" left="5" bottom="5" right="5"/>
-        <constraints>
-          <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-        <border type="etched" title="Website 10">
-          <title-color color="-16777216"/>
-        </border>
-        <children>
-          <component id="e9cfc" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="URL:"/>
-            </properties>
-          </component>
-          <component id="2ad59" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Interval:"/>
-            </properties>
-          </component>
-          <component id="6f879" class="javax.swing.JTextField" binding="url10">
-            <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <nextFocusableComponent value=""/>
-            </properties>
-          </component>
-          <component id="e6d3b" class="javax.swing.JTextField" binding="interval10">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties/>
-          </component>
-          <component id="314f9" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <horizontalAlignment value="10"/>
-              <text value="Sec"/>
-            </properties>
-          </component>
-          <component id="69f87" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Settings:"/>
-            </properties>
-          </component>
-          <component id="f9dbc" class="javax.swing.JCheckBox" binding="content10">
-            <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <alignmentY value="0.0"/>
-              <hideActionText value="false"/>
-              <horizontalAlignment value="10"/>
-              <margin top="0" left="0" bottom="0" right="0"/>
-              <selected value="true"/>
-              <text value="Check Content"/>
-            </properties>
-          </component>
-          <component id="e6074" class="javax.swing.JCheckBox" binding="ping10">
             <constraints>
               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
