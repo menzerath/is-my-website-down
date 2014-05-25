@@ -67,11 +67,11 @@ public class Logger {
      */
     public void noConnection() {
         // Print this only once, but update the GUI!
-        if (CHECKER.ID != 1) {
+        if (CHECKER.ID != 0) {
             updateGui(4);
             return;
         }
-        write(getLogHead().replace("[1]", "[A]") + "[ERROR] " + Messages.LOG_NO_CONNECTION);
+        write(getLogHead().replace("[0]", "[A]") + "[ERROR] " + Messages.LOG_NO_CONNECTION);
         updateGui(4);
     }
 
