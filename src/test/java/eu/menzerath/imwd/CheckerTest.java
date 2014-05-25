@@ -11,7 +11,7 @@ public class CheckerTest {
 
     @Before
     public void prepareChecker() {
-        checker = new Checker(1, GOOD_URL, 30, true, true, false, false, false);
+        checker = new Checker(0, GOOD_URL, 30, true, true, false, false, false);
     }
 
     @Test
