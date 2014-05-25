@@ -22,34 +22,60 @@ public class GuiApplication extends JFrame {
     private JPanel mainPanel;
     private JMenu mnChecker;
     private JMenu mnLogs;
-    private JTextField url1;
-    private JTextField url2;
-    private JTextField url3;
-    private JTextField interval1;
-    private JTextField interval2;
-    private JTextField interval3;
-    private JCheckBox content1;
-    private JCheckBox content2;
-    private JCheckBox content3;
-    private JCheckBox ping1;
-    private JCheckBox ping2;
-    private JCheckBox ping3;
-    private JButton startButton;
-    private JButton stopButton;
     private JPanel websiteSettings1;
     private JPanel websiteSettings2;
     private JPanel websiteSettings3;
     private JPanel websiteSettings4;
     private JPanel websiteSettings5;
+    private JPanel websiteSettings6;
+    private JPanel websiteSettings7;
+    private JPanel websiteSettings8;
+    private JPanel websiteSettings9;
+    private JPanel websiteSettings10;
+    private JTextField url1;
+    private JTextField url2;
+    private JTextField url3;
     private JTextField url4;
-    private JTextField interval4;
-    private JCheckBox content4;
-    private JCheckBox ping4;
     private JTextField url5;
+    private JTextField url6;
+    private JTextField url7;
+    private JTextField url8;
+    private JTextField url9;
+    private JTextField url10;
+    private JTextField interval1;
+    private JTextField interval2;
+    private JTextField interval3;
+    private JTextField interval4;
     private JTextField interval5;
+    private JTextField interval6;
+    private JTextField interval7;
+    private JTextField interval8;
+    private JTextField interval9;
+    private JTextField interval10;
+    private JCheckBox content1;
+    private JCheckBox content2;
+    private JCheckBox content3;
+    private JCheckBox content4;
     private JCheckBox content5;
+    private JCheckBox content6;
+    private JCheckBox content7;
+    private JCheckBox content8;
+    private JCheckBox content9;
+    private JCheckBox content10;
+    private JCheckBox ping1;
+    private JCheckBox ping2;
+    private JCheckBox ping3;
+    private JCheckBox ping4;
     private JCheckBox ping5;
+    private JCheckBox ping6;
+    private JCheckBox ping7;
+    private JCheckBox ping8;
+    private JCheckBox ping9;
+    private JCheckBox ping10;
+    private JButton startButton;
+    private JButton stopButton;
 
+    // GUI-Element-Arrays
     private JPanel[] websiteSettings;
     private JTextField[] url;
     private JTextField[] interval;
@@ -57,7 +83,7 @@ public class GuiApplication extends JFrame {
     private JCheckBox[] ping;
 
     // Other
-    private static final int maxCheckerId = 5;
+    private static final int maxCheckerId = 10;
     private static TrayIcon[] trayIcon = new TrayIcon[maxCheckerId];
     private Checker[] checker = new Checker[maxCheckerId];
 
@@ -107,11 +133,11 @@ public class GuiApplication extends JFrame {
      */
     public GuiApplication() {
         // Load important GUI-elements
-        websiteSettings = new JPanel[]{websiteSettings1, websiteSettings2, websiteSettings3, websiteSettings4, websiteSettings5};
-        url = new JTextField[]{url1, url2, url3, url4, url5};
-        interval = new JTextField[]{interval1, interval2, interval3, interval4, interval5};
-        content = new JCheckBox[]{content1, content2, content3, content4, content5};
-        ping = new JCheckBox[]{ping1, ping2, ping3, ping4, ping5};
+        websiteSettings = new JPanel[]{websiteSettings1, websiteSettings2, websiteSettings3, websiteSettings4, websiteSettings5, websiteSettings6, websiteSettings7, websiteSettings8, websiteSettings9, websiteSettings10};
+        url = new JTextField[]{url1, url2, url3, url4, url5, url6, url7, url8, url9, url10};
+        interval = new JTextField[]{interval1, interval2, interval3, interval4, interval5, interval6, interval7, interval8, interval9, interval10};
+        content = new JCheckBox[]{content1, content2, content3, content4, content5, content6, content7, content8, content9, content10};
+        ping = new JCheckBox[]{ping1, ping2, ping3, ping4, ping5, ping6, ping7, ping8, ping9, ping10};
 
         // Load saved / default values
         for (int i = 0; i < maxCheckerId; i++) {
