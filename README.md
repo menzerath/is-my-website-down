@@ -8,9 +8,9 @@ IMWD uses a simple Algorithm to Check your Websites in two steps:
 2. **Ping**: IWMD sends a few Pings to your Website to check if "only" the Webserver is down or the whole Server.
 
 ## Screenshots
-<img src="http://menzerath.eu/wp-content/uploads/2014/01/imwd1.png" alt="GUI" width="280px"/>
-<img src="http://menzerath.eu/wp-content/uploads/2014/01/imwd2.png" alt="Notification" width="280px" />
-<img src="http://menzerath.eu/wp-content/uploads/2014/01/imwd3.png" alt="Console" width="280px" />
+<img src="https://raw.githubusercontent.com/MarvinMenzerath/IsMyWebsiteDown/master/doc/Screenshot1.png" alt="GUI" width="280px"/>
+<img src="https://raw.githubusercontent.com/MarvinMenzerath/IsMyWebsiteDown/master/doc/Screenshot2.png" alt="Notification" width="280px" />
+<img src="https://raw.githubusercontent.com/MarvinMenzerath/IsMyWebsiteDown/master/doc/Screenshot3.png" alt="Console" width="280px" />
 
 ## Getting Started
 
