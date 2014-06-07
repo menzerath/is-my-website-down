@@ -53,7 +53,7 @@ public class Main {
         System.out.println("##################################################");
         System.out.println("### " + lineVersion + " ###");
         System.out.println("###                                            ###");
-        System.out.println("### © 2012-2014: Marvin Menzerath              ###");
+        System.out.println("### " + Messages.COPYRIGHT + "              ###");
         System.out.println("### " + URL.substring(8) + " ###");
         System.out.println("##################################################\n");
     }

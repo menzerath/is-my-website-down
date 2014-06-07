@@ -4,6 +4,7 @@ import eu.menzerath.imwd.Main;
 
 public class Messages {
     // START: Main
+    public static final String COPYRIGHT = "© 2012-2014: Marvin Menzerath";
     public static final String INVALID_ARGUMENTS = "You have to pass the following arguments in this order:\n--url=http://website.com --interval=30";
     public static final String INVALID_PARAMETERS = "Enter a valid URL and Interval:\nURL: Has to start with \"http://\" or \"https://\"\nInterval: Only Numbers (between " + Main.MIN_INTERVAL + " and " + Main.MAX_INTERVAL + ") are allowed";
     // END: Main
@@ -14,7 +15,7 @@ public class Messages {
     public static final String ERROR_NOT_REACHABLE_PING = "Sorry, but I was unable to receive Content from your Website while a Ping was successful.";
     public static final String ERROR_NOT_REACHABLE_NO_PING = "Uh... It seems like that your entire Server is gone!";
     public static final String ERROR_NO_CONNECTION_TITLE = "No Connection";
-    public static final String ERROR_NO_CONNECTION = "Please check our Connection to the Internet.";
+    public static final String ERROR_NO_CONNECTION = "Please check your Connection to the Internet.";
     // END: Message-Bubbles
 
     // START: Log
@@ -32,7 +33,7 @@ public class Messages {
     // START: GuiApplication
     public static final String ABOUT_ICONS = "Icons: Ampeross - http://ampeross.deviantart.com";
     public static final String ABOUT_SOURCE = "Sourcecode: http://github.com/MarvinMenzerath/IsMyWebsiteDown - GPLv3";
-    public static final String ABOUT_AUTHOR = "© 2012-2014: Marvin Menzerath - http://menzerath.eu";
+    public static final String ABOUT_AUTHOR = COPYRIGHT + " - http://menzerath.eu";
     public static final String AUTORUN_ERROR = "Could not copy " + Main.APPLICATION_SHORT + " to your Autorun. Please check...\n\n  * You are allowed to copy files to the Autorun-Folder.\n  * You are running Windows Vista or higher.";
     // END: GuiApplication
 
