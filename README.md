@@ -21,10 +21,24 @@ Grab a current release from [**here**](https://github.com/MarvinMenzerath/IsMyWe
 A development-version is available from [**here**](http://ci.menzerath.eu/job/IsMyWebsiteDown/).
 
 ### Run
-Start IMWD by typing `java -jar IMWD.jar` if you want to use the **Graphical User Interface**.  
-Otherwise run `java -jar IMWD.jar --url=http://website.com --interval=30` to use IMWD in your **Console**. If you want to disable logging into a file, add `--nolog` to this command.
 
-If you are a Windows-User, you are able to start IMWD by double-clicking it.
+#### GUI
+**Windows**: Double-Click the JAR-File and the GUI should open.  
+**Linux**: Type `java -jar IMWD.jar` in the terminal and the GUI should open.
+
+#### Console
+You have different options here:
+
+##### Run unlimited Checks
+Type `java -jar IMWD.jar http://website.com 30` (URL and Interval) to start unlimited Checks on the Console (terminate process with Ctrl-C).
+
+If you do not want a Log-File, add `--nolog` after the Interval: `java -jar IMWD.jar http://website.com 30 --nolog`
+
+##### Run a single Check
+Type `java -jar IMWD.jar http://website.com` (URL only) to start a single Check on the Console. This will only return the Check-Result and nothing more.
+
+##### Get Help
+Type `java -jar IMWD.jar --help` and you will get some help.
 
 ## License
 Copyright (C) 2012-2014 [Marvin Menzerath](http://menzerath.eu)
