@@ -33,4 +33,9 @@ public class CheckerTest {
     public void testPingTest2() {
         Assert.assertFalse(checker.testPing(BAD_URL));
     }
+
+    @Test
+    public void testConnectionTest() {
+        Assert.assertTrue(checker.testConnection());
+    }
 }

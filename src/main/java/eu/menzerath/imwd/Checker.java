@@ -69,12 +69,12 @@ public class Checker {
     /**
      * The actual testing-method:
      * First, try to get content from the site
-     * Successful? Log this and we're done!
-     * No Success? Try to reach Google to see if there are problems with the internet connection
-     * Successful? Ping the url to see, if the webserver is down
-     * Successful? Webserver is down. Log this and we're done!
-     * No Success? Whole server is down. Log this and we're done!
-     * No Success? No connection to the internet! Log this and we're done!
+     *   Successful? Log this and we're done!
+     *   No Success? Try to reach Google to see if there are problems with the internet connection
+     *     Successful? Ping the url to see, if the webserver is down
+     *       Successful? Webserver is down. Log this and we're done!
+     *       No Success? Whole server is down. Log this and we're done!
+     *     No Success? No connection to the internet! Log this and we're done!
      * Every exception will be ignored!
      */
     public void runTest() {
@@ -170,7 +170,7 @@ public class Checker {
      *
      * @return Is a connection to the internet available?
      */
-    private boolean testConnection() {
+    public boolean testConnection() {
         return testContent("http://google.com");
     }
 }

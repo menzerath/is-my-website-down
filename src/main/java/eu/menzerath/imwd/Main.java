@@ -20,24 +20,36 @@ public class Main {
      * @param args Passed arguments for start
      */
     public static void main(String[] args) {
-        sayHello();
-
-        boolean createLog = true;
-        if (args.length == 3 && args[2].equalsIgnoreCase("--nolog")) createLog = false;
-        if (args.length > 1 && args.length < 4) {
-            // Arguments passed, if they are the correct ones: create a new ConsoleApplication, otherwise show the user the needed arguments
-            if (args[0].trim().startsWith("--url=") && args[1].trim().startsWith("--interval=")) {
-                new ConsoleApplication(args[0].trim().substring(6), args[1].trim().substring(11), createLog);
+        if (args.length == 2 && args[1].equalsIgnoreCase("--once")) { // Run a QuickTest
+            if (args[0].trim().startsWith("--url=")) {
+                new QuickTest(args[0].trim().substring(6));
+                System.exit(0);
             } else {
                 System.out.println(Messages.INVALID_ARGUMENTS);
                 System.exit(1);
             }
-        } else {
-            // Running on a setup without graphical desktop and no arguments passed: show the needed arguments
+        }
+
+        sayHello();
+        if (args.length == 3 && args[2].equalsIgnoreCase("--nolog")) { // Start a ConsoleApplication but do not create a Log-File
+            if (args[0].trim().startsWith("--url=") && args[1].trim().startsWith("--interval=")) {
+                new ConsoleApplication(args[0].trim().substring(6), args[1].trim().substring(11), false);
+            } else {
+                System.out.println(Messages.INVALID_ARGUMENTS);
+                System.exit(1);
+            }
+        } else if (args.length == 2) { // Start a ConsoleApplication and create a Log-File
+            if (args[0].trim().startsWith("--url=") && args[1].trim().startsWith("--interval=")) {
+                new ConsoleApplication(args[0].trim().substring(6), args[1].trim().substring(11), true);
+            } else {
+                System.out.println(Messages.INVALID_ARGUMENTS);
+                System.exit(1);
+            }
+        } else { // Running on a setup without graphical desktop and no arguments passed: show the needed arguments
             if (GraphicsEnvironment.isHeadless()) {
                 System.out.println(Messages.INVALID_ARGUMENTS);
                 System.exit(1);
-            } else {
+            } else { // Otherwise: Open the GUI
                 GuiApplication.startGUI();
             }
         }
