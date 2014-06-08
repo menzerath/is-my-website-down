@@ -17,3 +17,6 @@ log.txt
 # IDE / Builds
 .idea/*
 target/*
+
+# "Useless" POM
+dependency-reduced-pom.xml
