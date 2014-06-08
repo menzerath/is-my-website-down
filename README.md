@@ -32,10 +32,12 @@ You have different options here:
 ##### Run unlimited Checks
 Type `java -jar IMWD.jar http://website.com 30` (URL and Interval) to start unlimited Checks on the Console (terminate process with Ctrl-C).
 
-If you do not want a Log-File, add `--nolog` after the Interval: `java -jar IMWD.jar http://website.com 30 --nolog`
+If you do not want a Log-File, add `--nolog` after the Interval:  
+`java -jar IMWD.jar http://website.com 30 --nolog`
 
 ##### Run a single Check
-Type `java -jar IMWD.jar http://website.com` (URL only) to start a single Check on the Console. This will only return the Check-Result and nothing more.
+Type `java -jar IMWD.jar http://website.com` (URL only) to start a single Check on the Console.  
+This will only return the Check-Result and nothing more.
 
 ##### Get Help
 Type `java -jar IMWD.jar --help` and you will get some help.
