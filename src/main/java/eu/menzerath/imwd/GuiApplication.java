@@ -82,6 +82,8 @@ public class GuiApplication extends JFrame {
      * Prepares everything and then shows the form
      */
     public static void startGUI() {
+        Main.sayHello();
+
         // For an nicer look according to the used OS
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

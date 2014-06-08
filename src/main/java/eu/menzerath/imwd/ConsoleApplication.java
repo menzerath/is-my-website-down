@@ -17,6 +17,8 @@ public class ConsoleApplication {
      * @param createLog Create a logfile or not
      */
     public ConsoleApplication(String url, String interval, boolean createLog) {
+        Main.sayHello();
+
         if (Helper.validateUrlInput(url) && Helper.validateIntervalInput(Helper.parseInt(interval))) {
             this.url = url;
             this.interval = Helper.parseInt(interval);
