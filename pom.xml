@@ -37,6 +37,11 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>2.2</version>
+                </plugin>
+
+                <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>2.4</version>
                 </plugin>
@@ -55,6 +60,26 @@
         </pluginManagement>
 
         <plugins>
+            <plugin>
+                <artifactId>maven-shade-plugin</artifactId>
+                <configuration>
+                    <minimizeJar>true</minimizeJar>
+                    <artifactSet>
+                        <includes>
+                            <include>com.intellij:forms_rt</include>
+                        </includes>
+                    </artifactSet>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
