@@ -14,7 +14,6 @@ public class QuickTest {
     public QuickTest(String url) {
         if (Helper.validateUrlInput(url)) {
             this.url = url;
-            run();
         } else {
             System.out.println(Messages.INVALID_PARAMETERS);
             System.exit(1);
@@ -24,22 +23,25 @@ public class QuickTest {
     /**
      * Runs a test and prints a message on the console
      */
-    private void run() {
+    public String run() {
         // Create the Checker and go!
+        String result;
         Checker checker = new Checker(1, url, 30, true, true, false, false, false);
 
         if (checker.testContent(this.url)) {
-            System.out.println("OK");
+            result = "OK";
         } else {
             if (checker.testConnection()) {
                 if (checker.testPing(this.url)) {
-                    System.out.println("Ping Only");
+                    result =  "Ping Only";
                 } else {
-                    System.out.println("Not Reachable");
+                    result = "Not Reachable";
                 }
             } else {
-                System.out.println("No Connection");
+                result =  "No Connection";
             }
         }
+        System.out.println(result);
+        return result;
     }
 }

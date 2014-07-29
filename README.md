@@ -38,6 +38,12 @@ java -jar IMWD.jar http://website.com 30 --nolog
 java -jar IMWD.jar http://website.com 0 --once
 ```
 
+### Quick Test Results
+* `OK` 
+* `Ping Only`
+* `Not Reachable`
+* `No Connection`
+
 ## License
 Copyright (C) 2012-2014 [Marvin Menzerath](http://menzerath.eu)
 
