@@ -1,48 +1,42 @@
 # Is My Website Down?
-**"Is My Website Down?" periodically Checks if your Websites are Reachable and Notifies you if one of them is not.**
+**"Is My Website Down?" periodically checks if your websites are reachable and notifies you if one of them is not.**
 
-## How IMWD Works
-IMWD uses a simple Algorithm to Check your Websites in two steps:
+## How Does IMWD Work?
+IMWD uses a simple algorithm to check your websites in two steps:
 
-1. **Fetch Content**: IMWD tries to get any Content from the Website. If this fails, IWMD tries to get content from http://google.com to check if there is a connection to the internet.
-2. **Ping**: IWMD sends a few Pings to your Website to check if "only" the Webserver is down or the whole Server.
+1. **Fetch Content**: IMWD tries to receive any content from the website (status-code needs to be `200 OK`). If this fails, IWMD tries to receive content from Google to check if there is a connection to the internet.
+2. **Ping**: IWMD sends a ping to your website to check if "only" the webserver is down or the whole server.
 
 ## Screenshots
 <img src="https://raw.githubusercontent.com/MarvinMenzerath/IsMyWebsiteDown/master/doc/Screenshot1.png" alt="GUI" />
 <img src="https://raw.githubusercontent.com/MarvinMenzerath/IsMyWebsiteDown/master/doc/Screenshot2.png" alt="Notification" width="50%" />
 <img src="https://raw.githubusercontent.com/MarvinMenzerath/IsMyWebsiteDown/master/doc/Screenshot3.png" alt="Console" width="50%" />
 
-## Getting Started
+## Download
+* [**GitHub Releases**](https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases)
+* [**heise.de**](http://www.heise.de/download/is-my-website-down-1190272.html)
+* [**Jenkins**](http://ci.menzerath.eu/job/IsMyWebsiteDown/)
 
-### Download
-Grab a current release from [**here**](https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases) or heise.de:  
-<a title="Is My Website Down - Download - heise online" href="http://www.heise.de/download/is-my-website-down-1190272.html"><img alt="Is My Website Down - Download - heise online" title="Is My Website Down - Download - heise online" src="http://www.heise.de/software/icons/download_logo1.png" /></a>
+## Run
+For a **graphical interface**, double click the downloaded file or do not add any arguments.
 
-A development-version is available from [**here**](http://ci.menzerath.eu/job/IsMyWebsiteDown/).
+Otherwise use the following syntax:
+```
+java -jar IMWD.jar [URL] [INTERVAL] {ARG}
+```
 
-### Run
+**Additional arguments**:
+* `--once` ==> Runs only one check; interval will be ignored [(Example usage)](https://github.com/MarvinMenzerath/PiFace/blob/master/imwd.py)
+* `--nolog` ==> Application won't produce a log-file
+* `--help` ==> Gives you some help
 
-#### GUI
-**Windows**: Double-Click the JAR-File and the GUI should open.  
-**Linux**: Type `java -jar IMWD.jar` in the terminal and the GUI should open.
-
-#### Console
-You have different options here:
-
-##### Run unlimited Checks
-Type `java -jar IMWD.jar http://website.com 30` (URL and Interval) to start unlimited Checks on the Console (terminate process with Ctrl-C).
-
-If you do not want a Log-File, add `--nolog` after the Interval:  
-`java -jar IMWD.jar http://website.com 30 --nolog`
-
-##### Run a single Check
-Type `java -jar IMWD.jar http://website.com` (URL only) to start a single Check on the Console.  
-This will only return the Check-Result and nothing more.
-
-There is (for example) [a Python-Script](https://github.com/MarvinMenzerath/PiFace/blob/master/imwd.py) for the Raspberry Pi Add-On "PiFace", which displays the Check-Result on the Display.
-
-##### Get Help
-Type `java -jar IMWD.jar --help` and you will get some help.
+### Examples
+```
+java -jar IMWD.jar
+java -jar IMWD.jar http://website.com 30
+java -jar IMWD.jar http://website.com 30 --nolog
+java -jar IMWD.jar http://website.com 0 --once
+```
 
 ## License
 Copyright (C) 2012-2014 [Marvin Menzerath](http://menzerath.eu)

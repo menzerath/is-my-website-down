@@ -30,12 +30,12 @@ public class Main {
         } else if (args.length == 1 && args[0].equalsIgnoreCase("--help")) { // Give the user some help
             sayHello();
             System.out.println(Messages.CONSOLE_HELP);
-        } else if (args.length == 2 && args[1].equalsIgnoreCase("--once")) { // Run a QuickTest
-            new QuickTest(args[0].trim());
         } else if (args.length == 2) { // Start a ConsoleApplication and create a Log-File
             new ConsoleApplication(args[0].trim(), args[1].trim(), true);
         } else if (args.length == 3 && args[2].equalsIgnoreCase("--nolog")) { // Start a ConsoleApplication but do not create a Log-File
             new ConsoleApplication(args[0].trim(), args[1].trim(), false);
+        } else if (args.length == 3 && args[2].equalsIgnoreCase("--once")) { // Run a QuickTest
+            new QuickTest(args[0].trim());
         } else {
             sayHello();
             System.out.println(Messages.CONSOLE_HELP);
