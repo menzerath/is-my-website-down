@@ -36,7 +36,7 @@ public class Main {
             new ConsoleApplication(args[0].trim(), args[1].trim(), false);
         } else if (args.length == 3 && args[2].equalsIgnoreCase("--once")) { // Run a QuickTest
             new QuickTest(args[0].trim()).run();
-        } else {
+        } else { // Something went wrong (blame the user!)
             sayHello();
             System.out.println(Messages.CONSOLE_HELP);
         }
