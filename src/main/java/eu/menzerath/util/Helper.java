@@ -4,6 +4,8 @@ import eu.menzerath.imwd.GuiApplication;
 import eu.menzerath.imwd.Main;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -58,8 +60,8 @@ public class Helper {
             Path dest = Paths.get("C:\\Users\\" + System.getProperty("user.name") + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\IMWD.jar");
             Files.copy(source, dest, StandardCopyOption.REPLACE_EXISTING);
             return true;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (URISyntaxException | IOException e) {
+            System.out.println("Unable to add IMWD to Autorun: " + e.getMessage());
             return false;
         }
     }
@@ -72,8 +74,8 @@ public class Helper {
             Path dest = Paths.get("C:\\Users\\" + System.getProperty("user.name") + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\IMWD.jar");
             Files.delete(dest);
             return true;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Unable to remove IMWD from Autorun: " + e.getMessage());
             return false;
         }
     }
