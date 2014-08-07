@@ -84,7 +84,7 @@ public class Logger {
         System.out.println(message);
 
         if (CREATE_FILE) {
-            File file = new File("imwd_" + CHECKER.URL.replace("http://", "") + ".txt");
+            File file = new File("imwd_" + CHECKER.URL.replace("http://", "").replace("https://", "") + ".txt");
             try {
                 PrintWriter out = new PrintWriter(new FileOutputStream(file, true));
                 out.append(message).append("\r\n");
