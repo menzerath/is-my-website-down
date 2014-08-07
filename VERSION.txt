@@ -1,2 +1,2 @@
-2.1.1
-Set "Check Content" / "Check Ping" per Website, Allow use of HTTPS-URLs, Modified GUI and Icons, Bugfixes
+2.1.2
+Check up to 8 websites simultaneously, reorganised console-interaction (!), added QuickTest, added GitHub-URL to user-agent, small bugfixes and improvements
