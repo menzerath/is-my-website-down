@@ -19,7 +19,7 @@ public class Logger {
     /**
      * Put the specified values in our own parameters
      *
-     * @param checker        "Logger's parent"
+     * @param checker        the Logger's "parent"
      * @param createFile     Create a log-file?
      * @param logValidChecks Log even successful checks?
      * @param updateGui      Do we have to update a GUI?
@@ -32,7 +32,7 @@ public class Logger {
     }
 
     /**
-     * The Checker started its work
+     * The Checker started it's work
      */
     public void start() {
         write(getLogHead() + "[INFO] " + Messages.LOG_START.replace("%url", CHECKER.URL).replace("%interval", "" + CHECKER.INTERVAL));

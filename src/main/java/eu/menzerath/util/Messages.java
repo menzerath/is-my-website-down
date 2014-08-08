@@ -5,8 +5,8 @@ import eu.menzerath.imwd.Main;
 public class Messages {
     // START: Main
     public static final String COPYRIGHT = "© 2012-2014: Marvin Menzerath";
-    public static final String CONSOLE_HELP = "You have to use the following syntax: java -jar IMWD.jar [URL] [INTERVAL] [OPTIONS]\nExamples:\n    java -jar IMWD.jar\n    java -jar IMWD.jar http://website.com 30\n    java -jar IMWD.jar http://website.com 30 --nolog\n    java -jar IMWD.jar http://website.com 0 --once";
-    public static final String INVALID_PARAMETERS = "Sorry, but you have to enter a valid URL and/or Interval:\nURL: Has to start with \"http://\" or \"https://\"\nInterval: Only Numbers (between " + Main.MIN_INTERVAL + " and " + Main.MAX_INTERVAL + ") are allowed";
+    public static final String CONSOLE_HELP = "You have to use the following syntax: java -jar IMWD.jar [URL] [INTERVAL] {ARG}\nExamples:\n    java -jar IMWD.jar\n    java -jar IMWD.jar http://website.com 30\n    java -jar IMWD.jar http://website.com 30 --nolog\n    java -jar IMWD.jar http://website.com 0 --once";
+    public static final String INVALID_PARAMETERS = "Sorry, but you have to enter a valid url and/or interval:\nURL: Has to start with \"http://\" or \"https://\"\nInterval: Only numbers (between " + Main.MIN_INTERVAL + " and " + Main.MAX_INTERVAL + ") are allowed";
     // END: Main
 
     // START: Message-Bubbles
