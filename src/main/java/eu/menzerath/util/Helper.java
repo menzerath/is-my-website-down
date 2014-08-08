@@ -15,6 +15,10 @@ import java.security.CodeSource;
 
 public class Helper {
 
+    /**
+     * Create a new Checker to check for an existing connection to the internet
+     * @return If there is a connection to the internet
+     */
     public static boolean testWebConnection() {
         Checker checker = new Checker(0, "http://google.com", 30, true, false, false, false, false);
         return checker.testContent();

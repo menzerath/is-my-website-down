@@ -346,7 +346,7 @@ public class GuiApplication extends JFrame {
 
         if (!Helper.validateUrlInput(cUrl) || !Helper.validateIntervalInput(cInterval)) {
             // +1 to be more user-friendly
-            JOptionPane.showMessageDialog(null, Messages.INVALID_PARAMETERS, "Invalid Input (Website " + checkerId + 1 + ")", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, Messages.INVALID_PARAMETERS, "Invalid Input (Website " + (checkerId + 1) + ")", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
