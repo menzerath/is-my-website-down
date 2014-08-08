@@ -84,10 +84,10 @@ public class Logger {
         System.out.println(message);
 
         if (CREATE_FILE) {
-            File file = new File("imwd_" + CHECKER.URL.replace("http://", "").replace("https://", "") + ".txt");
+            File file = new File("imwd_" + CHECKER.getUrlWithoutProtocol() + ".txt");
             try {
                 PrintWriter out = new PrintWriter(new FileOutputStream(file, true));
-                out.append(message).append("\r\n");
+                out.append(message.replace("[" + CHECKER.ID + "] ", "")).append("\r\n");
                 out.close();
             } catch (IOException ignored) {
             }
@@ -105,6 +105,7 @@ public class Logger {
     }
 
     private String getLogHead() {
-        return "[" + CHECKER.ID + "] [" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "] ";
+        // +1 to be more user-friendly
+        return "[" + (CHECKER.ID + 1) + "] [" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "] ";
     }
 }

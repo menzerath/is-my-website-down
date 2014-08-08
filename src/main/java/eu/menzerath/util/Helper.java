@@ -1,5 +1,6 @@
 package eu.menzerath.util;
 
+import eu.menzerath.imwd.Checker;
 import eu.menzerath.imwd.GuiApplication;
 import eu.menzerath.imwd.Main;
 
@@ -14,6 +15,11 @@ import java.security.CodeSource;
 
 public class Helper {
 
+    public static boolean testWebConnection() {
+        Checker checker = new Checker(0, "http://google.com", 30, true, false, false, false, false);
+        return checker.testContent();
+    }
+
     /**
      * This method validates the user-input (URL) and checks if it is ok.
      *
@@ -21,7 +27,11 @@ public class Helper {
      * @return If the input could be validated or not
      */
     public static boolean validateUrlInput(String url) {
-        return url.trim().startsWith("http://") || url.trim().startsWith("https://");
+        boolean success = false;
+        for (String p : Main.PROTOCOLS) {
+            if (url.startsWith(p)) success = true;
+        }
+        return success;
     }
 
     /**

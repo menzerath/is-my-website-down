@@ -1,5 +1,6 @@
 package eu.menzerath.imwd;
 
+import eu.menzerath.util.Helper;
 import eu.menzerath.util.Logger;
 
 import java.io.BufferedReader;
@@ -79,11 +80,11 @@ public class Checker {
      */
     public void runTest() {
         if (CHECK_CONTENT && CHECK_PING) {
-            if (testContent(this.URL)) {
+            if (testContent()) {
                 logger.ok();
             } else {
-                if (testConnection()) {
-                    if (testPing(this.URL)) {
+                if (Helper.testWebConnection()) {
+                    if (testPing()) {
                         logger.warning();
                     } else {
                         logger.error();
@@ -93,20 +94,20 @@ public class Checker {
                 }
             }
         } else if (CHECK_CONTENT) {
-            if (testContent(this.URL)) {
+            if (testContent()) {
                 logger.ok();
             } else {
-                if (testConnection()) {
+                if (Helper.testWebConnection()) {
                     logger.error();
                 } else {
                     logger.noConnection();
                 }
             }
         } else if (CHECK_PING) {
-            if (testPing(this.URL)) {
+            if (testPing()) {
                 logger.ok();
             } else {
-                if (testConnection()) {
+                if (Helper.testWebConnection()) {
                     logger.error();
                 } else {
                     logger.noConnection();
@@ -118,12 +119,11 @@ public class Checker {
     /**
      * First test: Check if there is any content at the url
      *
-     * @param url URL to check
      * @return Is there any content at the url?
      */
-    public boolean testContent(String url) {
+    public boolean testContent() {
         try {
-            URLConnection myConnection = new URL(url).openConnection();
+            URLConnection myConnection = new URL(this.URL).openConnection();
             myConnection.setRequestProperty("User-Agent", "IsMyWebsiteDown/" + Main.VERSION + " (" + Main.URL + ")");
             myConnection.setRequestProperty("Connection", "close");
 
@@ -143,18 +143,15 @@ public class Checker {
     /**
      * Second test: Check if a ping is successful
      *
-     * @param url URL to check
      * @return Is a ping successful?
      */
-    public boolean testPing(String url) {
+    public boolean testPing() {
         try {
             String cmd;
-            url = url.replace("http://", "");
-            url = url.replace("https://", "");
             if (System.getProperty("os.name").startsWith("Windows")) {
-                cmd = "ping -n 1 -w 3000 " + url;
+                cmd = "ping -n 1 -w 3000 " + getUrlWithoutProtocol();
             } else {
-                cmd = "ping -c 1 " + url;
+                cmd = "ping -c 1 " + getUrlWithoutProtocol();
             }
 
             Process myProcess = Runtime.getRuntime().exec(cmd);
@@ -165,12 +162,11 @@ public class Checker {
         }
     }
 
-    /**
-     * Third (optional) test: Check if there is a connection to the internet
-     *
-     * @return Is a connection to the internet available?
-     */
-    public boolean testConnection() {
-        return testContent("http://google.com");
+    public String getUrlWithoutProtocol() {
+        String myUrl = this.URL;
+        for (String p : Main.PROTOCOLS) {
+            myUrl = myUrl.replace(p, "");
+        }
+        return myUrl;
     }
 }

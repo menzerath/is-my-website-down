@@ -7,6 +7,11 @@ import org.junit.Test;
 public class HelperTest {
 
     @Test
+    public void testWebConnectionTest() {
+        Assert.assertTrue(Helper.testWebConnection());
+    }
+
+    @Test
     public void testUrlValidator() {
         Assert.assertTrue(Helper.validateUrlInput("http://google.com"));
     }
@@ -18,7 +23,17 @@ public class HelperTest {
 
     @Test
     public void testUrlValidator3() {
+        Assert.assertFalse(Helper.validateUrlInput("google.com"));
+    }
+
+    @Test
+    public void testUrlValidator4() {
         Assert.assertFalse(Helper.validateUrlInput("ftp://google.com"));
+    }
+
+    @Test
+    public void testUrlValidator5() {
+        Assert.assertFalse(Helper.validateUrlInput("sftp://google.com"));
     }
 
     @Test

@@ -28,11 +28,11 @@ public class QuickTest {
         String result;
         Checker checker = new Checker(1, url, 30, true, true, false, false, false);
 
-        if (checker.testContent(this.url)) {
+        if (checker.testContent()) {
             result = "OK";
         } else {
-            if (checker.testConnection()) {
-                if (checker.testPing(this.url)) {
+            if (Helper.testWebConnection()) {
+                if (checker.testPing()) {
                     result =  "Ping Only";
                 } else {
                     result = "Not Reachable";

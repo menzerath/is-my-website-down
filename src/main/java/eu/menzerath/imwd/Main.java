@@ -10,6 +10,7 @@ public class Main {
     public static final String VERSION = "2.2-SNAPSHOT";
     public static final String URL = "https://github.com/MarvinMenzerath/IsMyWebsiteDown";
     public static final String URL_RELEASE = "https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases";
+    public static final String[] PROTOCOLS = {"http://", "https://"};
     public static final int MIN_INTERVAL = 10;
     public static final int MAX_INTERVAL = 300;
 
