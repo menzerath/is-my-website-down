@@ -5,8 +5,9 @@ import eu.menzerath.imwd.Main;
 public class Messages {
     // START: Main
     public static final String COPYRIGHT = "© 2012-2014: Marvin Menzerath";
-    public static final String CONSOLE_HELP = "You have to use the following syntax: java -jar IMWD.jar [URL] [INTERVAL] {ARG}\nExamples:\n    java -jar IMWD.jar\n    java -jar IMWD.jar http://website.com 30\n    java -jar IMWD.jar http://website.com 30 --nolog\n    java -jar IMWD.jar http://website.com 0 --once";
-    public static final String INVALID_PARAMETERS = "Sorry, but you have to enter a valid url (including the specific protocol) and interval (numbers only - between " + Main.MIN_INTERVAL + " and " + Main.MAX_INTERVAL + " seconds).";
+    public static final String CONSOLE_HELP = "You have to use the following syntax: java -jar IMWD.jar [URL] [INTERVAL] {ARG}";
+    public static final String CONSOLE_HELP_EXAMPLES = "Examples:\n    java -jar IMWD.jar\n    java -jar IMWD.jar http://website.com 30\n    java -jar IMWD.jar http://website.com 30 --nolog\n    java -jar IMWD.jar http://website.com 0 --once";
+    public static final String INVALID_PARAMETERS = "You have to enter a valid url (including the specific protocol) and interval (numbers only - between " + Main.MIN_INTERVAL + " and " + Main.MAX_INTERVAL + " seconds).";
     // END: Main
 
     // START: Message-Bubbles
@@ -42,10 +43,9 @@ public class Messages {
     public static final String UPDATE_NO_UPDATE_LONG = "You are running the latest version of \"" + Main.APPLICATION + "\" (v" + Main.VERSION + ").";
     public static final String UPDATE_ERROR = "Unable to search for Updates. Please visit \"" + Main.URL_RELEASE + "\".";
     public static final String UPDATE_SNAPSHOT = "This is a SNAPSHOT-Release. The Updater is therefore deactivated!\nPlease visit \"" + Main.URL_RELEASE + "\".";
-    public static final String UPDATE_AVAILABLE_TITLE = "Update available";
-    public static final String UPDATE_AVAILABLE = "There is an Update for " + Main.APPLICATION_SHORT + " to version %version available.";
-    public static final String UPDATE_AVAILABLE_CHANGES = "Changes: %changes\nVisit \"" + Main.URL_RELEASE + "\" for a full Changelog.";
+    public static final String UPDATE_AVAILABLE_TITLE = "Update available!";
+    public static final String UPDATE_AVAILABLE = "There is an Update to version %version available.";
+    public static final String UPDATE_AVAILABLE_CHANGES = "Changes: %changes\nVisit \"" + Main.URL_RELEASE + "\" for a full Changelog and to Download this Update.";
     public static final String UPDATE_NOW = "Do you want to Download it now?";
-    public static final String UPDATE_MANUAL = "Download Update using \"wget " + Main.URL_RELEASE + "/download/v%version/IMWD.jar\".";
     // END: Updates
 }

@@ -2,6 +2,7 @@ package eu.menzerath.util;
 
 import eu.menzerath.imwd.Checker;
 import eu.menzerath.imwd.GuiApplication;
+import org.fusesource.jansi.Ansi;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,14 +36,14 @@ public class Logger {
      * The Checker started it's work
      */
     public void start() {
-        write(getLogHead() + "[INFO] " + Messages.LOG_START.replace("%url", CHECKER.URL).replace("%interval", "" + CHECKER.INTERVAL));
+        write(getLogHead() + new Ansi().fg(Ansi.Color.CYAN).a("[INFO] ").fg(Ansi.Color.DEFAULT) + Messages.LOG_START.replace("%url", CHECKER.URL).replace("%interval", "" + CHECKER.INTERVAL));
     }
 
     /**
      * This was a successful check
      */
     public void ok() {
-        if (LOG_VALID_CHECKS) write(getLogHead() + "[OK] " + Messages.LOG_OK);
+        if (LOG_VALID_CHECKS) write(getLogHead() + new Ansi().fg(Ansi.Color.GREEN).a("[OK] ").fg(Ansi.Color.DEFAULT) + Messages.LOG_OK);
         updateGui(1);
     }
 
@@ -50,7 +51,7 @@ public class Logger {
      * This is only a warning - it might get worse
      */
     public void warning() {
-        write(getLogHead() + "[WARNING] " + Messages.LOG_PING_ONLY);
+        write(getLogHead() + new Ansi().fg(Ansi.Color.YELLOW).a("[WARNING] ").fg(Ansi.Color.DEFAULT) + Messages.LOG_PING_ONLY);
         updateGui(2);
     }
 
@@ -58,7 +59,7 @@ public class Logger {
      * Website is gone
      */
     public void error() {
-        write(getLogHead() + "[ERROR] " + Messages.LOG_ERROR);
+        write(getLogHead() + new Ansi().fg(Ansi.Color.RED).a("[ERROR] ").fg(Ansi.Color.DEFAULT) + Messages.LOG_ERROR);
         updateGui(3);
     }
 
@@ -71,7 +72,7 @@ public class Logger {
             updateGui(4);
             return;
         }
-        write(getLogHead().replace("[0]", "[A]") + "[ERROR] " + Messages.LOG_NO_CONNECTION);
+        write(getLogHead().replace("[0]", "[A]") + new Ansi().fg(Ansi.Color.RED).a("[ERROR] ").fg(Ansi.Color.DEFAULT) + Messages.LOG_NO_CONNECTION);
         updateGui(4);
     }
 

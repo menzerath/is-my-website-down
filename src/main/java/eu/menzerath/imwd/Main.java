@@ -1,6 +1,8 @@
 package eu.menzerath.imwd;
 
 import eu.menzerath.util.Messages;
+import org.fusesource.jansi.Ansi;
+import org.fusesource.jansi.AnsiConsole;
 
 import java.awt.*;
 
@@ -21,16 +23,18 @@ public class Main {
      * @param args Passed arguments for start
      */
     public static void main(String[] args) {
+        AnsiConsole.systemInstall();
+
         if (args.length == 0) { // Running on a setup without graphical desktop and no arguments passed: show the needed arguments
             if (GraphicsEnvironment.isHeadless()) {
-                System.out.println(Messages.CONSOLE_HELP);
+                printHelp();
                 System.exit(1);
             } else { // Otherwise: Open the GUI
                 GuiApplication.startGUI();
             }
         } else if (args.length == 1 && args[0].equalsIgnoreCase("--help")) { // Give the user some help
             sayHello();
-            System.out.println(Messages.CONSOLE_HELP);
+            printHelp();
         } else if (args.length == 2) { // Start a ConsoleApplication and create a Log-File
             new ConsoleApplication(args[0].trim(), args[1].trim(), true);
         } else if (args.length == 3 && args[2].equalsIgnoreCase("--nolog")) { // Start a ConsoleApplication but do not create a Log-File
@@ -39,7 +43,7 @@ public class Main {
             new QuickTest(args[0].trim()).run();
         } else { // Something went wrong (blame the user!)
             sayHello();
-            System.out.println(Messages.CONSOLE_HELP);
+            printHelp();
         }
     }
 
@@ -51,10 +55,18 @@ public class Main {
         for (int i = lineVersion.length(); i < 42; i++) lineVersion += " ";
 
         System.out.println("##################################################");
-        System.out.println("### " + lineVersion + " ###");
+        System.out.println("### " + new Ansi().fg(Ansi.Color.GREEN).bold().a(lineVersion).fg(Ansi.Color.DEFAULT).boldOff() + " ###");
         System.out.println("###                                            ###");
         System.out.println("### " + Messages.COPYRIGHT + "              ###");
         System.out.println("### " + URL.substring(8) + " ###");
         System.out.println("##################################################\n");
+    }
+
+    /**
+     * Gives the user a colored help-message including a few examples
+     */
+    public static void printHelp() {
+        System.out.println(new Ansi().bold().a(Messages.CONSOLE_HELP).boldOff());
+        System.out.println(Messages.CONSOLE_HELP_EXAMPLES);
     }
 }

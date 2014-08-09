@@ -3,6 +3,7 @@ package eu.menzerath.imwd;
 import eu.menzerath.util.Helper;
 import eu.menzerath.util.Messages;
 import eu.menzerath.util.Updater;
+import org.fusesource.jansi.Ansi;
 
 public class ConsoleApplication {
     private String url;
@@ -25,7 +26,7 @@ public class ConsoleApplication {
             this.createLog = createLog;
             run();
         } else {
-            System.out.println(Messages.INVALID_PARAMETERS);
+            System.out.println(new Ansi().bold().fg(Ansi.Color.RED).a("Error: ").fg(Ansi.Color.DEFAULT).a(Messages.INVALID_PARAMETERS).boldOff());
             System.exit(1);
         }
     }
@@ -38,7 +39,7 @@ public class ConsoleApplication {
         updateCheck();
 
         // Display the used values
-        System.out.println(Messages.CONSOLE_START);
+        System.out.println(new Ansi().bold().a(Messages.CONSOLE_START).boldOff());
         System.out.println("URL:      " + url);
         System.out.println("Interval: " + interval + "s");
         System.out.println("Log-File: " + createLog + "\n");
@@ -52,15 +53,16 @@ public class ConsoleApplication {
      * An update-check for the "ConsoleApplication": If there is an update available, it will show an url to get the update.
      */
     private void updateCheck() {
+        Ansi a = new Ansi();
+
         Updater myUpdater = new Updater();
         if (myUpdater.getServerVersion().equalsIgnoreCase("Error")) {
-            System.out.println(Messages.UPDATE_ERROR + "\n");
+            System.out.println(a.fg(Ansi.Color.RED).a(Messages.UPDATE_ERROR).fg(Ansi.Color.DEFAULT) + "\n");
         } else if (myUpdater.getServerVersion().equals("SNAPSHOT")) {
-            System.out.println(Messages.UPDATE_SNAPSHOT + "\n");
+            System.out.println(a.fg(Ansi.Color.RED).a(Messages.UPDATE_SNAPSHOT).fg(Ansi.Color.DEFAULT) + "\n");
         } else if (myUpdater.isUpdateAvailable()) {
-            System.out.println(Messages.UPDATE_AVAILABLE.replace("%version", myUpdater.getServerVersion()));
-            System.out.println(Messages.UPDATE_AVAILABLE_CHANGES.replace("%changes", myUpdater.getServerChangelog()));
-            System.out.println(Messages.UPDATE_MANUAL.replace("%version", myUpdater.getServerVersion()) + "\n");
+            System.out.println(a.fg(Ansi.Color.RED).bold().a(Messages.UPDATE_AVAILABLE.replace("%version", myUpdater.getServerVersion())).fg(Ansi.Color.DEFAULT).boldOff());
+            System.out.println(Messages.UPDATE_AVAILABLE_CHANGES.replace("%changes", myUpdater.getServerChangelog()) + "\n");
         }
     }
 }

@@ -2,6 +2,7 @@ package eu.menzerath.imwd;
 
 import eu.menzerath.util.Helper;
 import eu.menzerath.util.Messages;
+import org.fusesource.jansi.Ansi;
 
 public class QuickTest {
     private String url;
@@ -15,7 +16,7 @@ public class QuickTest {
         if (Helper.validateUrlInput(url)) {
             this.url = url;
         } else {
-            System.out.println(Messages.INVALID_PARAMETERS);
+            System.out.println(new Ansi().bold().fg(Ansi.Color.RED).a("Error: ").fg(Ansi.Color.DEFAULT).a(Messages.INVALID_PARAMETERS).boldOff());
             System.exit(1);
         }
     }
