@@ -78,8 +78,8 @@ public class Logger {
             updateGui(4);
             return;
         }
-        System.out.println(getLogHead().replace("[0]", "[A]") + new Ansi().fg(Ansi.Color.RED).a("[ERROR] ").reset() + Messages.LOG_NO_CONNECTION);
-        write(getLogHead().replace("[0]", "[A]") + "[ERROR] " + Messages.LOG_NO_CONNECTION);
+        System.out.println(getLogHead().replace("[1]", "[A]") + new Ansi().fg(Ansi.Color.RED).a("[ERROR] ").reset() + Messages.LOG_NO_CONNECTION);
+        write(getLogHead().replace("[1]", "[A]") + "[ERROR] " + Messages.LOG_NO_CONNECTION);
         updateGui(4);
     }
 
