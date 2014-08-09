@@ -26,7 +26,7 @@ public class ConsoleApplication {
             this.createLog = createLog;
             run();
         } else {
-            System.out.println(new Ansi().bold().fg(Ansi.Color.RED).a("Error: ").fg(Ansi.Color.DEFAULT).a(Messages.INVALID_PARAMETERS).boldOff());
+            System.out.println(new Ansi().bold().fg(Ansi.Color.RED).a("Error: ").fg(Ansi.Color.DEFAULT).a(Messages.INVALID_PARAMETERS).reset());
             System.exit(1);
         }
     }
