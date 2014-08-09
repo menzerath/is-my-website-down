@@ -135,7 +135,6 @@ public class Checker {
                 return true;
             } else {
                 in.close();
-                return false;
             }
         } catch (Exception ignored) {
         }
@@ -159,9 +158,9 @@ public class Checker {
             Process myProcess = Runtime.getRuntime().exec(cmd);
             myProcess.waitFor();
             return myProcess.exitValue() == 0;
-        } catch (Exception e) {
-            return false;
+        } catch (Exception ignored) {
         }
+        return false;
     }
 
     public String getUrlWithoutProtocol() {
