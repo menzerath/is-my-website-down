@@ -37,6 +37,11 @@ public class HelperTest {
     }
 
     @Test
+    public void testUrlValidator6() {
+        Assert.assertFalse(Helper.validateUrlInput("http://"));
+    }
+
+    @Test
     public void testIntervalValidator() {
         Assert.assertTrue(Helper.validateIntervalInput(Main.MIN_INTERVAL));
     }

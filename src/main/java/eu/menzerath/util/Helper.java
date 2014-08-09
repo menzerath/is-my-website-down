@@ -26,6 +26,7 @@ public class Helper {
 
     /**
      * This method validates the user-input (URL) and checks if it is ok.
+     * One of the allowed protocols is used and there is something after the protocol
      *
      * @param url Given URL to check
      * @return If the input could be validated or not
@@ -33,7 +34,7 @@ public class Helper {
     public static boolean validateUrlInput(String url) {
         boolean success = false;
         for (String p : Main.PROTOCOLS) {
-            if (url.startsWith(p)) success = true;
+            if (url.startsWith(p) && !url.substring(p.length()).equals("")) success = true;
         }
         return success;
     }
