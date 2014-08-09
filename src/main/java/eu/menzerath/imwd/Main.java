@@ -55,7 +55,7 @@ public class Main {
         for (int i = lineVersion.length(); i < 42; i++) lineVersion += " ";
 
         System.out.println("##################################################");
-        System.out.println("### " + new Ansi().fg(Ansi.Color.GREEN).bold().a(lineVersion).fg(Ansi.Color.DEFAULT).boldOff() + " ###");
+        System.out.println("### " + new Ansi().fg(Ansi.Color.GREEN).bold().a(lineVersion).reset() + " ###");
         System.out.println("###                                            ###");
         System.out.println("### " + Messages.COPYRIGHT + "              ###");
         System.out.println("### " + URL.substring(8) + " ###");
@@ -66,7 +66,7 @@ public class Main {
      * Gives the user a colored help-message including a few examples
      */
     public static void printHelp() {
-        System.out.println(new Ansi().bold().a(Messages.CONSOLE_HELP).boldOff());
+        System.out.println(new Ansi().bold().a(Messages.CONSOLE_HELP).reset());
         System.out.println(Messages.CONSOLE_HELP_EXAMPLES);
     }
 }
