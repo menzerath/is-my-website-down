@@ -113,6 +113,8 @@ public class Checker {
                     logger.noConnection();
                 }
             }
+        } else {
+            logger.error();
         }
     }
 
