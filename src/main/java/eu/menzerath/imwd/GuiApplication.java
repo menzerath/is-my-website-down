@@ -137,8 +137,15 @@ public class GuiApplication extends JFrame {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                boolean allowStart= true;
                 for (int i = 0; i < SettingsManager.getCheckerCountFromSettings(); i++) {
-                    start(i);
+                    if (!checkInput(i)) allowStart = false;
+                }
+
+                if (allowStart) {
+                    for (int i = 0; i < SettingsManager.getCheckerCountFromSettings(); i++) {
+                        start(i);
+                    }
                 }
             }
         });
@@ -335,6 +342,19 @@ public class GuiApplication extends JFrame {
     }
 
     /**
+     * Check whether a particular Checker is allowed to start
+     * @param checkerId Checker to check
+     */
+    private boolean checkInput(int checkerId) {
+        if (!Helper.validateUrlInput(url[checkerId].getText().trim()) || !Helper.validateIntervalInput(Helper.parseInt(interval[checkerId].getText().trim()))) {
+            // +1 to be more user-friendly
+            JOptionPane.showMessageDialog(null, Messages.INVALID_PARAMETERS, "Invalid Input (Website " + (checkerId + 1) + ")", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Start testing!
      * Prepares the GUI, the TrayIcon and starts the Checker
      */
@@ -343,12 +363,6 @@ public class GuiApplication extends JFrame {
         int cInterval = Helper.parseInt(interval[checkerId].getText().trim());
         boolean cContent = content[checkerId].isSelected();
         boolean cPing = ping[checkerId].isSelected();
-
-        if (!Helper.validateUrlInput(cUrl) || !Helper.validateIntervalInput(cInterval)) {
-            // +1 to be more user-friendly
-            JOptionPane.showMessageDialog(null, Messages.INVALID_PARAMETERS, "Invalid Input (Website " + (checkerId + 1) + ")", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
 
         createTrayIcon(checkerId);
         trayIcon[checkerId].setToolTip("Running - " + Main.APPLICATION_SHORT);
