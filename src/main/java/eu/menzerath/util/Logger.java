@@ -36,14 +36,18 @@ public class Logger {
      * The Checker started it's work
      */
     public void start() {
-        write(getLogHead() + new Ansi().fg(Ansi.Color.CYAN).a("[INFO] ").fg(Ansi.Color.DEFAULT) + Messages.LOG_START.replace("%url", CHECKER.URL).replace("%interval", "" + CHECKER.INTERVAL));
+        System.out.println(getLogHead() + new Ansi().fg(Ansi.Color.CYAN).a("[INFO] ").reset() + Messages.LOG_START.replace("%url", CHECKER.URL).replace("%interval", "" + CHECKER.INTERVAL));
+        write(getLogHead() + "[INFO] " + Messages.LOG_START.replace("%url", CHECKER.URL).replace("%interval", "" + CHECKER.INTERVAL));
     }
 
     /**
      * This was a successful check
      */
     public void ok() {
-        if (LOG_VALID_CHECKS) write(getLogHead() + new Ansi().fg(Ansi.Color.GREEN).a("[OK] ").fg(Ansi.Color.DEFAULT) + Messages.LOG_OK);
+        if (LOG_VALID_CHECKS) {
+            System.out.println(getLogHead() + new Ansi().fg(Ansi.Color.GREEN).a("[OK] ").reset() + Messages.LOG_OK);
+            write(getLogHead() + "[OK] " + Messages.LOG_OK);
+        }
         updateGui(1);
     }
 
@@ -51,7 +55,8 @@ public class Logger {
      * This is only a warning - it might get worse
      */
     public void warning() {
-        write(getLogHead() + new Ansi().fg(Ansi.Color.YELLOW).a("[WARNING] ").fg(Ansi.Color.DEFAULT) + Messages.LOG_PING_ONLY);
+        System.out.println(getLogHead() + new Ansi().fg(Ansi.Color.YELLOW).a("[WARNING] ").reset() + Messages.LOG_PING_ONLY);
+        write(getLogHead() + "[WARNING] " + Messages.LOG_PING_ONLY);
         updateGui(2);
     }
 
@@ -59,7 +64,8 @@ public class Logger {
      * Website is gone
      */
     public void error() {
-        write(getLogHead() + new Ansi().fg(Ansi.Color.RED).a("[ERROR] ").fg(Ansi.Color.DEFAULT) + Messages.LOG_ERROR);
+        System.out.println(getLogHead() + new Ansi().fg(Ansi.Color.RED).a("[ERROR] ").reset() + Messages.LOG_ERROR);
+        write(getLogHead() + "[ERROR] " + Messages.LOG_ERROR);
         updateGui(3);
     }
 
@@ -72,18 +78,17 @@ public class Logger {
             updateGui(4);
             return;
         }
-        write(getLogHead().replace("[0]", "[A]") + new Ansi().fg(Ansi.Color.RED).a("[ERROR] ").fg(Ansi.Color.DEFAULT) + Messages.LOG_NO_CONNECTION);
+        System.out.println(getLogHead().replace("[0]", "[A]") + new Ansi().fg(Ansi.Color.RED).a("[ERROR] ").reset() + Messages.LOG_NO_CONNECTION);
+        write(getLogHead().replace("[0]", "[A]") + "[ERROR] " + Messages.LOG_NO_CONNECTION);
         updateGui(4);
     }
 
     /**
-     * Print this message to the console and add it to the log-file
+     * Add this message to the log-file (if enabled)
      *
      * @param message Message to print/output
      */
     private void write(String message) {
-        System.out.println(message);
-
         if (CREATE_FILE) {
             File file = new File("imwd_" + CHECKER.getUrlWithoutProtocol() + ".txt");
             try {
