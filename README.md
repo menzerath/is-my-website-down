@@ -15,7 +15,6 @@ IMWD uses a simple algorithm to check your websites in two steps:
 ## Download
 * [**GitHub Releases**](https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases)
 * [**heise.de**](http://www.heise.de/download/is-my-website-down-1190272.html)
-* [**Jenkins**](http://ci.menzerath.eu/job/IsMyWebsiteDown/)
 
 ## Run
 For a **graphical interface**, double click the downloaded file or do not add any arguments.
