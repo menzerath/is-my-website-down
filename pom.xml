@@ -16,6 +16,7 @@
     <url>https://github.com/MarvinMenzerath/IsMyWebsiteDown</url>
 
     <properties>
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -40,6 +41,7 @@
     </dependencies>
 
     <build>
+        <finalName>${finalName}</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -49,7 +51,7 @@
 
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.4</version>
+                    <version>2.5</version>
                 </plugin>
 
                 <plugin>

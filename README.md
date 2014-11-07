@@ -13,6 +13,7 @@ IMWD uses a simple algorithm to check your websites in two steps:
 <img src="https://raw.githubusercontent.com/MarvinMenzerath/IsMyWebsiteDown/master/doc/Screenshot3.png" alt="Console" width="50%" />
 
 ## Download
+[![Build Status](https://travis-ci.org/MarvinMenzerath/IsMyWebsiteDown.svg?branch=master)](https://travis-ci.org/MarvinMenzerath/IsMyWebsiteDown)
 * [**GitHub Releases**](https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases)
 * [**heise.de**](http://www.heise.de/download/is-my-website-down-1190272.html)
 
