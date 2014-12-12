@@ -46,7 +46,7 @@
             <plugins>
                 <plugin>
                     <artifactId>maven-shade-plugin</artifactId>
-                    <version>2.2</version>
+                    <version>2.3</version>
                 </plugin>
 
                 <plugin>
@@ -56,7 +56,7 @@
 
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.1</version>
+                    <version>3.2</version>
                 </plugin>
 
                 <plugin>
@@ -72,12 +72,6 @@
                 <artifactId>maven-shade-plugin</artifactId>
                 <configuration>
                     <minimizeJar>true</minimizeJar>
-                    <artifactSet>
-                        <includes>
-                            <include>com.intellij:forms_rt</include>
-                            <include>org.fusesource.jansi:jansi</include>
-                        </includes>
-                    </artifactSet>
                 </configuration>
                 <executions>
                     <execution>

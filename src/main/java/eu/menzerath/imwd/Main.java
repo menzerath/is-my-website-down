@@ -28,12 +28,10 @@ public class Main {
         if (args.length == 0) { // Running on a setup without graphical desktop and no arguments passed: show the needed arguments
             if (GraphicsEnvironment.isHeadless()) {
                 printHelp();
-                System.exit(1);
             } else { // Otherwise: Open the GUI
                 GuiApplication.startGUI();
             }
         } else if (args.length == 1 && args[0].equalsIgnoreCase("--help")) { // Give the user some help
-            sayHello();
             printHelp();
         } else if (args.length == 2) { // Start a ConsoleApplication and create a Log-File
             new ConsoleApplication(args[0].trim(), args[1].trim(), true);
@@ -42,7 +40,6 @@ public class Main {
         } else if (args.length == 3 && args[2].equalsIgnoreCase("--once")) { // Run a QuickTest
             new QuickTest(args[0].trim()).run();
         } else { // Something went wrong (blame the user!)
-            sayHello();
             printHelp();
         }
     }
@@ -66,6 +63,7 @@ public class Main {
      * Gives the user a colored help-message including a few examples
      */
     public static void printHelp() {
+        sayHello();
         System.out.println(new Ansi().bold().a(Messages.CONSOLE_HELP).reset());
         System.out.println(Messages.CONSOLE_HELP_EXAMPLES);
     }
