@@ -16,7 +16,6 @@
     <url>https://github.com/MarvinMenzerath/IsMyWebsiteDown</url>
 
     <properties>
-        <finalName>${project.artifactId}-${project.version}</finalName>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -36,12 +35,11 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.12</version>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>${finalName}</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
