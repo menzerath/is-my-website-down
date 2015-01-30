@@ -33,6 +33,18 @@
         </dependency>
 
         <dependency>
+            <groupId>org.piwik</groupId>
+            <artifactId>piwik-java-tracking</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>

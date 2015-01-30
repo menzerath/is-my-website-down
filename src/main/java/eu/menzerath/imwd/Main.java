@@ -3,6 +3,8 @@ package eu.menzerath.imwd;
 import eu.menzerath.util.Messages;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
+import org.piwik.PiwikException;
+import org.piwik.SimplePiwikTracker;
 
 import java.awt.*;
 
@@ -29,15 +31,19 @@ public class Main {
             if (GraphicsEnvironment.isHeadless()) {
                 printHelp();
             } else { // Otherwise: Open the GUI
+                trackUsage("GUI");
                 GuiApplication.startGUI();
             }
         } else if (args.length == 1 && args[0].equalsIgnoreCase("--help")) { // Give the user some help
             printHelp();
         } else if (args.length == 2) { // Start a ConsoleApplication and create a Log-File
+            trackUsage("CONSOLE");
             new ConsoleApplication(args[0].trim(), args[1].trim(), true);
         } else if (args.length == 3 && args[2].equalsIgnoreCase("--nolog")) { // Start a ConsoleApplication but do not create a Log-File
+            trackUsage("CONSOLE");
             new ConsoleApplication(args[0].trim(), args[1].trim(), false);
         } else if (args.length == 3 && args[2].equalsIgnoreCase("--once")) { // Run a QuickTest
+            trackUsage("QUICK");
             new QuickTest(args[0].trim()).run();
         } else { // Something went wrong (blame the user!)
             printHelp();
@@ -66,5 +72,17 @@ public class Main {
         sayHello();
         System.out.println(new Ansi().bold().a(Messages.CONSOLE_HELP).reset());
         System.out.println(Messages.CONSOLE_HELP_EXAMPLES);
+        trackUsage("HELP");
+    }
+
+    private static void trackUsage(String action) {
+        try {
+            SimplePiwikTracker piwik = new SimplePiwikTracker("https://piwik.menzerath.eu");
+            piwik.setIdSite(8);
+            piwik.setUserAgent(APPLICATION + " v" + VERSION);
+            piwik.sendRequest(piwik.getPageTrackURL(VERSION + "/" + action));
+        } catch (PiwikException e) {
+            System.out.println(new Ansi().fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " Unable to track application-usage: " + e.getMessage());
+        }
     }
 }
