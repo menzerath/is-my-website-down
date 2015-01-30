@@ -14,6 +14,7 @@ public class Main {
     public static final String VERSION = "2.2-SNAPSHOT";
     public static final String URL = "https://github.com/MarvinMenzerath/IsMyWebsiteDown";
     public static final String URL_RELEASE = "https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases";
+    public static final String USER_AGENT = "IsMyWebsiteDown/" + VERSION + " (" + URL + ")";
     public static final String[] PROTOCOLS = {"http://", "https://"};
     public static final int MIN_INTERVAL = 10;
     public static final int MAX_INTERVAL = 300;
@@ -79,10 +80,10 @@ public class Main {
         try {
             SimplePiwikTracker piwik = new SimplePiwikTracker("https://piwik.menzerath.eu");
             piwik.setIdSite(8);
-            piwik.setUserAgent(APPLICATION + " v" + VERSION);
+            piwik.setUserAgent(USER_AGENT);
             piwik.sendRequest(piwik.getPageTrackURL(VERSION + "/" + action));
         } catch (PiwikException e) {
-            System.out.println(new Ansi().fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " Unable to track application-usage: " + e.getMessage());
+            System.out.println(new Ansi().fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " " + Messages.PIWIK_FAILED + " " + e.getMessage());
         }
     }
 }

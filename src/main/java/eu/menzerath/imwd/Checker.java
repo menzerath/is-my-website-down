@@ -126,7 +126,7 @@ public class Checker {
     public boolean testContent() {
         try {
             URLConnection myConnection = new URL(this.URL).openConnection();
-            myConnection.setRequestProperty("User-Agent", "IsMyWebsiteDown/" + Main.VERSION + " (" + Main.URL + ")");
+            myConnection.setRequestProperty("User-Agent", Main.USER_AGENT);
             myConnection.setRequestProperty("Connection", "close");
 
             BufferedReader in = new BufferedReader(new InputStreamReader(myConnection.getInputStream()));

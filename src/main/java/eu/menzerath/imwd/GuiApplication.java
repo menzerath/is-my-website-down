@@ -3,6 +3,7 @@ package eu.menzerath.imwd;
 import eu.menzerath.util.Helper;
 import eu.menzerath.util.Messages;
 import eu.menzerath.util.Updater;
+import org.fusesource.jansi.Ansi;
 
 import javax.swing.*;
 import java.awt.*;
@@ -317,7 +318,7 @@ public class GuiApplication extends JFrame {
     private static void createTrayIcon(int checkerId) {
         // Not supported? Bye, Bye!
         if (!SystemTray.isSupported()) {
-            System.out.println("SystemTray is not supported. Exiting...");
+            System.out.println(new Ansi().fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " " + "SystemTray is not supported. Exiting...");
             System.exit(1);
         }
 
@@ -336,7 +337,7 @@ public class GuiApplication extends JFrame {
             tray.add(trayIcon[checkerId]);
         } catch (AWTException e) {
             // Not possible? Bye, Bye!
-            System.out.println("TrayIcon could not be added. Exiting...");
+            System.out.println(new Ansi().fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " " + "TrayIcon could not be added. Exiting...");
             System.exit(1);
         }
     }

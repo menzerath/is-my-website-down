@@ -9,6 +9,7 @@ public class Messages {
     public static final String CONSOLE_HELP_EXAMPLES = "Examples:\n    java -jar IMWD.jar\n    java -jar IMWD.jar http://website.com 30\n    java -jar IMWD.jar http://website.com 30 --nolog\n    java -jar IMWD.jar http://website.com 0 --once";
     public static final String INVALID_PARAMETERS = "You have to enter a valid url (including the specific protocol) and interval (numbers only - between " + Main.MIN_INTERVAL + " and " + Main.MAX_INTERVAL + " seconds).";
     public static final String USING_HTTP = "Using HTTP as protocol. You should always specify the protocol when entering an url to prevent failures.";
+    public static final String PIWIK_FAILED = "Unable to track application-usage:";
     // END: Main
 
     // START: Message-Bubbles
@@ -43,7 +44,7 @@ public class Messages {
     public static final String UPDATE_NO_UPDATE = "No Update found!";
     public static final String UPDATE_NO_UPDATE_LONG = "You are running the latest version of \"" + Main.APPLICATION + "\" (v" + Main.VERSION + ").";
     public static final String UPDATE_ERROR = "Unable to search for Updates. Please visit \"" + Main.URL_RELEASE + "\".";
-    public static final String UPDATE_SNAPSHOT = "This is a SNAPSHOT-Release. The Updater is therefore deactivated!\nPlease visit \"" + Main.URL_RELEASE + "\".";
+    public static final String UPDATE_SNAPSHOT = "This is a SNAPSHOT-Release. The Updater is therefore deactivated!";
     public static final String UPDATE_AVAILABLE_TITLE = "Update available!";
     public static final String UPDATE_AVAILABLE = "There is an Update to version %version available.";
     public static final String UPDATE_AVAILABLE_CHANGES = "Changes: %changes\nVisit \"" + Main.URL_RELEASE + "\" for a full Changelog and to Download this Update.";

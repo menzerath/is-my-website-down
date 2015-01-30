@@ -66,11 +66,11 @@ public class ConsoleApplication {
 
         Updater myUpdater = new Updater();
         if (myUpdater.getServerVersion().equalsIgnoreCase("Error")) {
-            System.out.println(a.fg(Ansi.Color.RED).a(Messages.UPDATE_ERROR).reset() + "\n");
+            System.out.println(a.fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " " + Messages.UPDATE_ERROR + "\n");
         } else if (myUpdater.getServerVersion().equals("SNAPSHOT")) {
-            System.out.println(a.fg(Ansi.Color.RED).a(Messages.UPDATE_SNAPSHOT).reset() + "\n");
+            System.out.println(a.fg(Ansi.Color.YELLOW).bold().a("[WARNING]").reset() + " " + Messages.UPDATE_SNAPSHOT + "\n");
         } else if (myUpdater.isUpdateAvailable()) {
-            System.out.println(a.fg(Ansi.Color.RED).bold().a(Messages.UPDATE_AVAILABLE.replace("%version", myUpdater.getServerVersion())).reset());
+            System.out.println(a.fg(Ansi.Color.CYAN).bold().a("[INFO]").reset() + " " + Messages.UPDATE_AVAILABLE.replace("%version", myUpdater.getServerVersion()));
             System.out.println(Messages.UPDATE_AVAILABLE_CHANGES.replace("%changes", myUpdater.getServerChangelog()) + "\n");
         }
     }

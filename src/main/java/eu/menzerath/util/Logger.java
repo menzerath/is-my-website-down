@@ -36,8 +36,8 @@ public class Logger {
      * The Checker started it's work
      */
     public void start() {
-        System.out.println(getLogHead() + new Ansi().fg(Ansi.Color.CYAN).a("[INFO] ").reset() + Messages.LOG_START.replace("%url", CHECKER.URL).replace("%interval", "" + CHECKER.INTERVAL));
-        write(getLogHead() + "[INFO] " + Messages.LOG_START.replace("%url", CHECKER.URL).replace("%interval", "" + CHECKER.INTERVAL));
+        System.out.println(getLogHead() + new Ansi().fg(Ansi.Color.CYAN).a("[INFO]").reset() + " " + Messages.LOG_START.replace("%url", CHECKER.URL).replace("%interval", "" + CHECKER.INTERVAL));
+        write(getLogHead() + "[INFO]" + " " + Messages.LOG_START.replace("%url", CHECKER.URL).replace("%interval", "" + CHECKER.INTERVAL));
     }
 
     /**
@@ -45,8 +45,8 @@ public class Logger {
      */
     public void ok() {
         if (LOG_VALID_CHECKS) {
-            System.out.println(getLogHead() + new Ansi().fg(Ansi.Color.GREEN).a("[OK] ").reset() + Messages.LOG_OK);
-            write(getLogHead() + "[OK] " + Messages.LOG_OK);
+            System.out.println(getLogHead() + new Ansi().fg(Ansi.Color.GREEN).a("[OK]").reset() + " " + Messages.LOG_OK);
+            write(getLogHead() + "[OK]" + " " + Messages.LOG_OK);
         }
         updateGui(1);
     }
@@ -55,8 +55,8 @@ public class Logger {
      * This is only a warning - it might get worse
      */
     public void warning() {
-        System.out.println(getLogHead() + new Ansi().fg(Ansi.Color.YELLOW).a("[WARNING] ").reset() + Messages.LOG_PING_ONLY);
-        write(getLogHead() + "[WARNING] " + Messages.LOG_PING_ONLY);
+        System.out.println(getLogHead() + new Ansi().fg(Ansi.Color.YELLOW).a("[WARNING]").reset() + " " + Messages.LOG_PING_ONLY);
+        write(getLogHead() + "[WARNING]" + " " + Messages.LOG_PING_ONLY);
         updateGui(2);
     }
 
@@ -64,8 +64,8 @@ public class Logger {
      * Website is gone
      */
     public void error() {
-        System.out.println(getLogHead() + new Ansi().fg(Ansi.Color.RED).a("[ERROR] ").reset() + Messages.LOG_ERROR);
-        write(getLogHead() + "[ERROR] " + Messages.LOG_ERROR);
+        System.out.println(getLogHead() + new Ansi().fg(Ansi.Color.RED).a("[ERROR]").reset() + " " + Messages.LOG_ERROR);
+        write(getLogHead() + "[ERROR]" + " " + Messages.LOG_ERROR);
         updateGui(3);
     }
 
@@ -78,8 +78,8 @@ public class Logger {
             updateGui(4);
             return;
         }
-        System.out.println(getLogHead().replace("[1]", "[A]") + new Ansi().fg(Ansi.Color.RED).a("[ERROR] ").reset() + Messages.LOG_NO_CONNECTION);
-        write(getLogHead().replace("[1]", "[A]") + "[ERROR] " + Messages.LOG_NO_CONNECTION);
+        System.out.println(getLogHead().replace("[1]", "[A]") + new Ansi().fg(Ansi.Color.RED).a("[ERROR]").reset() + " " + Messages.LOG_NO_CONNECTION);
+        write(getLogHead().replace("[1]", "[A]") + "[ERROR]" + " " + Messages.LOG_NO_CONNECTION);
         updateGui(4);
     }
 
