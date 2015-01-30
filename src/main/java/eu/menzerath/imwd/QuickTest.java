@@ -15,8 +15,10 @@ public class QuickTest {
     public QuickTest(String url) {
         if (Helper.validateUrlInput(url)) {
             this.url = url;
+        } else if (Helper.validateUrlInput("http://" + url)) {
+            this.url = "http://" + url;
         } else {
-            System.out.println(new Ansi().bold().fg(Ansi.Color.RED).a("Error: ").fg(Ansi.Color.DEFAULT).a(Messages.INVALID_PARAMETERS).reset());
+            System.out.println(new Ansi().bold().fg(Ansi.Color.RED).a("[ERROR]").reset() + " " + Messages.INVALID_PARAMETERS);
             System.exit(1);
         }
     }

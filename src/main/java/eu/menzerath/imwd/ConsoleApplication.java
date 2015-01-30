@@ -20,13 +20,25 @@ public class ConsoleApplication {
     public ConsoleApplication(String url, String interval, boolean createLog) {
         Main.sayHello();
 
-        if (Helper.validateUrlInput(url) && Helper.validateIntervalInput(Helper.parseInt(interval))) {
+        // Run the update-check
+        updateCheck();
+
+        boolean checkUrl = Helper.validateUrlInput(url);
+        boolean checkInterval = Helper.validateIntervalInput(Helper.parseInt(interval));
+
+        if (!checkUrl && Helper.validateUrlInput("http://" + url)) {
+            this.url = "http://" + url;
+            System.out.println(new Ansi().bold().fg(Ansi.Color.YELLOW).a("[WARNING]").reset() + " " + Messages.USING_HTTP);
+        } else {
             this.url = url;
+        }
+
+        if (checkInterval) {
             this.interval = Helper.parseInt(interval);
             this.createLog = createLog;
             run();
         } else {
-            System.out.println(new Ansi().bold().fg(Ansi.Color.RED).a("Error: ").fg(Ansi.Color.DEFAULT).a(Messages.INVALID_PARAMETERS).reset());
+            System.out.println(new Ansi().bold().fg(Ansi.Color.RED).a("[ERROR]").reset() + " " + Messages.INVALID_PARAMETERS);
             System.exit(1);
         }
     }
@@ -35,9 +47,6 @@ public class ConsoleApplication {
      * This is the main-method which will take the values from the preferences and start directly.
      */
     private void run() {
-        // Run the update-check
-        updateCheck();
-
         // Display the used values
         System.out.println(new Ansi().bold().a(Messages.CONSOLE_START).boldOff());
         System.out.println("URL:      " + url);

@@ -8,6 +8,7 @@ public class Messages {
     public static final String CONSOLE_HELP = "You have to use the following syntax: java -jar IMWD.jar [URL] [INTERVAL] {ARG}";
     public static final String CONSOLE_HELP_EXAMPLES = "Examples:\n    java -jar IMWD.jar\n    java -jar IMWD.jar http://website.com 30\n    java -jar IMWD.jar http://website.com 30 --nolog\n    java -jar IMWD.jar http://website.com 0 --once";
     public static final String INVALID_PARAMETERS = "You have to enter a valid url (including the specific protocol) and interval (numbers only - between " + Main.MIN_INTERVAL + " and " + Main.MAX_INTERVAL + " seconds).";
+    public static final String USING_HTTP = "Using HTTP as protocol. You should always specify the protocol when entering an url to prevent failures.";
     // END: Main
 
     // START: Message-Bubbles
