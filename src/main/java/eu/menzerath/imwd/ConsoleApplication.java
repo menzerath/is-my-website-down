@@ -5,6 +5,8 @@ import eu.menzerath.util.Messages;
 import eu.menzerath.util.Updater;
 import org.fusesource.jansi.Ansi;
 
+import java.util.Scanner;
+
 public class ConsoleApplication {
     private String url;
     private int interval;
@@ -71,7 +73,15 @@ public class ConsoleApplication {
             System.out.println(a.fg(Ansi.Color.YELLOW).bold().a("[WARNING]").reset() + " " + Messages.UPDATE_SNAPSHOT + "\n");
         } else if (myUpdater.isUpdateAvailable()) {
             System.out.println(a.fg(Ansi.Color.CYAN).bold().a("[INFO]").reset() + " " + Messages.UPDATE_AVAILABLE.replace("%version", myUpdater.getServerVersion()));
-            System.out.println(Messages.UPDATE_AVAILABLE_CHANGES.replace("%changes", myUpdater.getServerChangelog()) + "\n");
+            System.out.println(Messages.UPDATE_AVAILABLE_CHANGES.replace("%changes", myUpdater.getServerChangelog()));
+
+            System.out.println("Press \"y\" to download it now or any other key to delay this update: ");
+            Scanner sc = new Scanner(System.in);
+            if (sc.next().equalsIgnoreCase("y")) {
+                new eu.menzerath.imwd.updater.Updater(false);
+            } else {
+                System.out.println("");
+            }
         }
     }
 }

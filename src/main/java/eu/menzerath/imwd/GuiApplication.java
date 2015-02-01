@@ -9,7 +9,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URI;
 
 public class GuiApplication extends JFrame {
     // Tray-Icons
@@ -461,11 +460,7 @@ public class GuiApplication extends JFrame {
                             "\n" + Messages.UPDATE_AVAILABLE_CHANGES.replace("%changes", myUpdater.getServerChangelog()) +
                             "\n\n" + Messages.UPDATE_NOW, Messages.UPDATE_AVAILABLE_TITLE, JOptionPane.YES_NO_OPTION);
                     if (value == JOptionPane.YES_OPTION) {
-                        try {
-                            Desktop.getDesktop().browse(new URI(Main.URL_RELEASE));
-                        } catch (Exception ignored) {
-                        }
-                        System.exit(0);
+                        new eu.menzerath.imwd.updater.Updater(true);
                     }
                 } else {
                     // Show this message if the Updater was created by the user

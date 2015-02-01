@@ -11,7 +11,7 @@ import java.awt.*;
 public class Main {
     public static final String APPLICATION = "Is My Website Down?";
     public static final String APPLICATION_SHORT = "IMWD";
-    public static final String VERSION = "2.2-SNAPSHOT";
+    public static final String VERSION = "2.2";
     public static final String URL = "https://github.com/MarvinMenzerath/IsMyWebsiteDown";
     public static final String URL_RELEASE = "https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases";
     public static final String USER_AGENT = "IsMyWebsiteDown/" + VERSION + " (" + URL + ")";
@@ -26,8 +26,6 @@ public class Main {
      * @param args Passed arguments for start
      */
     public static void main(String[] args) {
-        AnsiConsole.systemInstall();
-
         if (args.length == 0) { // Running on a setup without graphical desktop and no arguments passed: show the needed arguments
             if (GraphicsEnvironment.isHeadless()) {
                 printHelp();
@@ -55,6 +53,8 @@ public class Main {
      * Shows an informative message about "Is My Website Down?" on start
      */
     public static void sayHello() {
+        AnsiConsole.systemInstall();
+
         String lineVersion = APPLICATION + " v" + VERSION;
         for (int i = lineVersion.length(); i < 42; i++) lineVersion += " ";
 

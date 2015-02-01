@@ -47,7 +47,7 @@ public class Messages {
     public static final String UPDATE_SNAPSHOT = "This is a SNAPSHOT-Release. The Updater is therefore deactivated!";
     public static final String UPDATE_AVAILABLE_TITLE = "Update available!";
     public static final String UPDATE_AVAILABLE = "There is an Update to version %version available.";
-    public static final String UPDATE_AVAILABLE_CHANGES = "Changes: %changes\nVisit \"" + Main.URL_RELEASE + "\" for a full Changelog and to Download this Update.";
+    public static final String UPDATE_AVAILABLE_CHANGES = "Changes: %changes";
     public static final String UPDATE_NOW = "Do you want to Download it now?";
     // END: Updates
 }
