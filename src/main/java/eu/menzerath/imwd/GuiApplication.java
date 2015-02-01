@@ -259,8 +259,6 @@ public class GuiApplication extends JFrame {
         menuBar.add(mnTools);
 
         cbAutorun.setSelected(SettingsManager.getAutorunFromSettings());
-        if (SettingsManager.getAutorunFromSettings())
-            Helper.addToAutorun(); // If there was an update, update file in Autorun!
         cbAutorun.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
