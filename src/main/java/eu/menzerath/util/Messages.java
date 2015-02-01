@@ -36,7 +36,7 @@ public class Messages {
     // START: GuiApplication
     public static final String ABOUT_ICONS = "Icons: Ampeross - http://ampeross.deviantart.com";
     public static final String ABOUT_SOURCE = "Sourcecode: http://github.com/MarvinMenzerath/IsMyWebsiteDown - GPLv3";
-    public static final String ABOUT_AUTHOR = COPYRIGHT + " - http://menzerath.eu";
+    public static final String ABOUT_AUTHOR = COPYRIGHT + " - https://menzerath.eu";
     public static final String AUTORUN_ERROR = "Could not copy " + Main.APPLICATION_SHORT + " to your Autorun. Please check...\n\n  * You are allowed to copy files to the Autorun-Folder.\n  * You are running Windows Vista or higher.";
     // END: GuiApplication
 

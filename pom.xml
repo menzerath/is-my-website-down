@@ -99,6 +99,7 @@
                     <archive>
                         <manifest>
                             <mainClass>eu.menzerath.imwd.Main</mainClass>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                     </archive>
                 </configuration>
