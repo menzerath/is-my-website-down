@@ -1,2 +1,2 @@
-2.1.2
-Check up to 8 websites simultaneously, reorganised console-interaction (!), added QuickTest, added GitHub-URL to user-agent, small bugfixes and improvements
+2.2
+new updater, single configuration-file, colored console-output and many more improvements (see GitHub Release)
