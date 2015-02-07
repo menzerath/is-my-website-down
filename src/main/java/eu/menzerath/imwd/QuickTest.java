@@ -1,8 +1,9 @@
 package eu.menzerath.imwd;
 
+import eu.menzerath.imwd.checker.Checker;
 import eu.menzerath.util.Helper;
+import eu.menzerath.util.Logger;
 import eu.menzerath.util.Messages;
-import org.fusesource.jansi.Ansi;
 
 public class QuickTest {
     private String url;
@@ -18,7 +19,7 @@ public class QuickTest {
         } else if (Helper.validateUrlInput("http://" + url)) {
             this.url = "http://" + url;
         } else {
-            System.out.println(new Ansi().bold().fg(Ansi.Color.RED).a("[ERROR]").reset() + " " + Messages.INVALID_PARAMETERS);
+            Logger.error(Messages.INVALID_PARAMETERS);
             System.exit(1);
         }
     }

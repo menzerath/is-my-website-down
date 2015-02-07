@@ -1,7 +1,7 @@
 package eu.menzerath.imwd.updater;
 
 import eu.menzerath.imwd.Main;
-import org.fusesource.jansi.Ansi;
+import eu.menzerath.util.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class Cleaner {
      * @param oldFileName Name of the old jar-file
      */
     public Cleaner(String oldFileName, String startNewVersion) {
-        System.out.println(new Ansi().fg(Ansi.Color.CYAN).bold().a("[INFO]").reset() + " " + "Starting Cleaner...");
+        Logger.info("Starting Cleaner...");
 
         File oldFile = new File(oldFileName);
         boolean startNewVersionBoolean = Boolean.valueOf(startNewVersion);
@@ -42,14 +42,14 @@ public class Cleaner {
             File currentVersion = new File(cSource.getLocation().toURI().getPath());
             currentFileName = currentVersion.getName();
         } catch (URISyntaxException e) {
-            System.out.println(new Ansi().fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " " + "Unable to get this file's name: " + e.getMessage());
+            Logger.error("Unable to get this file's name: " + e.getMessage());
         }
 
         // try to delete the old file
         if (oldFile.delete()) {
-            System.out.println(new Ansi().fg(Ansi.Color.CYAN).bold().a("[INFO]").reset() + " " + "Old file successfully deleted");
+            Logger.info("Old file successfully deleted");
         } else {
-            System.out.println(new Ansi().fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " " + "Unable to delete " + oldFileName);
+            Logger.error("Unable to delete " + oldFileName);
         }
 
         // start the new version (if wanted)
@@ -57,7 +57,7 @@ public class Cleaner {
             try {
                 Runtime.getRuntime().exec("java -jar " + currentFileName);
             } catch (IOException e) {
-                System.out.println(new Ansi().fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " " + "Unable to start " + currentFileName);
+                Logger.error("Unable to start " + currentFileName);
             }
         }
 

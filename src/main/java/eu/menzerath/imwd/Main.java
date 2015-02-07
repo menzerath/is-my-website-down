@@ -1,5 +1,6 @@
 package eu.menzerath.imwd;
 
+import eu.menzerath.util.Logger;
 import eu.menzerath.util.Messages;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
@@ -83,7 +84,7 @@ public class Main {
             piwik.setUserAgent(USER_AGENT);
             piwik.sendRequest(piwik.getPageTrackURL(VERSION + "/" + action));
         } catch (PiwikException e) {
-            System.out.println(new Ansi().fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " " + Messages.PIWIK_FAILED + " " + e.getMessage());
+            Logger.error(Messages.PIWIK_FAILED + " " + e.getMessage());
         }
     }
 }

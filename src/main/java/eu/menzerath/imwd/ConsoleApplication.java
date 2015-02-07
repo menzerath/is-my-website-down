@@ -1,6 +1,8 @@
 package eu.menzerath.imwd;
 
+import eu.menzerath.imwd.checker.Checker;
 import eu.menzerath.util.Helper;
+import eu.menzerath.util.Logger;
 import eu.menzerath.util.Messages;
 import eu.menzerath.util.Updater;
 import org.fusesource.jansi.Ansi;
@@ -30,7 +32,7 @@ public class ConsoleApplication {
 
         if (!checkUrl && Helper.validateUrlInput("http://" + url)) {
             this.url = "http://" + url;
-            System.out.println(new Ansi().bold().fg(Ansi.Color.YELLOW).a("[WARNING]").reset() + " " + Messages.USING_HTTP);
+            Logger.warning(Messages.USING_HTTP);
         } else {
             this.url = url;
         }
@@ -40,7 +42,7 @@ public class ConsoleApplication {
             this.createLog = createLog;
             run();
         } else {
-            System.out.println(new Ansi().bold().fg(Ansi.Color.RED).a("[ERROR]").reset() + " " + Messages.INVALID_PARAMETERS);
+            Logger.error(Messages.INVALID_PARAMETERS);
             System.exit(1);
         }
     }
@@ -64,18 +66,16 @@ public class ConsoleApplication {
      * An update-check for the "ConsoleApplication": If there is an update available, it will show an url to get the update.
      */
     private void updateCheck() {
-        Ansi a = new Ansi();
-
         Updater myUpdater = new Updater();
         if (myUpdater.getServerVersion().equalsIgnoreCase("Error")) {
-            System.out.println(a.fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " " + Messages.UPDATE_ERROR + "\n");
+            Logger.error(Messages.UPDATE_ERROR + "\n");
         } else if (myUpdater.getServerVersion().equals("SNAPSHOT")) {
-            System.out.println(a.fg(Ansi.Color.YELLOW).bold().a("[WARNING]").reset() + " " + Messages.UPDATE_SNAPSHOT + "\n");
+            Logger.warning(Messages.UPDATE_SNAPSHOT + "\n");
         } else if (myUpdater.isUpdateAvailable()) {
-            System.out.println(a.fg(Ansi.Color.CYAN).bold().a("[INFO]").reset() + " " + Messages.UPDATE_AVAILABLE.replace("%version", myUpdater.getServerVersion()));
-            System.out.println(Messages.UPDATE_AVAILABLE_CHANGES.replace("%changes", myUpdater.getServerChangelog()));
+            Logger.info(Messages.UPDATE_AVAILABLE.replace("%version", myUpdater.getServerVersion()) + "\n" +
+                    Messages.UPDATE_AVAILABLE_CHANGES.replace("%changes", myUpdater.getServerChangelog()) + "\n" +
+                    "Press \"y\" to download it now or any other key to delay this update: ");
 
-            System.out.println("Press \"y\" to download it now or any other key to delay this update: ");
             Scanner sc = new Scanner(System.in);
             if (sc.next().equalsIgnoreCase("y")) {
                 new eu.menzerath.imwd.updater.Updater(false);

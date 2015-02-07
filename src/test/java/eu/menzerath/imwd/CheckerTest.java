@@ -1,5 +1,6 @@
 package eu.menzerath.imwd;
 
+import eu.menzerath.imwd.checker.Checker;
 import org.junit.Assert;
 import org.junit.Test;
 

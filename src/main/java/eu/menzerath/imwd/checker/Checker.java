@@ -1,7 +1,8 @@
-package eu.menzerath.imwd;
+package eu.menzerath.imwd.checker;
 
+import eu.menzerath.imwd.GuiApplication;
+import eu.menzerath.imwd.Main;
 import eu.menzerath.util.Helper;
-import eu.menzerath.util.Logger;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -1,9 +1,8 @@
 package eu.menzerath.util;
 
-import eu.menzerath.imwd.Checker;
 import eu.menzerath.imwd.GuiApplication;
 import eu.menzerath.imwd.Main;
-import org.fusesource.jansi.Ansi;
+import eu.menzerath.imwd.checker.Checker;
 
 import java.io.File;
 import java.io.IOException;
@@ -77,7 +76,7 @@ public class Helper {
             Files.copy(source, dest, StandardCopyOption.REPLACE_EXISTING);
             return true;
         } catch (URISyntaxException | IOException e) {
-            System.out.println(new Ansi().fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " Unable to add IMWD to Autorun: " + e.getMessage());
+            Logger.error("Unable to add IMWD to Autorun: " + e.getMessage());
             return false;
         }
     }
@@ -91,7 +90,7 @@ public class Helper {
             Files.delete(dest);
             return true;
         } catch (IOException e) {
-            System.out.println(new Ansi().fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " Unable to remove IMWD from Autorun: " + e.getMessage());
+            Logger.error("Unable to remove IMWD from Autorun: " + e.getMessage());
             return false;
         }
     }

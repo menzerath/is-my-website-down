@@ -1,6 +1,6 @@
 package eu.menzerath.imwd;
 
-import org.fusesource.jansi.Ansi;
+import eu.menzerath.util.Logger;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -13,7 +13,7 @@ public class SettingsManager {
 
     public SettingsManager() {
         settingsFile = new File(System.getProperty("user.home") + FileSystems.getDefault().getSeparator() + "ismywebsitedown.json");
-        System.out.println(new Ansi().fg(Ansi.Color.CYAN).bold().a("[INFO]").reset() + " " + "Using this config-file: " + settingsFile.getAbsolutePath());
+        Logger.info("Using this config-file: " + settingsFile.getAbsolutePath());
 
         if (!settingsFile.exists()) {
             InputStream ddlStream = SettingsManager.class.getClassLoader().getResourceAsStream("default_config.json");
@@ -25,13 +25,13 @@ public class SettingsManager {
                     r = ddlStream.read(buf);
                 }
             } catch (IOException e) {
-                System.out.println(new Ansi().fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " " + "Unable to create a new config-file: " + e.getMessage() + "\nExiting...");
+                Logger.error("Unable to create a new config-file: " + e.getMessage() + "\nExiting...");
                 System.exit(1);
             }
         }
 
         if (!settingsFile.canRead()) {
-            System.out.println(new Ansi().fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " " + "Unable to read config-file. Exiting...");
+            Logger.error("Unable to read config-file. Exiting...");
             System.exit(1);
         }
 
@@ -39,7 +39,7 @@ public class SettingsManager {
         try {
             settingsFileContent = new Scanner(settingsFile).useDelimiter("\\A").next();
         } catch (FileNotFoundException e) {
-            System.out.println(new Ansi().fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " " + "Unable to read config-file. Exiting...");
+            Logger.error("Unable to read config-file. Exiting...");
             System.exit(1);
         }
 
