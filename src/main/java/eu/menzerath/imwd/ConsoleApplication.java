@@ -56,7 +56,7 @@ public class ConsoleApplication {
         System.out.println("Log-File: " + createLog + "\n");
 
         // Create the Checker and go!
-        Checker checker = new Checker(0, url, interval, true, true, createLog, true, false);
+        Checker checker = new Checker(0, url, interval, true, true, createLog, true);
         checker.startTesting();
     }
 

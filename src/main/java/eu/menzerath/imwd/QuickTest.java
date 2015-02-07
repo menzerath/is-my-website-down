@@ -29,7 +29,7 @@ public class QuickTest {
     public String run() {
         // Create the Checker and go!
         String result;
-        Checker checker = new Checker(0, url, 30, true, true, false, false, false);
+        Checker checker = new Checker(0, url, 30, true, true, false, false);
 
         if (checker.testContent()) {
             result = "OK";

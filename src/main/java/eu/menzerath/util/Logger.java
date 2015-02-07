@@ -15,7 +15,7 @@ public class Logger {
     private final Checker CHECKER;
     private final boolean CREATE_FILE;
     private final boolean LOG_VALID_CHECKS;
-    private final boolean UPDATE_GUI;
+    private final GuiApplication GUI;
 
     /**
      * Put the specified values in our own parameters
@@ -23,13 +23,27 @@ public class Logger {
      * @param checker        the Logger's "parent"
      * @param createFile     Create a log-file?
      * @param logValidChecks Log even successful checks?
-     * @param updateGui      Do we have to update a GUI?
      */
-    public Logger(Checker checker, boolean createFile, boolean logValidChecks, boolean updateGui) {
+    public Logger(Checker checker, boolean createFile, boolean logValidChecks) {
         this.CHECKER = checker;
         this.CREATE_FILE = createFile;
         this.LOG_VALID_CHECKS = logValidChecks;
-        this.UPDATE_GUI = updateGui;
+        this.GUI = null;
+    }
+
+    /**
+     * Put the specified values in our own parameters
+     *
+     * @param checker        the Logger's "parent"
+     * @param createFile     Create a log-file?
+     * @param logValidChecks Log even successful checks?
+     * @param gui            the GUI that needs to be updated
+     */
+    public Logger(Checker checker, boolean createFile, boolean logValidChecks, GuiApplication gui) {
+        this.CHECKER = checker;
+        this.CREATE_FILE = createFile;
+        this.LOG_VALID_CHECKS = logValidChecks;
+        this.GUI = gui;
     }
 
     /**
@@ -101,11 +115,11 @@ public class Logger {
     }
 
     private void updateGui(int status) {
-        if (UPDATE_GUI) {
+        if (GUI != null) {
             if (status == 4 && CHECKER.ID != 1) {
-                GuiApplication.updateTrayIcon(CHECKER, status, false);
+                GUI.updateTrayIcon(CHECKER, status, false);
             } else {
-                GuiApplication.updateTrayIcon(CHECKER, status, true);
+                GUI.updateTrayIcon(CHECKER, status, true);
             }
         }
     }

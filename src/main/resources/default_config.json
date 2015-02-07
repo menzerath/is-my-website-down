@@ -1,0 +1,59 @@
+{
+  "websites": {
+    "1": {
+      "url": "https://google.com",
+      "interval": 30,
+      "checkContent": true,
+      "checkPing": true
+    },
+    "2": {
+      "url": "https://google.com",
+      "interval": 30,
+      "checkContent": true,
+      "checkPing": true
+    },
+    "3": {
+      "url": "https://google.com",
+      "interval": 30,
+      "checkContent": true,
+      "checkPing": true
+    },
+    "4": {
+      "url": "https://google.com",
+      "interval": 30,
+      "checkContent": true,
+      "checkPing": true
+    },
+    "5": {
+      "url": "https://google.com",
+      "interval": 30,
+      "checkContent": true,
+      "checkPing": true
+    },
+    "6": {
+      "url": "https://google.com",
+      "interval": 30,
+      "checkContent": true,
+      "checkPing": true
+    },
+    "7": {
+      "url": "https://google.com",
+      "interval": 30,
+      "checkContent": true,
+      "checkPing": true
+    },
+    "8": {
+      "url": "https://google.com",
+      "interval": 30,
+      "checkContent": true,
+      "checkPing": true
+    }
+  },
+  "activeWebsites": 3,
+  "logFile": {
+    "create": false,
+    "valid": false
+  },
+  "autorun": false,
+  "showBubbles": true
+}

@@ -30,16 +30,37 @@ public class Checker {
      * @param checkPing      If this Checker checks ping
      * @param logEnabled     Create a log-file?
      * @param logValidChecks Log even successful checks?
-     * @param updateGui      Do we have to update a GUI?
      */
-    public Checker(int id, String url, int interval, boolean checkContent, boolean checkPing, boolean logEnabled, boolean logValidChecks, boolean updateGui) {
+    public Checker(int id, String url, int interval, boolean checkContent, boolean checkPing, boolean logEnabled, boolean logValidChecks) {
         this.ID = id;
         this.URL = url;
         this.INTERVAL = interval;
         this.CHECK_CONTENT = checkContent;
         this.CHECK_PING = checkPing;
 
-        this.logger = new Logger(this, logEnabled, logValidChecks, updateGui);
+        this.logger = new Logger(this, logEnabled, logValidChecks);
+    }
+
+    /**
+     * Put the specified values in our own parameters
+     *
+     * @param id             Unique ID of this Checker
+     * @param url            Which url will get checked
+     * @param interval       How often will this url get checked (in seconds)
+     * @param checkContent   If this Checker checks content
+     * @param checkPing      If this Checker checks ping
+     * @param logEnabled     Create a log-file?
+     * @param logValidChecks Log even successful checks?
+     * @param gui            the GUI that needs to be updated
+     */
+    public Checker(int id, String url, int interval, boolean checkContent, boolean checkPing, boolean logEnabled, boolean logValidChecks, GuiApplication gui) {
+        this.ID = id;
+        this.URL = url;
+        this.INTERVAL = interval;
+        this.CHECK_CONTENT = checkContent;
+        this.CHECK_PING = checkPing;
+
+        this.logger = new Logger(this, logEnabled, logValidChecks, gui);
     }
 
     /**

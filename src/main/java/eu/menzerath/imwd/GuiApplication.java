@@ -76,6 +76,7 @@ public class GuiApplication extends JFrame {
     private static final int maxCheckerId = 8;
     private static TrayIcon[] trayIcon = new TrayIcon[maxCheckerId];
     private Checker[] checker = new Checker[maxCheckerId];
+    private SettingsManager settings;
 
     /**
      * Start the GUI!
@@ -99,22 +100,21 @@ public class GuiApplication extends JFrame {
         frame.setTitle(Main.APPLICATION);
         frame.setIconImage(iconOk);
         frame.setResizable(false);
-        if (!SettingsManager.getAutorunFromSettings()) frame.setVisible(true);
 
         // Run an update-check
         runUpdateCheck(true);
-
-        if (SettingsManager.getAutorunFromSettings()) {
-            for (int i = 0; i < SettingsManager.getCheckerCountFromSettings(); i++) {
-                gui.start(i);
-            }
-        }
     }
 
     /**
      * Gives every button an action and adds an JMenuBar
      */
     public GuiApplication() {
+        // Initialize SettingsManager
+        settings = new SettingsManager();
+
+        // Show GUI if Autorun is disabled
+        if (!settings.getAutorunFromSettings()) frame.setVisible(true);
+
         // Load important GUI-elements
         websiteSettings = new JPanel[]{websiteSettings1, websiteSettings2, websiteSettings3, websiteSettings4, websiteSettings5, websiteSettings6, websiteSettings7, websiteSettings8};
         url = new JTextField[]{url1, url2, url3, url4, url5, url6, url7, url8};
@@ -124,26 +124,26 @@ public class GuiApplication extends JFrame {
 
         // Load saved / default values
         for (int i = 0; i < maxCheckerId; i++) {
-            url[i].setText(SettingsManager.getUrlFromSettings(i));
-            interval[i].setText("" + SettingsManager.getIntervalFromSettings(i));
-            content[i].setSelected(SettingsManager.getCheckContentFromSettings(i));
-            ping[i].setSelected(SettingsManager.getCheckPingFromSettings(i));
+            url[i].setText(settings.getUrlFromSettings(i));
+            interval[i].setText("" + settings.getIntervalFromSettings(i));
+            content[i].setSelected(settings.getCheckContentFromSettings(i));
+            ping[i].setSelected(settings.getCheckPingFromSettings(i));
         }
 
         // How many Checkers will be shown
-        final int checkerAmount = SettingsManager.getCheckerCountFromSettings();
+        final int checkerAmount = settings.getCheckerCountFromSettings();
         addWebsiteSettings(checkerAmount);
 
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 boolean allowStart= true;
-                for (int i = 0; i < SettingsManager.getCheckerCountFromSettings(); i++) {
+                for (int i = 0; i < settings.getCheckerCountFromSettings(); i++) {
                     if (!checkInput(i)) allowStart = false;
                 }
 
                 if (allowStart) {
-                    for (int i = 0; i < SettingsManager.getCheckerCountFromSettings(); i++) {
+                    for (int i = 0; i < settings.getCheckerCountFromSettings(); i++) {
                         start(i);
                     }
                 }
@@ -207,7 +207,7 @@ public class GuiApplication extends JFrame {
             rb[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    SettingsManager.setCheckerCountForSettings(j);
+                    settings.setCheckerCountForSettings(j);
                     addWebsiteSettings(j);
                 }
             });
@@ -225,16 +225,16 @@ public class GuiApplication extends JFrame {
         final JCheckBoxMenuItem cbLogValid = new JCheckBoxMenuItem("Log valid Checks");
         menuBar.add(mnLogs);
 
-        cbLogEnable.setSelected(SettingsManager.getCreateLogFromSettings());
+        cbLogEnable.setSelected(settings.getCreateLogFromSettings());
         cbLogEnable.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SettingsManager.setCreateLogForSettings(cbLogEnable.isSelected());
+                settings.setCreateLogForSettings(cbLogEnable.isSelected());
 
                 if (!cbLogEnable.isSelected()) {
                     cbLogValid.setEnabled(false);
                     cbLogValid.setSelected(false);
-                    SettingsManager.setCreateValidLogForSettigs(false);
+                    settings.setCreateValidLogForSettings(false);
                 } else {
                     cbLogValid.setEnabled(true);
                 }
@@ -243,11 +243,11 @@ public class GuiApplication extends JFrame {
         mnLogs.add(cbLogEnable);
 
         cbLogValid.setEnabled(cbLogEnable.isSelected());
-        cbLogValid.setSelected(SettingsManager.getCreateValidLogFromSettings());
+        cbLogValid.setSelected(settings.getCreateValidLogFromSettings());
         cbLogValid.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SettingsManager.setCreateValidLogForSettigs(cbLogValid.isSelected());
+                settings.setCreateValidLogForSettings(cbLogValid.isSelected());
             }
         });
         mnLogs.add(cbLogValid);
@@ -258,11 +258,11 @@ public class GuiApplication extends JFrame {
         final JCheckBoxMenuItem cbAutorun = new JCheckBoxMenuItem("Start with Windows");
         menuBar.add(mnTools);
 
-        cbAutorun.setSelected(SettingsManager.getAutorunFromSettings());
+        cbAutorun.setSelected(settings.getAutorunFromSettings());
         cbAutorun.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                SettingsManager.setAutorunForSettigs(cbAutorun.isSelected());
+                settings.setAutorunForSettings(cbAutorun.isSelected());
 
                 if (cbAutorun.isSelected()) {
                     if (!Helper.addToAutorun()) {
@@ -297,16 +297,23 @@ public class GuiApplication extends JFrame {
         final JCheckBoxMenuItem cbNotificationBubbles = new JCheckBoxMenuItem("Show Notification-Bubbles");
         menuBar.add(mnOther);
 
-        cbNotificationBubbles.setSelected(SettingsManager.getShowBubblesSettings());
+        cbNotificationBubbles.setSelected(settings.getShowBubblesSettings());
         cbNotificationBubbles.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                SettingsManager.setShowBubblesSettigs(cbNotificationBubbles.isSelected());
+                settings.setShowBubblesSettings(cbNotificationBubbles.isSelected());
             }
         });
         mnOther.add(cbNotificationBubbles);
         // END: Other-Menu
         // END: JMenuBar
+
+        // Check for Autorun --> Start Checker
+        if (settings.getAutorunFromSettings()) {
+            for (int i = 0; i < settings.getCheckerCountFromSettings(); i++) {
+                start(i);
+            }
+        }
     }
 
     /**
@@ -380,13 +387,13 @@ public class GuiApplication extends JFrame {
         stopButton.setEnabled(true);
 
         // Save the values
-        SettingsManager.setUrlForSettings(checkerId, cUrl);
-        SettingsManager.setIntervalForSettings(checkerId, cInterval);
-        SettingsManager.setCheckContentForSettings(checkerId, cContent);
-        SettingsManager.setCheckPingForSettings(checkerId, cPing);
+        settings.setUrlForSettings(checkerId, cUrl);
+        settings.setIntervalForSettings(checkerId, cInterval);
+        settings.setCheckContentForSettings(checkerId, cContent);
+        settings.setCheckPingForSettings(checkerId, cPing);
 
         // Create the Checker
-        checker[checkerId] = new Checker(checkerId, cUrl, cInterval, cContent, cPing, SettingsManager.getCreateLogFromSettings(), SettingsManager.getCreateValidLogFromSettings(), true);
+        checker[checkerId] = new Checker(checkerId, cUrl, cInterval, cContent, cPing, settings.getCreateLogFromSettings(), settings.getCreateValidLogFromSettings(), this);
         checker[checkerId].startTesting();
     }
 
@@ -478,24 +485,24 @@ public class GuiApplication extends JFrame {
      * @param status      The test-result
      * @param showMessage Display a message
      */
-    public static void updateTrayIcon(Checker checker, int status, boolean showMessage) {
+    public void updateTrayIcon(Checker checker, int status, boolean showMessage) {
         if (status == 1) {
             trayIcon[checker.ID].setImage(iconOk);
             trayIcon[checker.ID].setToolTip(Messages.OK + " - " + Main.APPLICATION_SHORT + "\n" + checker.getUrlWithoutProtocol());
         } else if (status == 2) {
             trayIcon[checker.ID].setImage(iconWarning);
             trayIcon[checker.ID].setToolTip(Messages.ERROR_NOT_REACHABLE_TITLE + " - " + Main.APPLICATION_SHORT + "\n" + checker.getUrlWithoutProtocol());
-            if (showMessage && SettingsManager.getShowBubblesSettings())
+            if (showMessage && settings.getShowBubblesSettings())
                 trayIcon[checker.ID].displayMessage(Messages.ERROR_NOT_REACHABLE_TITLE + ": " + checker.getUrlWithoutProtocol(), Messages.ERROR_NOT_REACHABLE_PING, TrayIcon.MessageType.WARNING);
         } else if (status == 3) {
             trayIcon[checker.ID].setImage(iconError);
             trayIcon[checker.ID].setToolTip(Messages.ERROR_NOT_REACHABLE_TITLE + " - " + Main.APPLICATION_SHORT + "\n" + checker.getUrlWithoutProtocol());
-            if (showMessage && SettingsManager.getShowBubblesSettings())
+            if (showMessage && settings.getShowBubblesSettings())
                 trayIcon[checker.ID].displayMessage(Messages.ERROR_NOT_REACHABLE_TITLE + ": " + checker.getUrlWithoutProtocol(), Messages.ERROR_NOT_REACHABLE_NO_PING, TrayIcon.MessageType.ERROR);
         } else if (status == 4) {
             trayIcon[checker.ID].setImage(iconNoConnection);
             trayIcon[checker.ID].setToolTip(Messages.ERROR_NO_CONNECTION_TITLE + " - " + Main.APPLICATION_SHORT + "\n" + checker.getUrlWithoutProtocol());
-            if (showMessage && SettingsManager.getShowBubblesSettings())
+            if (showMessage && settings.getShowBubblesSettings())
                 trayIcon[checker.ID].displayMessage(Messages.ERROR_NO_CONNECTION_TITLE, Messages.ERROR_NO_CONNECTION, TrayIcon.MessageType.ERROR);
         }
     }

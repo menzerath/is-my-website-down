@@ -1,106 +1,178 @@
 package eu.menzerath.imwd;
 
-import java.util.prefs.Preferences;
+import org.fusesource.jansi.Ansi;
+import org.json.JSONObject;
+
+import java.io.*;
+import java.nio.file.FileSystems;
+import java.util.Scanner;
 
 public class SettingsManager {
-    private static final String PREF_URL = "url";
-    private static final String PREF_INTERVAL = "interval";
-    private static final String PREF_CHECKER_COUNT = "checkerCount";
-    private static final String PREF_CHECK_CONTENT = "checkContent";
-    private static final String PREF_CHECK_PING = "checkPing";
-    private static final String PREF_CREATE_LOG = "createLog";
-    private static final String PREF_LOG_VALID_CHECKS = "createValidLog";
-    private static final String PREF_AUTORUN = "autorun";
-    private static final String PREF_SHOW_BUBBLES = "showBubbles";
+    private File settingsFile;
+    private JSONObject config;
 
-    /**
-     * Get the Preferences from the user-node
-     *
-     * @return Preferences
-     */
-    public static Preferences getPreferences() {
-        return Preferences.userNodeForPackage(Main.class);
+    public SettingsManager() {
+        settingsFile = new File(System.getProperty("user.home") + FileSystems.getDefault().getSeparator() + "ismywebsitedown.json");
+        System.out.println(new Ansi().fg(Ansi.Color.CYAN).bold().a("[INFO]").reset() + " " + "Using this config-file: " + settingsFile.getAbsolutePath());
+
+        if (!settingsFile.exists()) {
+            InputStream ddlStream = SettingsManager.class.getClassLoader().getResourceAsStream("default_config.json");
+            try (FileOutputStream fos = new FileOutputStream(settingsFile)) {
+                byte[] buf = new byte[2048];
+                int r = ddlStream.read(buf);
+                while (r != -1) {
+                    fos.write(buf, 0, r);
+                    r = ddlStream.read(buf);
+                }
+            } catch (IOException e) {
+                System.out.println(new Ansi().fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " " + "Unable to create a new config-file: " + e.getMessage() + "\nExiting...");
+                System.exit(1);
+            }
+        }
+
+        if (!settingsFile.canRead()) {
+            System.out.println(new Ansi().fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " " + "Unable to read config-file. Exiting...");
+            System.exit(1);
+        }
+
+        String settingsFileContent = "";
+        try {
+            settingsFileContent = new Scanner(settingsFile).useDelimiter("\\A").next();
+        } catch (FileNotFoundException e) {
+            System.out.println(new Ansi().fg(Ansi.Color.RED).bold().a("[ERROR]").reset() + " " + "Unable to read config-file. Exiting...");
+            System.exit(1);
+        }
+
+        config = new JSONObject(settingsFileContent);
+    }
+
+    private void saveSettings() {
+        try {
+            PrintWriter out = new PrintWriter(settingsFile);
+            out.print(config.toString(4));
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /*
-     * BEGIN: Settings-Getter including their default values
+     * BEGIN: Settings-Getter
      */
-    public static String getUrlFromSettings(int id) {
-        return getPreferences().get(PREF_URL + id, "http://google.com");
+    public String getUrlFromSettings(int id) {
+        JSONObject websites = config.getJSONObject("websites");
+        JSONObject websitesId = websites.getJSONObject(String.valueOf(id + 1));
+        return websitesId.getString("url");
     }
 
-    public static int getIntervalFromSettings(int id) {
-        return getPreferences().getInt(PREF_INTERVAL + id, 30);
+    public int getIntervalFromSettings(int id) {
+        JSONObject websites = config.getJSONObject("websites");
+        JSONObject websitesId = websites.getJSONObject(String.valueOf(id + 1));
+        return websitesId.getInt("interval");
     }
 
-    public static int getCheckerCountFromSettings() {
-        return getPreferences().getInt(PREF_CHECKER_COUNT, 1);
+    public boolean getCheckContentFromSettings(int id) {
+        JSONObject websites = config.getJSONObject("websites");
+        JSONObject websitesId = websites.getJSONObject(String.valueOf(id + 1));
+        return websitesId.getBoolean("checkContent");
     }
 
-    public static boolean getCheckContentFromSettings(int id) {
-        return getPreferences().getBoolean(PREF_CHECK_CONTENT + id, true);
+    public boolean getCheckPingFromSettings(int id) {
+        JSONObject websites = config.getJSONObject("websites");
+        JSONObject websitesId = websites.getJSONObject(String.valueOf(id + 1));
+        return websitesId.getBoolean("checkPing");
     }
 
-    public static boolean getCheckPingFromSettings(int id) {
-        return getPreferences().getBoolean(PREF_CHECK_PING + id, true);
+    public int getCheckerCountFromSettings() {
+        return config.getInt("activeWebsites");
     }
 
-    public static boolean getCreateLogFromSettings() {
-        return getPreferences().getBoolean(PREF_CREATE_LOG, false);
+    public boolean getCreateLogFromSettings() {
+        JSONObject logFile = config.getJSONObject("logFile");
+        return logFile.getBoolean("create");
     }
 
-    public static boolean getCreateValidLogFromSettings() {
-        return getPreferences().getBoolean(PREF_LOG_VALID_CHECKS, false);
+    public boolean getCreateValidLogFromSettings() {
+        JSONObject logFile = config.getJSONObject("logFile");
+        return logFile.getBoolean("valid");
     }
 
-    public static boolean getAutorunFromSettings() {
-        return getPreferences().getBoolean(PREF_AUTORUN, false);
+    public boolean getAutorunFromSettings() {
+        return config.getBoolean("autorun");
     }
 
-    public static boolean getShowBubblesSettings() {
-        return getPreferences().getBoolean(PREF_SHOW_BUBBLES, true);
+    public boolean getShowBubblesSettings() {
+        return config.getBoolean("showBubbles");
     }
     /*
-     * END: Settings-Getter including their default values
+     * END: Settings-Getter
      */
 
     /*
      * BEGIN: Settings-Setter
      */
-    public static void setUrlForSettings(int id, String value) {
-        getPreferences().put(PREF_URL + id, value);
+    public void setUrlForSettings(int id, String value) {
+        JSONObject websites = config.getJSONObject("websites");
+        JSONObject websitesId = websites.getJSONObject(String.valueOf(id + 1));
+        websitesId.put("url", value);
+
+        saveSettings();
     }
 
-    public static void setIntervalForSettings(int id, int value) {
-        getPreferences().putInt(PREF_INTERVAL + id, value);
+    public void setIntervalForSettings(int id, int value) {
+        JSONObject websites = config.getJSONObject("websites");
+        JSONObject websitesId = websites.getJSONObject(String.valueOf(id + 1));
+        websitesId.put("interval", value);
+
+        saveSettings();
     }
 
-    public static void setCheckerCountForSettings(int value) {
-        getPreferences().putInt(PREF_CHECKER_COUNT, value);
+    public void setCheckContentForSettings(int id, boolean value) {
+        JSONObject websites = config.getJSONObject("websites");
+        JSONObject websitesId = websites.getJSONObject(String.valueOf(id + 1));
+        websitesId.put("checkContent", value);
+
+        saveSettings();
     }
 
-    public static void setCheckContentForSettings(int id, boolean value) {
-        getPreferences().putBoolean(PREF_CHECK_CONTENT + id, value);
+    public void setCheckPingForSettings(int id, boolean value) {
+        JSONObject websites = config.getJSONObject("websites");
+        JSONObject websitesId = websites.getJSONObject(String.valueOf(id + 1));
+        websitesId.put("checkPing", value);
+
+        saveSettings();
     }
 
-    public static void setCheckPingForSettings(int id, boolean value) {
-        getPreferences().putBoolean(PREF_CHECK_PING + id, value);
+    public void setCheckerCountForSettings(int value) {
+        config.put("activeWebsites", value);
+
+        saveSettings();
     }
 
-    public static void setCreateLogForSettings(boolean value) {
-        getPreferences().putBoolean(PREF_CREATE_LOG, value);
+    public void setCreateLogForSettings(boolean value) {
+        JSONObject logFile = config.getJSONObject("logFile");
+        logFile.put("create", value);
+
+        saveSettings();
     }
 
-    public static void setCreateValidLogForSettigs(boolean value) {
-        getPreferences().putBoolean(PREF_LOG_VALID_CHECKS, value);
+    public void setCreateValidLogForSettings(boolean value) {
+        JSONObject logFile = config.getJSONObject("logFile");
+        logFile.put("create", value);
+
+        saveSettings();
     }
 
-    public static void setAutorunForSettigs(boolean value) {
-        getPreferences().putBoolean(PREF_AUTORUN, value);
+    public void setAutorunForSettings(boolean value) {
+        config.put("autorun", value);
+
+        saveSettings();
     }
 
-    public static void setShowBubblesSettigs(boolean value) {
-        getPreferences().putBoolean(PREF_SHOW_BUBBLES, value);
+    public void setShowBubblesSettings(boolean value) {
+        config.put("showBubbles", value);
+
+        saveSettings();
     }
     /*
      * END: Settings-Setter
