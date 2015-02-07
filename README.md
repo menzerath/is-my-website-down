@@ -13,7 +13,7 @@ When using the GUI your configuration is stored in a JSON-file inside your home-
 * Windows: `C:\Users\YourName\ismywebsitedown.json`
 * Linux: `/home/YourName/ismywebsitedown.json`
 
-You should _never_ edit this file manually, just use the GUI for this purpose. Otherwise you may break everything!
+You should _never_ edit this file manually, just use the GUI for this purpose. Otherwise you may break everything!  
 Of course there is no reason why you shouldn't use the file for backup-purposes or using the same configuration on all your computers.
 
 ## Screenshots
