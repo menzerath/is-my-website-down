@@ -7,6 +7,15 @@ IMWD uses a simple algorithm to check your websites in two steps:
 1. **Fetch Content**: IMWD tries to receive any content from the website (status-code needs to be `200 OK`). If this fails, IWMD tries to receive content from Google to check if there is a connection to the internet.
 2. **Ping**: IWMD sends a ping to your website to check if "only" the webserver is down or the whole server.
 
+### Configuration
+When using the GUI your configuration is stored in a JSON-file inside your home-directory:
+
+* Windows: `C:\Users\YourName\ismywebsitedown.json`
+* Linux: `/home/YourName/ismywebsitedown.json`
+
+You should _never_ edit this file manually, just use the GUI for this purpose. Otherwise you may break everything!
+Of course there is no reason why you shouldn't use the file for backup-purposes or using the same configuration on all your computers.
+
 ## Screenshots
 <img src="https://raw.githubusercontent.com/MarvinMenzerath/IsMyWebsiteDown/master/doc/Screenshot1.png" alt="GUI" />
 <img src="https://raw.githubusercontent.com/MarvinMenzerath/IsMyWebsiteDown/master/doc/Screenshot2.png" alt="Notification" width="50%" />
