@@ -1,2 +1,0 @@
-2.2
-new updater, single configuration-file, colored console-output and many more improvements (see GitHub Release)
