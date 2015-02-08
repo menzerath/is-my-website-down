@@ -99,7 +99,6 @@ public class GuiApplication extends JFrame {
         frame = new JFrame("GuiApplication");
         GuiApplication gui = new GuiApplication();
         frame.setContentPane(gui.mainPanel);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setTitle(Main.APPLICATION);
@@ -318,6 +317,9 @@ public class GuiApplication extends JFrame {
             for (int i = 0; i < settings.getCheckerCountFromSettings(); i++) {
                 start(i);
             }
+            frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        } else {
+            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         }
     }
 
