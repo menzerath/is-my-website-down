@@ -16,6 +16,10 @@ When using the GUI your configuration is stored in a JSON-file inside your home-
 You should _never_ edit this file manually, just use the GUI for this purpose. Otherwise you may break everything!  
 Of course there is no reason why you shouldn't use the file for backup-purposes or using the same configuration on all your computers.
 
+### API
+You may find the generated JavaDocs / API-documentation in the `gh-pages`-branch, which are generated and deployed by running `mvn site`.  
+Alternatively just click this link: https://marvinmenzerath.github.io/IsMyWebsiteDown
+
 ## Screenshots
 <img src="https://raw.githubusercontent.com/MarvinMenzerath/IsMyWebsiteDown/master/doc/Screenshot1.png" alt="GUI" />
 <img src="https://raw.githubusercontent.com/MarvinMenzerath/IsMyWebsiteDown/master/doc/Screenshot2.png" alt="Notification" width="50%" />
