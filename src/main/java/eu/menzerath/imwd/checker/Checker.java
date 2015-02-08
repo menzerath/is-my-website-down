@@ -11,6 +11,9 @@ import java.net.URLConnection;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * The heart of this application. A Checker manages a single url including and all it's checks and a Logger-instance.
+ */
 public class Checker {
     public final int ID;
     public final String URL;
@@ -22,7 +25,7 @@ public class Checker {
     private Timer timer;
 
     /**
-     * Put the specified values in our own parameters
+     * Constructor: Put the specified values in our own parameters
      *
      * @param id             Unique ID of this Checker
      * @param url            Which url will get checked
@@ -43,7 +46,7 @@ public class Checker {
     }
 
     /**
-     * Put the specified values in our own parameters
+     * Constructor: Put the specified values in our own parameters
      *
      * @param id             Unique ID of this Checker
      * @param url            Which url will get checked
@@ -65,8 +68,7 @@ public class Checker {
     }
 
     /**
-     * Start the testing:
-     * Create a timer and schedule it
+     * Start testing: Create a timer and schedule it
      */
     public void startTesting() {
         timer = new Timer();
@@ -81,8 +83,7 @@ public class Checker {
     }
 
     /**
-     * Stop the testing:
-     * Cancel and purge the timer
+     * Stop testing: Cancel and purge the timer
      */
     public void stopTesting() {
         timer.cancel();
@@ -91,14 +92,13 @@ public class Checker {
 
     /**
      * The actual testing-method:
-     * First, try to get content from the site
-     *   Successful? Log this and we're done!
-     *   No Success? Try to reach Google to see if there are problems with the internet connection
-     *     Successful? Ping the url to see, if the webserver is down
-     *       Successful? Webserver is down. Log this and we're done!
-     *       No Success? Whole server is down. Log this and we're done!
-     *     No Success? No connection to the internet! Log this and we're done!
-     * Every exception will be ignored!
+     * 1. Try to get content from the site
+     *  1.1 Success: Log this and we're done!
+     *  1.2: No Success: Try to reach Google to see if there are problems with the internet connection
+     *   1.2.1: Success: Ping the url to see, if the webserver is down
+     *    1.2.1.1: Success: Webserver is down. Log this and we're done!
+     *    1.2.1.2: No Success: Whole server is down. Log this and we're done!
+     *   1.2.2: No Success: No connection to the internet! Log this and we're done!
      */
     public void runTest() {
         if (CHECK_CONTENT && CHECK_PING) {
@@ -141,9 +141,9 @@ public class Checker {
     }
 
     /**
-     * First test: Check if there is any content at the url
+     * Content-Test: Check if there is any content at the url (or more generally a response from the webserver)
      *
-     * @return Is there any content at the url?
+     * @return <code>true</code> if there was a response and <code>false</code> if not
      */
     public boolean testContent() {
         try {
@@ -164,17 +164,17 @@ public class Checker {
     }
 
     /**
-     * Second test: Check if a ping is successful
+     * Ping-Test: Check if a ping is successful
      *
-     * @return Is a ping successful?
+     * @return <code>true</code> if there was a response and <code>false</code> if not
      */
     public boolean testPing() {
         try {
             String cmd;
             if (System.getProperty("os.name").startsWith("Windows")) {
-                cmd = "ping -n 1 -w 3000 " + getUrlWithoutProtocol();
+                cmd = "ping -n 1 -w 3000 " + Helper.getUrlWithoutProtocol(URL);
             } else {
-                cmd = "ping -c 1 " + getUrlWithoutProtocol();
+                cmd = "ping -c 1 " + Helper.getUrlWithoutProtocol(URL);
             }
 
             Process myProcess = Runtime.getRuntime().exec(cmd);
@@ -183,13 +183,5 @@ public class Checker {
         } catch (Exception ignored) {
         }
         return false;
-    }
-
-    public String getUrlWithoutProtocol() {
-        String myUrl = this.URL;
-        for (String p : Main.PROTOCOLS) {
-            myUrl = myUrl.replace(p, "");
-        }
-        return myUrl;
     }
 }

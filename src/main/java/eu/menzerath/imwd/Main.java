@@ -9,6 +9,9 @@ import org.piwik.SimplePiwikTracker;
 
 import java.awt.*;
 
+/**
+ * This application's entry-class. It contains important constants and the main()-method.
+ */
 public class Main {
     public static final String APPLICATION = "Is My Website Down?";
     public static final String APPLICATION_SHORT = "IMWD";
@@ -77,6 +80,11 @@ public class Main {
         trackUsage("HELP");
     }
 
+    /**
+     * Sends anonymous data about this installation to the author's PIWIK-server
+     *
+     * @param action Used "mode" (e.g. GUI or Console)
+     */
     private static void trackUsage(String action) {
         try {
             SimplePiwikTracker piwik = new SimplePiwikTracker("https://piwik.menzerath.eu");
@@ -84,7 +92,7 @@ public class Main {
             piwik.setUserAgent(USER_AGENT);
             piwik.sendRequest(piwik.getPageTrackURL(VERSION + "/" + action));
         } catch (PiwikException e) {
-            Logger.error(Messages.PIWIK_FAILED + " " + e.getMessage());
+            Logger.error("Unable to track application-usage: " + e.getMessage());
         }
     }
 }

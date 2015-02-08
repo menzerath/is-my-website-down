@@ -13,11 +13,14 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.CodeSource;
 
+/**
+ * The Helper-Class contains multiple validators and often-used methods
+ */
 public class Helper {
 
     /**
      * Create a new Checker to check for an existing connection to the internet
-     * @return If there is a connection to the internet
+     * @return <code>true</code> if there is a response from the Google-webservers or <code>false</code> if not
      */
     public static boolean testWebConnection() {
         Checker checker = new Checker(0, "http://google.com", 30, true, false, false, false);
@@ -29,7 +32,7 @@ public class Helper {
      * One of the allowed protocols is used and there is something after the protocol
      *
      * @param url Given URL to check
-     * @return If the input could be validated or not
+     * @return <code>true</code> if the input has been successfully validated or <code>false</code> if not
      */
     public static boolean validateUrlInput(String url) {
         boolean success = false;
@@ -42,8 +45,8 @@ public class Helper {
     /**
      * This method validates the user-input (interval) and checks if it is ok.
      *
-     * @param interval Given interavl to check
-     * @return If the input could be validated or not
+     * @param interval Given interval to check
+     * @return <code>true</code> if the input has been successfully validated or <code>false</code> if not
      */
     public static boolean validateIntervalInput(int interval) {
         return !(interval < Main.MIN_INTERVAL || interval > Main.MAX_INTERVAL);
@@ -53,7 +56,7 @@ public class Helper {
      * Parse a String and return an Integer.
      *
      * @param integer String to parse
-     * @return Parsed String; 0 on error
+     * @return Given String as Integer or 0 on error
      */
     public static int parseInt(String integer) {
         int myInt = 0;
@@ -65,7 +68,20 @@ public class Helper {
     }
 
     /**
+     * Removes the protocol from a url.
+     * @param url Url to remove protocol from
+     * @return Given url without a protocol
+     */
+    public static String getUrlWithoutProtocol(String url) {
+        for (String p : Main.PROTOCOLS) {
+            url = url.replace(p, "");
+        }
+        return url;
+    }
+
+    /**
      * Copy "Is My Website Down" into the Autorun-folder (works with Windows Vista, 7, 8 and 8.1).
+     * @return <code>true</code> if the application has been copied into the autorun or <code>false</code> if not
      */
     public static boolean addToAutorun() {
         try {
@@ -83,6 +99,7 @@ public class Helper {
 
     /**
      * Remove "Is My Website Down" from the Autorun-folder (works with Windows Vista, 7, 8 and 8.1).
+     * @return <code>true</code> if the application has been removed from the autorun or <code>false</code> if not
      */
     public static boolean removeFromAutorun() {
         try {

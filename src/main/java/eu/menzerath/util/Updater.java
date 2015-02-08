@@ -6,28 +6,31 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This Updater looks for new versions in a particular text-file in the application's GitHub-project.
+ */
 public class Updater {
     private static String cacheServerVersion = "Error";
     private static String cacheServerChangelog = "Error";
 
     /**
-     * Refresh data on Object-creation
+     * Constructor: Refresh data on Object-creation.
      */
     public Updater() {
         refresh();
     }
 
     /**
-     * Compares the version of this "IsMyWebsiteDown?"-file and the servers' version
+     * Compares the version of this "IsMyWebsiteDown?"-file and the servers' version.
      *
-     * @return Availability of an update
+     * @return <code>true</code> if an update is available or <code>false</code> if not
      */
     public boolean isUpdateAvailable() {
         return !getServerVersion().equalsIgnoreCase(Main.VERSION);
     }
 
     /**
-     * Get the cached server version
+     * Get the cached server version.
      *
      * @return Server version
      */
@@ -36,7 +39,7 @@ public class Updater {
     }
 
     /**
-     * Get the cached changelog
+     * Get the cached changelog.
      *
      * @return Changelog
      */
@@ -45,7 +48,7 @@ public class Updater {
     }
 
     /**
-     * Pulls data from the server and caches it for later access (to use with ConsoleApplication) if this is not a SNAPSHOT-version
+     * Pulls data from the server and caches it for later access (to use with ConsoleApplication) if this is not a SNAPSHOT-version.
      */
     public void refresh() {
         if (Main.VERSION.contains("SNAPSHOT")) {
@@ -59,7 +62,7 @@ public class Updater {
     }
 
     /**
-     * Helper which gets content from a remote server and returns an ArrayList containing every line as a single entry
+     * Download content from a remote server and return an ArrayList containing every line as a single entry.
      *
      * @return Content; each entry = one line
      */

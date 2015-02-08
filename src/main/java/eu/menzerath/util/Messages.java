@@ -2,6 +2,9 @@ package eu.menzerath.util;
 
 import eu.menzerath.imwd.Main;
 
+/**
+ * Some often-used Strings can be found here.
+ */
 public class Messages {
     // START: Main
     public static final String COPYRIGHT = "© 2012-2015: Marvin Menzerath";
@@ -9,7 +12,6 @@ public class Messages {
     public static final String CONSOLE_HELP_EXAMPLES = "Examples:\n    java -jar IMWD.jar\n    java -jar IMWD.jar http://website.com 30\n    java -jar IMWD.jar http://website.com 30 --nolog\n    java -jar IMWD.jar http://website.com 0 --once";
     public static final String INVALID_PARAMETERS = "You have to enter a valid url (including the specific protocol) and interval (numbers only - between " + Main.MIN_INTERVAL + " and " + Main.MAX_INTERVAL + " seconds).";
     public static final String USING_HTTP = "Using HTTP as protocol. You should always specify the protocol when entering an url to prevent failures.";
-    public static final String PIWIK_FAILED = "Unable to track application-usage:";
     // END: Main
 
     // START: Message-Bubbles

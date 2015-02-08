@@ -4,6 +4,9 @@ import eu.menzerath.imwd.checker.Checker;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Unit-Tests for eu.menzerath.imwd.checker.Checker
+ */
 public class CheckerTest {
     private static final String GOOD_URL = "http://google.com";
     private static final String BAD_URL = "http://subdomain.not-used-domain-123-qwertz.tld";
