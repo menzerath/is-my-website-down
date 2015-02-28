@@ -1,4 +1,6 @@
 # Is My Website Down?
+
+[![Join the chat at https://gitter.im/MarvinMenzerath/IsMyWebsiteDown](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/MarvinMenzerath/IsMyWebsiteDown?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 **"Is My Website Down?" periodically checks if your websites are reachable and notifies you if one of them is not.**
 
 ## How Does IMWD Work?
