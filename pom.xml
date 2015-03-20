@@ -167,6 +167,7 @@
                     <checkinComment>Updated JavaDocs via Maven</checkinComment>
                     <content>${project.build.directory}/apidocs</content>
                     <siteOutputEncoding>UTF-8</siteOutputEncoding>
+                    <tryUpdate>true</tryUpdate>
                 </configuration>
                 <executions>
                     <execution>
