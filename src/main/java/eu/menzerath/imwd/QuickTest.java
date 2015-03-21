@@ -5,11 +5,14 @@ import eu.menzerath.util.Helper;
 import eu.menzerath.util.Logger;
 import eu.menzerath.util.Messages;
 
+/**
+ * A single and quick test which outputs the result directly on the console - without anything else.
+ */
 public class QuickTest {
     private String url;
 
     /**
-     * Validate the url and run the checker
+     * Constructor: Validate the url and run the checker
      *
      * @param url URL to check
      */
@@ -25,7 +28,8 @@ public class QuickTest {
     }
 
     /**
-     * Runs a test and prints a message on the console
+     * Runs a test, prints a message on the console and returns the result (to a calling application)
+     * @return Check-result
      */
     public String run() {
         // Create the Checker and go!

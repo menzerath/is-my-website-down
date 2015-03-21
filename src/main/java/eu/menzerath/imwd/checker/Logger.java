@@ -1,6 +1,7 @@
 package eu.menzerath.imwd.checker;
 
 import eu.menzerath.imwd.GuiApplication;
+import eu.menzerath.util.Helper;
 import eu.menzerath.util.Messages;
 import org.fusesource.jansi.Ansi;
 
@@ -11,6 +12,9 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * This is the Logger-class to be used by a Checker-object. It manages access to log-files and the general console-output for a single Checker.
+ */
 public class Logger {
     private final Checker CHECKER;
     private final boolean CREATE_FILE;
@@ -18,7 +22,7 @@ public class Logger {
     private final GuiApplication GUI;
 
     /**
-     * Put the specified values in our own parameters
+     * Constructor: Put the specified values in our own parameters
      *
      * @param checker        the Logger's "parent"
      * @param createFile     Create a log-file?
@@ -32,7 +36,7 @@ public class Logger {
     }
 
     /**
-     * Put the specified values in our own parameters
+     * Constructor: Put the specified values in our own parameters
      *
      * @param checker        the Logger's "parent"
      * @param createFile     Create a log-file?
@@ -47,15 +51,16 @@ public class Logger {
     }
 
     /**
-     * The Checker started it's work
+     * New log-entry: the Checker started it's work
      */
     public void start() {
-        System.out.println(getLogHead() + new Ansi().fg(Ansi.Color.CYAN).a("[INFO]").reset() + " " + Messages.LOG_START.replace("%url", CHECKER.URL).replace("%interval", "" + CHECKER.INTERVAL));
-        write(getLogHead() + "[INFO]" + " " + Messages.LOG_START.replace("%url", CHECKER.URL).replace("%interval", "" + CHECKER.INTERVAL));
+        String message = Messages.LOG_START.replace("%url", CHECKER.URL).replace("%interval", "" + CHECKER.INTERVAL);
+        System.out.println(getLogHead() + new Ansi().fg(Ansi.Color.CYAN).a("[INFO]").reset() + " " + message);
+        write(getLogHead() + "[INFO]" + " " + message);
     }
 
     /**
-     * This was a successful check
+     * New log-entry: the Checker made a successful check
      */
     public void ok() {
         if (LOG_VALID_CHECKS) {
@@ -66,7 +71,7 @@ public class Logger {
     }
 
     /**
-     * This is only a warning - it might get worse
+     * New log-entry: the Checker issued a warning (e.g. no response from the webserver)
      */
     public void warning() {
         System.out.println(getLogHead() + new Ansi().fg(Ansi.Color.YELLOW).a("[WARNING]").reset() + " " + Messages.LOG_PING_ONLY);
@@ -75,7 +80,7 @@ public class Logger {
     }
 
     /**
-     * Website is gone
+     * New log-entry: the Checker issued an error (no response from the webserver and no successful ping)
      */
     public void error() {
         System.out.println(getLogHead() + new Ansi().fg(Ansi.Color.RED).a("[ERROR]").reset() + " " + Messages.LOG_ERROR);
@@ -84,7 +89,7 @@ public class Logger {
     }
 
     /**
-     * There is no connection to the internet
+     * New log-entry: there is no connection to the internet
      */
     public void noConnection() {
         // Print this only once, but update the GUI!
@@ -98,13 +103,13 @@ public class Logger {
     }
 
     /**
-     * Add this message to the log-file (if enabled)
+     * Adds a message to the log-file (if enabled)
      *
      * @param message Message to print/output
      */
     private void write(String message) {
         if (CREATE_FILE) {
-            File file = new File("imwd_" + CHECKER.getUrlWithoutProtocol() + ".txt");
+            File file = new File("imwd_" + Helper.getUrlWithoutProtocol(CHECKER.URL) + ".txt");
             try {
                 PrintWriter out = new PrintWriter(new FileOutputStream(file, true));
                 out.append(message.replace("[" + CHECKER.ID + "] ", "")).append("\r\n");
@@ -114,6 +119,11 @@ public class Logger {
         }
     }
 
+    /**
+     * Updates the GUI (if enabled): changes the TrayIcon's icon and displays a message-bubble (if enabled and there was a status-change)
+     *
+     * @param status New status the GUI has to display
+     */
     private void updateGui(int status) {
         if (GUI != null) {
             if (status == 4 && CHECKER.ID != 1) {
@@ -124,6 +134,10 @@ public class Logger {
         }
     }
 
+    /**
+     * Builds the default beginning of a log-entry
+     * @return Beginning of a log-entry
+     */
     private String getLogHead() {
         // +1 to be more user-friendly
         return "[" + (CHECKER.ID + 1) + "] [" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "] ";

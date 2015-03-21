@@ -14,10 +14,14 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.security.CodeSource;
 
+/**
+ * The Updater downloads a new version of this application and starts the new version's Cleaner to remove the old version.
+ */
 public class Updater {
 
     /**
-     * The Updater: Downloads the new jar-file and starts it's cleaner
+     * Constructor: Downloads the new jar-file and starts it's Cleaner.
+     * @param startNewVersion Whether the new version's Cleaner has to start the new application or not
      */
     public Updater(boolean startNewVersion) {
         Logger.info("Starting Updater...");

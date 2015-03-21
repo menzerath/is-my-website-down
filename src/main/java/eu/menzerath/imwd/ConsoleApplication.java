@@ -9,13 +9,16 @@ import org.fusesource.jansi.Ansi;
 
 import java.util.Scanner;
 
+/**
+ * A ConsoleApplication runs a single Checker and outputs everything on the Console (and into a log-file if enabled)
+ */
 public class ConsoleApplication {
     private String url;
     private int interval;
     private boolean createLog;
 
     /**
-     * Validate the values, save them and run the checker
+     * Constructor: Validate the values, save them and run the checker
      *
      * @param url       URL to check
      * @param interval  Interval to check
@@ -63,7 +66,7 @@ public class ConsoleApplication {
     }
 
     /**
-     * An update-check for the "ConsoleApplication": If there is an update available, it will show an url to get the update.
+     * An update-check for the "ConsoleApplication": If there is an update available, it will allow the user to start the application's Updater.
      */
     private void updateCheck() {
         Updater myUpdater = new Updater();

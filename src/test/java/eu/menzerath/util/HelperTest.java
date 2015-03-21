@@ -4,6 +4,9 @@ import eu.menzerath.imwd.Main;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Unit-Tests for eu.menzerath.util.Helper
+ */
 public class HelperTest {
 
     @Test
@@ -84,5 +87,15 @@ public class HelperTest {
     @Test
     public void testIntegerParser4() {
         Assert.assertEquals(0, Helper.parseInt("FISH"));
+    }
+
+    @Test
+    public void testGetUrlWithoutProtocol() {
+        Assert.assertEquals("google.com", Helper.getUrlWithoutProtocol("http://google.com"));
+    }
+
+    @Test
+    public void testGetUrlWithoutProtocol2() {
+        Assert.assertEquals("google.com", Helper.getUrlWithoutProtocol("https://google.com"));
     }
 }

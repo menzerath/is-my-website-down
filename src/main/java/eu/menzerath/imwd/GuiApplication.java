@@ -11,6 +11,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The GuiApplication is used to maintain multiple Checker-objects in a single and easy-to-use GUI.
+ * It also contains many extra features and uses the SettingsManager to maintain it's configuration.
+ */
 public class GuiApplication extends JFrame {
     // Tray-Icons
     private static final Image iconOk = Toolkit.getDefaultToolkit().getImage(GuiApplication.class.getResource("/icons/ok.png"));
@@ -80,8 +84,8 @@ public class GuiApplication extends JFrame {
     private SettingsManager settings;
 
     /**
-     * Start the GUI!
-     * Prepares everything and then shows the form
+     * main()-method: Start the GUI!
+     * Prepares everything and then shows the form.
      */
     public static void startGUI() {
         Main.sayHello();
@@ -95,7 +99,6 @@ public class GuiApplication extends JFrame {
         frame = new JFrame("GuiApplication");
         GuiApplication gui = new GuiApplication();
         frame.setContentPane(gui.mainPanel);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setTitle(Main.APPLICATION);
@@ -107,7 +110,7 @@ public class GuiApplication extends JFrame {
     }
 
     /**
-     * Gives every button an action and adds an JMenuBar
+     * Constructor: Initializes some Objects, gives every button an action and adds an JMenuBar.
      */
     public GuiApplication() {
         // Initialize SettingsManager
@@ -314,11 +317,15 @@ public class GuiApplication extends JFrame {
             for (int i = 0; i < settings.getCheckerCountFromSettings(); i++) {
                 start(i);
             }
+            frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        } else {
+            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         }
     }
 
     /**
-     * This will create an TrayIcon and show information about the current check(s)
+     * This will create an TrayIcon and show information about the current check(s).
+     * @param checkerId The Checker-id the TrayIcon represents
      */
     private static void createTrayIcon(int checkerId) {
         // Not supported? Bye, Bye!
@@ -348,8 +355,9 @@ public class GuiApplication extends JFrame {
     }
 
     /**
-     * Check whether a particular Checker is allowed to start
+     * Check whether a particular Checker is allowed to start or not.
      * @param checkerId Checker to check
+     * @return <code>true</code> if the Checker is allowed to start or <code>false</code> if it is not.
      */
     private boolean checkInput(int checkerId) {
         if (!Helper.validateUrlInput(url[checkerId].getText().trim()) || !Helper.validateIntervalInput(Helper.parseInt(interval[checkerId].getText().trim()))) {
@@ -361,8 +369,7 @@ public class GuiApplication extends JFrame {
     }
 
     /**
-     * Start testing!
-     * Prepares the GUI, the TrayIcon and starts the Checker
+     * Start testing: Prepare the GUI, the TrayIcon and start the Checker.
      */
     private void start(int checkerId) {
         String cUrl = url[checkerId].getText().trim();
@@ -399,8 +406,7 @@ public class GuiApplication extends JFrame {
     }
 
     /**
-     * Stop testing!
-     * Prepares the GUI, the TrayIcon and stops the Checker
+     * Stop testing: Prepare the GUI, the TrayIcon and stop the Checker
      */
     private void stop() {
         SystemTray tray = SystemTray.getSystemTray();
@@ -428,8 +434,8 @@ public class GuiApplication extends JFrame {
     }
 
     /**
-     * Hide unused Checkers and show the needed ones
-     * @param checkerAmount Amount of used Websites
+     * Hide unused Checkers and only show the needed ones
+     * @param checkerAmount Amount of used Checkers
      */
     private void addWebsiteSettings(int checkerAmount) {
         for (int i = 0; i < maxCheckerId; i++) {
@@ -442,8 +448,7 @@ public class GuiApplication extends JFrame {
     }
 
     /**
-     * An update-check for the "GuiApplication": If there is an update available, it will show an message and a button to open
-     * the website in a browser.
+     * An update-check for the "GuiApplication": If there is an update available, it will show an message and a button to open the website in a browser.
      *
      * @param startup Running this on startup? Then don't show "error"'s or "ok"'s.
      */
@@ -489,20 +494,20 @@ public class GuiApplication extends JFrame {
     public void updateTrayIcon(Checker checker, int status, boolean showMessage) {
         if (status == 1) {
             trayIcon[checker.ID].setImage(iconOk);
-            trayIcon[checker.ID].setToolTip(Messages.OK + " - " + Main.APPLICATION_SHORT + "\n" + checker.getUrlWithoutProtocol());
+            trayIcon[checker.ID].setToolTip(Messages.OK + " - " + Main.APPLICATION_SHORT + "\n" + Helper.getUrlWithoutProtocol(checker.URL));
         } else if (status == 2) {
             trayIcon[checker.ID].setImage(iconWarning);
-            trayIcon[checker.ID].setToolTip(Messages.ERROR_NOT_REACHABLE_TITLE + " - " + Main.APPLICATION_SHORT + "\n" + checker.getUrlWithoutProtocol());
+            trayIcon[checker.ID].setToolTip(Messages.ERROR_NOT_REACHABLE_TITLE + " - " + Main.APPLICATION_SHORT + "\n" + Helper.getUrlWithoutProtocol(checker.URL));
             if (showMessage && settings.getShowBubblesSettings())
-                trayIcon[checker.ID].displayMessage(Messages.ERROR_NOT_REACHABLE_TITLE + ": " + checker.getUrlWithoutProtocol(), Messages.ERROR_NOT_REACHABLE_PING, TrayIcon.MessageType.WARNING);
+                trayIcon[checker.ID].displayMessage(Messages.ERROR_NOT_REACHABLE_TITLE + ": " + Helper.getUrlWithoutProtocol(checker.URL), Messages.ERROR_NOT_REACHABLE_PING, TrayIcon.MessageType.WARNING);
         } else if (status == 3) {
             trayIcon[checker.ID].setImage(iconError);
-            trayIcon[checker.ID].setToolTip(Messages.ERROR_NOT_REACHABLE_TITLE + " - " + Main.APPLICATION_SHORT + "\n" + checker.getUrlWithoutProtocol());
+            trayIcon[checker.ID].setToolTip(Messages.ERROR_NOT_REACHABLE_TITLE + " - " + Main.APPLICATION_SHORT + "\n" + Helper.getUrlWithoutProtocol(checker.URL));
             if (showMessage && settings.getShowBubblesSettings())
-                trayIcon[checker.ID].displayMessage(Messages.ERROR_NOT_REACHABLE_TITLE + ": " + checker.getUrlWithoutProtocol(), Messages.ERROR_NOT_REACHABLE_NO_PING, TrayIcon.MessageType.ERROR);
+                trayIcon[checker.ID].displayMessage(Messages.ERROR_NOT_REACHABLE_TITLE + ": " + Helper.getUrlWithoutProtocol(checker.URL), Messages.ERROR_NOT_REACHABLE_NO_PING, TrayIcon.MessageType.ERROR);
         } else if (status == 4) {
             trayIcon[checker.ID].setImage(iconNoConnection);
-            trayIcon[checker.ID].setToolTip(Messages.ERROR_NO_CONNECTION_TITLE + " - " + Main.APPLICATION_SHORT + "\n" + checker.getUrlWithoutProtocol());
+            trayIcon[checker.ID].setToolTip(Messages.ERROR_NO_CONNECTION_TITLE + " - " + Main.APPLICATION_SHORT + "\n" + Helper.getUrlWithoutProtocol(checker.URL));
             if (showMessage && settings.getShowBubblesSettings())
                 trayIcon[checker.ID].displayMessage(Messages.ERROR_NO_CONNECTION_TITLE, Messages.ERROR_NO_CONNECTION, TrayIcon.MessageType.ERROR);
         }
