@@ -21,9 +21,9 @@ You may find the generated JavaDocs / API-documentation in the `gh-pages`-branch
 Alternatively just click this link: https://marvinmenzerath.github.io/IsMyWebsiteDown
 
 ## Screenshots
-<img src="https://raw.githubusercontent.com/MarvinMenzerath/IsMyWebsiteDown/master/doc/Screenshot1.png" alt="GUI" />
-<img src="https://raw.githubusercontent.com/MarvinMenzerath/IsMyWebsiteDown/master/doc/Screenshot2.png" alt="Notification" width="50%" />
-<img src="https://raw.githubusercontent.com/MarvinMenzerath/IsMyWebsiteDown/master/doc/Screenshot3.png" alt="Console" width="50%" />
+![GUI](doc/Screenshot1.png)
+![Notification](doc/Screenshot2.png)
+![Console](doc/Screenshot3.png)
 
 ## Download
 * [**GitHub Releases**](https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases)
