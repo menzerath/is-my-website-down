@@ -1,5 +1,6 @@
 # Is My Website Down?
-**"Is My Website Down?" periodically checks if your websites are reachable and notifies you if one of them is not.**
+**"Is My Website Down?" periodically checks if your websites are reachable and notifies you if one of them is not.**  
+[![Build Status](https://drone.io/github.com/MarvinMenzerath/IsMyWebsiteDown/status.png)](https://drone.io/github.com/MarvinMenzerath/IsMyWebsiteDown/latest)
 
 ## How Does IMWD Work?
 IMWD uses a simple algorithm to check your websites in two steps:
