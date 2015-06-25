@@ -1,5 +1,6 @@
 # Is My Website Down?
-**"Is My Website Down?" periodically checks if your websites are reachable and notifies you if one of them is not.**
+**"Is My Website Down?" periodically checks if your websites are reachable and notifies you if one of them is not.**  
+[![Build Status](https://drone.io/github.com/MarvinMenzerath/IsMyWebsiteDown/status.png)](https://drone.io/github.com/MarvinMenzerath/IsMyWebsiteDown/latest)
 
 ## How Does IMWD Work?
 IMWD uses a simple algorithm to check your websites in two steps:
@@ -21,9 +22,9 @@ You may find the generated JavaDocs / API-documentation in the `gh-pages`-branch
 Alternatively just click this link: https://marvinmenzerath.github.io/IsMyWebsiteDown
 
 ## Screenshots
-<img src="https://raw.githubusercontent.com/MarvinMenzerath/IsMyWebsiteDown/master/doc/Screenshot1.png" alt="GUI" />
-<img src="https://raw.githubusercontent.com/MarvinMenzerath/IsMyWebsiteDown/master/doc/Screenshot2.png" alt="Notification" width="50%" />
-<img src="https://raw.githubusercontent.com/MarvinMenzerath/IsMyWebsiteDown/master/doc/Screenshot3.png" alt="Console" width="50%" />
+![GUI](doc/Screenshot1.png)
+![Notification](doc/Screenshot2.png)
+![Console](doc/Screenshot3.png)
 
 ## Download
 * [**GitHub Releases**](https://github.com/MarvinMenzerath/IsMyWebsiteDown/releases)

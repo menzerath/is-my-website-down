@@ -1,2 +1,2 @@
-2.2.1
-bugfixes: application compatible with Java 7 again and GUI does not close anymore if a Checker is running
+2.2.2
+Reduced file-size; Removed Piwik-tracking
