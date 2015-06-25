@@ -91,6 +91,13 @@
 				<artifactId>maven-shade-plugin</artifactId>
 				<configuration>
 					<minimizeJar>true</minimizeJar>
+					<artifactSet>
+						<includes>
+							<include>com.intellij:forms_rt</include>
+							<include>org.json:json</include>
+							<include>org.fusesource.jansi:jansi</include>
+						</includes>
+					</artifactSet>
 				</configuration>
 				<executions>
 					<execution>
