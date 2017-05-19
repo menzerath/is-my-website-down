@@ -18,4 +18,4 @@ javadoc:
         paths:
             - target/apidocs/
     script:
-        - mvn clean javadoc
+        - mvn clean javadoc:javadoc
