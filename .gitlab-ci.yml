@@ -1,0 +1,21 @@
+image: maven:3.5.0-jdk-8
+
+cache:
+    paths:
+        - .m2/repository
+
+build:
+    stage: build
+    artifacts:
+        paths:
+            - target/*.jar
+    script:
+        - mvn clean package
+
+javadoc:
+    stage: build
+    artifacts:
+        paths:
+            - target/apidocs/
+    script:
+        - mvn clean javadoc
